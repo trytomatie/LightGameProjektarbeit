@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.VFX;
 
 /// <summary>
 /// By Christian Scherzer
@@ -57,6 +58,8 @@ public class PlayerController : State
     private float dashCooldownTimer = 0;
     public Material dashMaterial;
 
+    [Header("Attack")]
+    public VisualEffect slashVFX;
 
     private bool isTransitioning = false;
 

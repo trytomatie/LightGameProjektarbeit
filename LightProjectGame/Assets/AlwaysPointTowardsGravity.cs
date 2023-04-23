@@ -17,6 +17,5 @@ public class AlwaysPointTowardsGravity : MonoBehaviour
         float y = transform.localEulerAngles.y;
         transform.eulerAngles = new Vector3(targetRotation.x, transform.eulerAngles.y, transform.eulerAngles.z);
        //s transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, y, transform.localEulerAngles.z);
-        print(transform.eulerAngles);
     }
 }

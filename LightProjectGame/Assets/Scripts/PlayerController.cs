@@ -65,7 +65,11 @@ public class PlayerController : State
 
     private CharacterController cc;
     public Animator anim;
+    [Header("Camaera")]
+    public Animator camAnim;
     public Camera mainCamera;
+    public CinemachineRecomposer cm;
+
     private Volume chaseVolume;
     public AnimationCurve attackCurve;
     public Material normalMaterial;
@@ -103,7 +107,7 @@ public class PlayerController : State
     /// <summary>
     /// Handle Animations
     /// </summary>
-    private void Animations()
+    public void Animations()
     {
         anim.SetFloat("speed", movementSpeed);
         anim.SetFloat("ySpeed", ySpeed / 12);
@@ -126,7 +130,7 @@ public class PlayerController : State
     /// <summary>
     /// Handle Rotation
     /// </summary>
-    private void Rotation()
+    public void Rotation()
     {
         if (cc.velocity.magnitude > 0)
         {
@@ -138,7 +142,7 @@ public class PlayerController : State
     /// <summary>
     /// Handle Movement
     /// </summary>
-    private void Movement()
+    public void Movement()
     {
         float verticalInput = Input.GetAxisRaw("Vertical");
         float horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -227,7 +231,7 @@ public class PlayerController : State
     /// <summary>
     /// Calculates gravity
     /// </summary>
-    private void CalculateGravity()
+    public void CalculateGravity()
     {
         
         if (!Helper.CheckBeneath(transform.position, cc, layerMask, castDistance, castScaleFactor))
@@ -272,6 +276,18 @@ public class PlayerController : State
     {
         lastHitPoint = hit.point;
     }
+    private void HandleAim()
+    {
+        if (Input.GetMouseButton(1))
+        {
+            camAnim.SetInteger("cam", 1);
+        }
+        else
+        {
+            camAnim.SetInteger("cam", 0);
+        }
+
+    }
 
     #region StateMethodes
     public override void UpdateState(GameObject source)
@@ -289,6 +305,7 @@ public class PlayerController : State
         Animations();
         Attack();
         HandleDash();
+        HandleAim();
 
     }
 
@@ -306,6 +323,10 @@ public class PlayerController : State
             Animations();
             isTransitioning = true;
             return StateName.Interacting;
+        }
+        if (Input.GetMouseButton(1))
+        {
+            return StateName.Aiming;
         }
         return stateName;
     }

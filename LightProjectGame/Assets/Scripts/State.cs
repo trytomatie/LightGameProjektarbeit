@@ -5,7 +5,8 @@ using UnityEngine;
 public abstract class State : MonoBehaviour
 {
     public enum StateName { Empty,Controlling,Interacting,Throwing,
-        Flee
+        Flee,
+        Aiming
     }
     public StateName stateName;
 

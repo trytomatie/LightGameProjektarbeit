@@ -7,6 +7,7 @@ public class StateMachine : MonoBehaviour
 {
     public List<State> states;
     public State currentState;
+    public bool isUpdating = true;
 
     // Start is called before the first frame update
     public void Start()
@@ -15,6 +16,12 @@ public class StateMachine : MonoBehaviour
     }
 
     public void Update()
+    {
+        if(isUpdating)
+            Tick(CheckStates(currentState));
+    }
+
+    public void ManualUpdate()
     {
         Tick(CheckStates(currentState));
     }
@@ -46,7 +53,7 @@ public class StateMachine : MonoBehaviour
     /// Handle state functionality
     /// </summary>
     /// <param name="state"></param>
-    void Tick(State state)
+    public void Tick(State state)
     {
         currentState.UpdateState(gameObject);
 

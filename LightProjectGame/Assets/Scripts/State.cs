@@ -6,7 +6,9 @@ public abstract class State : MonoBehaviour
 {
     public enum StateName { Empty,Controlling,Interacting,Throwing,
         Flee,
-        Aiming
+        Aiming,
+        Visible,
+        Invisible
     }
     public StateName stateName;
 

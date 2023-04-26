@@ -8,6 +8,7 @@ public class RangedCombarController : State
     private Camera mainCamera;
     public GameObject projectile;
     public Vector3 shootOffset = new Vector3(0,0.6f,0);
+    public LayerMask layerMask;
     void Start()
     {
         playerController = GetComponent<PlayerController>();
@@ -26,7 +27,7 @@ public class RangedCombarController : State
         {
             RaycastHit raycastHit;
 
-            if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out raycastHit, 10))
+            if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out raycastHit, 10, layerMask))
             {
                 Vector3 direction = (transform.position + shootOffset) - raycastHit.point;
                 GameObject _projectile = Instantiate(projectile, transform.position + shootOffset, Quaternion.identity);

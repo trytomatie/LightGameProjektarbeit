@@ -3,21 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(StateMachine))]
-public class ElusiveBlockVisible : State
+public class ElusiveBlockInvisible : State
 {
-    public bool isVisible = true;
-    public Vector3 invisblePosition;
-    public Collider hitbox;
     private StateMachine sm;
     private Animator anim;
-
+    private ElusiveBlockVisible vs;
     private int a_isVisible;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         sm = GetComponent<StateMachine>();
-        sm.Tick(this);
+        vs = GetComponent<ElusiveBlockVisible>();
         a_isVisible = Animator.StringToHash("isVisible");
     }
 
@@ -26,27 +23,18 @@ public class ElusiveBlockVisible : State
         float time = 0;
         while(time < 1)
         {
-            hitbox.transform.localPosition = Vector3.Lerp(invisblePosition,Vector3.zero, time);
+            vs.hitbox.transform.localPosition = Vector3.Lerp(Vector3.zero, vs.invisblePosition, time);
             yield return new WaitForEndOfFrame();
             time += Time.deltaTime;
         }
 
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            isVisible = !isVisible;
-            sm.ManualUpdate();
-        }
-    }
-
     #region StateMethods
     public override void EnterState(GameObject source)
     {
         StartCoroutine(PushBlock());
-        anim.SetBool(a_isVisible, true);
+        anim.SetBool(a_isVisible, false);
     }
     public override void UpdateState(GameObject source)
     {
@@ -55,9 +43,9 @@ public class ElusiveBlockVisible : State
 
     public override StateName Transition(GameObject source)
     {
-        if (!isVisible)
+        if (vs.lightsInRange.Count > 0)
         {
-            return State.StateName.Invisible;
+            return State.StateName.Visible;
         }
         return stateName;
     }

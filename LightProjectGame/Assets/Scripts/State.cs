@@ -8,7 +8,9 @@ public abstract class State : MonoBehaviour
         Flee,
         Aiming,
         Visible,
-        Invisible
+        Invisible,
+        LampOn,
+        LampOff
     }
     public StateName stateName;
 

@@ -29,6 +29,10 @@ public class LightController : MonoBehaviour
                 other.gameObject.GetComponent<ElusiveBlockVisible>().lightsInRange.Add(this);
                 other.gameObject.GetComponent<ElusiveBlockVisible>().sm.ManualUpdate();
             }
+            if(other.gameObject.GetComponent<EnemyController>() != null)
+            {
+                other.gameObject.GetComponent<EnemyController>().lightSources.Add(transform);
+            }
         }
     }
 
@@ -46,6 +50,10 @@ public class LightController : MonoBehaviour
         {
             block.GetComponent<ElusiveBlockVisible>().lightsInRange.Remove(this);
             block.GetComponent<ElusiveBlockVisible>().sm.ManualUpdate();
+        }
+        if (block.GetComponent<EnemyController>() != null)
+        {
+            block.GetComponent<EnemyController>().lightSources.Remove(transform);
         }
         objectsInRange.Remove(block);
     }

@@ -35,6 +35,9 @@ public class ElusiveBlockInvisible : State
     #region StateMethods
     public override void EnterState(GameObject source)
     {
+        vs.timeFlow = -1;
+        vs.WakeUpAllRbs();
+        return;
         StartCoroutine(PushBlock());
         anim.SetBool(a_isVisible, false);
     }

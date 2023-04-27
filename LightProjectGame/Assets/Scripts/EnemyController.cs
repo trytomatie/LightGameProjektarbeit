@@ -7,7 +7,7 @@ public class EnemyController : State
 {
     public Transform target;
 
-    public Transform lightSource;
+    public List<Transform> lightSources = new List<Transform>();
 
     public Animator anim;
 
@@ -32,7 +32,7 @@ public class EnemyController : State
 
     private void Movement()
     {
-        agent.destination = target.position;
+        agent.destination = transform.position;
         print(agent.pathStatus);
     }
 
@@ -46,7 +46,7 @@ public class EnemyController : State
 
     public override StateName Transition(GameObject source)
     {
-        if(lightSource != null)
+        if(lightSources.Count > 0)
         {
             return State.StateName.Flee;
         }

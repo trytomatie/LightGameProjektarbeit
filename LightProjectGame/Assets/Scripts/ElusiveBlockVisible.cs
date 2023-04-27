@@ -14,11 +14,11 @@ public class ElusiveBlockVisible : State
 
     private int a_isVisible;
 
+
     private void Start()
     {
         anim = GetComponent<Animator>();
         sm = GetComponent<StateMachine>();
-        sm.Tick(sm.currentState);
         a_isVisible = Animator.StringToHash("isVisible");
     }
 
@@ -26,13 +26,28 @@ public class ElusiveBlockVisible : State
     private IEnumerator PushBlock()
     {
         float time = 0;
-        while(time < 1)
+        WakeUpAllRbs();
+        while (time <= 1)
         {
-            hitbox.transform.localPosition = Vector3.Lerp(invisblePosition,Vector3.zero, time);
-            yield return new WaitForEndOfFrame();
             time += Time.deltaTime;
+            hitbox.transform.localScale = Vector3.Lerp(new Vector3(1,0,1),new Vector3(1,1,1), Mathf.Clamp01(time));
+            yield return new WaitForEndOfFrame();
         }
 
+
+    }
+
+    public void WakeUpAllRbs()
+    {
+        RaycastHit[] rcs = Physics.SphereCastAll(transform.position, 3, Vector3.forward,0.1f);
+        foreach(RaycastHit rc in rcs)
+        {
+            if(rc.collider.GetComponent<Rigidbody>() != null)
+            {
+                print(rc.collider.gameObject.name);
+                rc.collider.GetComponent<Rigidbody>().WakeUp();
+            }
+        }
     }
 
     private void Update()
@@ -47,6 +62,7 @@ public class ElusiveBlockVisible : State
     #region StateMethods
     public override void EnterState(GameObject source)
     {
+        hitbox.enabled = true;
         StartCoroutine(PushBlock());
         anim.SetBool(a_isVisible, true);
     }

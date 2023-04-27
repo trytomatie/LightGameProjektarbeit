@@ -12,7 +12,10 @@ public class StateMachine : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        currentState = states[0];
+        if(currentState == null)
+        {
+            currentState = states[0];
+        }
     }
 
     public void Update()

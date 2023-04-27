@@ -34,8 +34,12 @@ public class PlayerController : State
     public int chaseIndex=0;
     public float noise = 0;
 
+    [Header("Light")]
+    public LightController lightController;
+
     private bool isJumping = false;
     
+    [Header("Jump")]
     public float jumpStrength = 5;
     private Vector3 lastHitPoint;
     private Vector3 slideMovement;
@@ -289,6 +293,22 @@ public class PlayerController : State
 
     }
 
+    private void HandleLantern()
+    {
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            if(lightController.isOn)
+            {
+                lightController.TurnOff();
+            }
+            else
+            {
+                lightController.TurnOn();
+            }
+
+        }
+    }
+
     #region StateMethodes
     public override void UpdateState(GameObject source)
     {
@@ -306,7 +326,7 @@ public class PlayerController : State
         Attack();
         HandleDash();
         HandleAim();
-
+        HandleLantern();
     }
 
     public override void EnterState(GameObject source)

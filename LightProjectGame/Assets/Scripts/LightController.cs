@@ -10,6 +10,8 @@ public class LightController : MonoBehaviour
     public Light lightSource;
     public LayerMask lightLayer;
     private Collider lightCollision;
+
+    public bool isOn = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +21,6 @@ public class LightController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print(other.gameObject.name);
         if(other.gameObject.tag == "PuzzleElement" || other.gameObject.tag == "Enemy")
         {
             objectsInRange.Add(other.gameObject);
@@ -53,12 +54,14 @@ public class LightController : MonoBehaviour
     {
         lightCollision.enabled = true;
         lightSource.enabled = true;
+        isOn = true;
     }
 
     public void TurnOff()
     {
         lightCollision.enabled = false;
         lightSource.enabled = false;
+        isOn = false;
         GameObject[] objectsToBeRemoved = objectsInRange.ToArray();
         foreach (GameObject go in objectsToBeRemoved)
         {

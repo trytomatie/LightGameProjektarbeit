@@ -21,12 +21,14 @@ public class ElusiveBlockInvisible : State
     private IEnumerator PushBlock()
     {
         float time = 0;
-        while(time < 1)
+        vs.WakeUpAllRbs();
+        while (time < 1)
         {
-            vs.hitbox.transform.localPosition = Vector3.Lerp(Vector3.zero, vs.invisblePosition, time);
+            vs.hitbox.transform.localScale = Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(1, 0, 1), Mathf.Clamp01(time));
             yield return new WaitForEndOfFrame();
             time += Time.deltaTime;
         }
+        vs.hitbox.enabled = false;
 
     }
 

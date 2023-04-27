@@ -38,8 +38,6 @@ public class ElusiveBlockInvisible : State
         vs.timeFlow = -1;
         vs.WakeUpAllRbs();
         return;
-        StartCoroutine(PushBlock());
-        anim.SetBool(a_isVisible, false);
     }
     public override void UpdateState(GameObject source)
     {

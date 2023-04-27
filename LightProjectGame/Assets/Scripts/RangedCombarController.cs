@@ -9,6 +9,11 @@ public class RangedCombarController : State
     public GameObject projectile;
     public Vector3 shootOffset = new Vector3(0,0.6f,0);
     public LayerMask layerMask;
+    public GameObject rcTarget;
+    public GameObject reticle;
+    public GameObject rcTargetHighlightPrefab;
+
+    private GameObject projectedHighlight;
     void Start()
     {
         playerController = GetComponent<PlayerController>();
@@ -42,6 +47,34 @@ public class RangedCombarController : State
         }
     }
 
+    private void RaycastForObjects()
+    {
+        RaycastHit rc;
+        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward,out rc, 7, layerMask))
+        {
+            if(rc.collider.tag == "Dragable")
+            {
+                if(rcTarget != rc.collider.gameObject)
+                {
+                    if (projectedHighlight != null)
+                    {
+                        Destroy(projectedHighlight);
+                    }
+                    rcTarget = rc.collider.gameObject;
+                    projectedHighlight = Instantiate(rcTargetHighlightPrefab, rcTarget.transform.position, rcTarget.transform.rotation, rcTarget.transform);
+                    projectedHighlight.GetComponent<MeshFilter>().mesh = rcTarget.GetComponent<MeshFilter>().mesh;
+                    projectedHighlight.transform.localScale = new Vector3(1, 1, 1);
+                }
+                return;
+            }
+        }
+        rcTarget = null;
+        if (rcTarget == null)
+        {
+            print("test");
+            Destroy(projectedHighlight);
+        }
+    }
 
 
 
@@ -49,7 +82,9 @@ public class RangedCombarController : State
     public override void EnterState(GameObject source)
     {
         playerController.camAnim.SetInteger("cam", 1);
+        reticle.SetActive(true);
     }
+
     public override void UpdateState(GameObject source)
     {
         playerController.Movement();
@@ -57,6 +92,8 @@ public class RangedCombarController : State
         playerController.Animations();
         playerController.CalculateGravity();
         HandleShooting();
+        playerController.HandleLantern();
+        RaycastForObjects();
     }
 
     public override StateName Transition(GameObject source)
@@ -65,12 +102,21 @@ public class RangedCombarController : State
         {
             return StateName.Controlling;
         }
+        if(Input.GetKeyDown(KeyCode.E) && rcTarget != null)
+        {
+            return StateName.Dragging;
+        }
         return stateName;
     }
 
     public override void ExitState(GameObject source)
     {
+        if(projectedHighlight != null)
+        {
+            Destroy(projectedHighlight);
+        }
         playerController.camAnim.SetInteger("cam", 0);
+        reticle.SetActive(false);
     }
     #endregion
 }

@@ -293,7 +293,7 @@ public class PlayerController : State
 
     }
 
-    private void HandleLantern()
+    public void HandleLantern()
     {
         if(Input.GetKeyDown(KeyCode.Q))
         {

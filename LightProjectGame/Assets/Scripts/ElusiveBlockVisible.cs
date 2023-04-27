@@ -84,9 +84,6 @@ public class ElusiveBlockVisible : State
         timeFlow = 1;
         WakeUpAllRbs();
         return;
-        hitbox.enabled = true;
-        StartCoroutine(PushBlock());
-        anim.SetBool(a_offset, true);
     }
     public override void UpdateState(GameObject source)
     {

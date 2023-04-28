@@ -23,12 +23,18 @@ public class EnemyFlee_State : State
 
     private Vector3 CalculateFleeDirection()
     {
+        
         Vector3 averageLightsourcePos = Vector3.zero;
         foreach(Transform pos in enemyController.lightSources)
         {
             averageLightsourcePos += pos.position;
         }
+        if(enemyController.lightSources.Count <= 0)
+        {
+            return -(this.averageLightsourcePos - transform.position).normalized;
+        }
         averageLightsourcePos /= enemyController.lightSources.Count;
+        this.averageLightsourcePos = averageLightsourcePos;
         return -(averageLightsourcePos - transform.position).normalized;
     }
 
@@ -37,12 +43,13 @@ public class EnemyFlee_State : State
     /// </summary>
     public override void UpdateState(GameObject source)
     {
+        enemyController.Animation();
         Movement();
     }
 
     public override StateName Transition(GameObject source)
     {
-        if(enemyController.lightSources.Count <= 0)
+        if(enemyController.lightSources.Count <= 0 && Vector3.Distance(transform.position,averageLightsourcePos) > fleeDistance)
         {
             return State.StateName.Controlling;
         }

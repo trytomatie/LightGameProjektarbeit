@@ -12,7 +12,9 @@ public abstract class State : MonoBehaviour
         LampOn,
         LampOff,
         Dragging,
-        Dashing
+        Dashing,
+        Chasing,
+        Attacking
     }
     public StateName stateName;
 

@@ -31,11 +31,10 @@ public class DamageObject : MonoBehaviour
         {
             if(other.tag == "Enemy")
             {
-                other.GetComponentInChildren<Animator>().SetTrigger("hit");
                 hitObjects.Add(other.gameObject);
-                Instantiate(hitEffect, other.ClosestPoint(transform.position), Quaternion.identity);
+                ApplyHitEffect(other);
             }
-            if(other.tag == "PuzzleElement" && other.GetComponent<LampOn>() != null)
+            if (other.tag == "PuzzleElement" && other.GetComponent<LampOn>() != null)
             {
                 LampOn lamp = other.GetComponent<LampOn>();
                 lamp.ChangeState();
@@ -43,4 +42,11 @@ public class DamageObject : MonoBehaviour
             }
         }
     }
+
+    public void ApplyHitEffect(Collider other)
+    {
+        other.GetComponentInChildren<Animator>().SetTrigger("hit");
+        Instantiate(hitEffect, other.ClosestPoint(transform.position), Quaternion.identity);
+    }
+
 }

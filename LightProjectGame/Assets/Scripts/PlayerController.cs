@@ -90,11 +90,11 @@ public class PlayerController : State
     {
         if(!(ySpeed - cc.velocity.y > -10))
         {
-            slideMovement = (transform.position - lastHitPoint).normalized * 0.1f;
+            //slideMovement = (transform.position - lastHitPoint).normalized * 0.1f;
         }
         else
         {
-            slideMovement = Vector3.zero;
+            //slideMovement = Vector3.zero;
         }
     }
 
@@ -183,6 +183,14 @@ public class PlayerController : State
         cc.Move(lastMovement * movementSpeed * Time.deltaTime 
             + new Vector3(0, ySpeed, 0) * Time.deltaTime
             + slideMovement + anim.deltaPosition);
+    }
+
+    public void ManualMove(Vector3 movement,float speed)
+    {
+
+        cc.Move(movement * speed * Time.deltaTime
+            + new Vector3(0, ySpeed, 0) * Time.deltaTime
+            + slideMovement);
     }
 
     public bool Dash(AnimationCurve dashCurve, Vector3 dashDirection,float dashTimer,float dashSpeed,float dashTotalTime)
@@ -302,7 +310,7 @@ public class PlayerController : State
         Movement();
         Rotation();
         Animations();
-        Attack();
+        //Attack();
         HandleAim();
         HandleLantern();
     }
@@ -321,6 +329,10 @@ public class PlayerController : State
         if (Input.GetMouseButton(1))
         {
             return StateName.Aiming;
+        }
+        if(Input.GetMouseButton(0))
+        {
+            return StateName.Attacking;
         }
         return stateName;
     }

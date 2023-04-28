@@ -20,12 +20,8 @@ public class EnemyController : State
         agent = GetComponent<NavMeshAgent>();
     }
 
-    public void Update()
-    {
-        Animation();
-    }
 
-    private void Animation()
+    public void Animation()
     {
         anim.SetFloat("speed", agent.velocity.magnitude);
     }
@@ -41,6 +37,7 @@ public class EnemyController : State
     /// </summary>
     public override void UpdateState(GameObject source)
     {
+        Animation();
         Movement();
     }
 

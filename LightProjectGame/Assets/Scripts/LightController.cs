@@ -44,7 +44,7 @@ public class LightController : MonoBehaviour
         }
     }
 
-    private void RemoveLightInfluence(GameObject block)
+    public void RemoveLightInfluence(GameObject block)
     {
         if (block.GetComponent<ElusiveBlockVisible>() != null)
         {

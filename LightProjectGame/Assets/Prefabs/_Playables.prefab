@@ -278,7 +278,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 149757564}
-  m_LocalRotation: {x: -0.10789038, y: 0.00000001909389, z: -0.000000003183738, w: 0.99416286}
+  m_LocalRotation: {x: -0.10789038, y: 0.000000014850562, z: -0.0000000024762006,
+    w: 0.99416286}
   m_LocalPosition: {x: -3.2818576e-14, y: -0.00000025742688, z: -0.00000091827343}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -365,7 +366,7 @@ Transform:
   m_GameObject: {fileID: 164605077}
   m_LocalRotation: {x: -0.11798868, y: 0.000000016999952, z: -0.0000000026573068,
     w: 0.993015}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -3.2818576e-14, y: -0.00000025742688, z: -0.00000091827343}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -608,7 +609,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 390601015}
-  m_LocalRotation: {x: 0.01818943, y: -9.72733e-12, z: 2.9194425e-12, w: 0.99983466}
+  m_LocalRotation: {x: 0.01818943, y: 0.000000032960905, z: -0.000000009890272, w: 0.99983466}
   m_LocalPosition: {x: -3.2818576e-14, y: -0.00000025742688, z: -0.00000091827343}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -693,7 +694,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 484354801}
-  m_LocalRotation: {x: -0.00000004470348, y: 0.000000008283837, z: -0.0000000023222728,
+  m_LocalRotation: {x: -0.00000004470348, y: 0.00000002485151, z: -0.0000000069668187,
     w: 1}
   m_LocalPosition: {x: -3.2818576e-14, y: -0.00000025742688, z: -0.00000091827343}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -1772,7 +1773,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1959834235}
-  m_LocalRotation: {x: 0.018189445, y: -0.0000000019494326, z: 5.849483e-10, w: 0.99983466}
+  m_LocalRotation: {x: 0.01818943, y: 0.000000032960905, z: -0.000000009890272, w: 0.99983466}
   m_LocalPosition: {x: -3.2818576e-14, y: -0.00000025742688, z: -0.00000091827343}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2111,7 +2112,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097969463}
-  m_LocalRotation: {x: -0.005108058, y: 0.000000006795516, z: -0.0000000018676538,
+  m_LocalRotation: {x: -0.005108058, y: 0.000000024886768, z: -0.0000000068397847,
     w: 0.99998695}
   m_LocalPosition: {x: -3.2818576e-14, y: -0.00000025742688, z: -0.00000091827343}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -2620,7 +2621,7 @@ MonoBehaviour:
     m_ActivateAfter: 0
     m_MinDuration: 0
   - m_FullHash: -1148263289
-    m_VirtualCamera: {fileID: 1208875500}
+    m_VirtualCamera: {fileID: 7255394818216406589}
     m_ActivateAfter: 0
     m_MinDuration: 0
   m_DefaultBlend:
@@ -2986,6 +2987,7 @@ GameObject:
   - component: {fileID: 987032589}
   - component: {fileID: 987032590}
   - component: {fileID: 1623184496}
+  - component: {fileID: 842943115}
   m_Layer: 3
   m_Name: Player
   m_TagString: PlayerStabilizer
@@ -3078,52 +3080,7 @@ MonoBehaviour:
   noise: 0
   lightController: {fileID: 6482504603531461546}
   jumpStrength: 4.5
-  dashTime: 0.1
-  dashSpeed: 75
-  dashCooldown: 0.5
-  dashCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.27057356
-      inSlope: 1.4467963
-      outSlope: 1.4467963
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.50416666
-      value: 1
-      inSlope: -0.6632908
-      outSlope: -0.6632908
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.7101955
-      value: 0.42860422
-      inSlope: -1.6055582
-      outSlope: -1.6055582
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0.30174565
-      inSlope: -0.4377384
-      outSlope: -0.4377384
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  dashMaterial: {fileID: 2100000, guid: b7f203b31d4c9ca49bf3abe6a419e41a, type: 2}
+  lastMovement: {x: 0, y: 0, z: 0}
   slashVFX: {fileID: 0}
   anim: {fileID: 4375159229103930321}
   camAnim: {fileID: 987032588}
@@ -3136,7 +3093,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   normalMaterial: {fileID: 2100000, guid: 82b5dccef0f3ac54fab5024aa9d6177e, type: 2}
-  renderer: {fileID: 596212741509435884}
 --- !u!114 &2864954321289360895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3153,6 +3109,7 @@ MonoBehaviour:
   - {fileID: 2864954321289360893}
   - {fileID: 987032589}
   - {fileID: 1623184496}
+  - {fileID: 842943115}
   currentState: {fileID: 2864954321289360893}
   isUpdating: 1
 --- !u!95 &987032588
@@ -3229,6 +3186,56 @@ MonoBehaviour:
   force: 2
   dragPointLengthMin: 1
   dragPointLengthMax: 5
+--- !u!114 &842943115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2864954321289360881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60368a3e04f5e2440a84dcb304bd9ae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateName: 11
+  dashTime: 0.7
+  dashSpeed: 7
+  dashCooldown: 0.5
+  dashCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1.0162048
+      inSlope: -2.1625156
+      outSlope: -2.1625156
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.23679262
+    - serializedVersion: 3
+      time: 0.83621794
+      value: 0.65388715
+      inSlope: 0.25655174
+      outSlope: 0.25655174
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.85
+      value: 0.003122151
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  dashCooldownTimer: 0
 --- !u!1 &2864954321474870007
 GameObject:
   m_ObjectHideFlags: 0
@@ -3274,6 +3281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2689409209545897171}
   - component: {fileID: 7255394818216406589}
+  - component: {fileID: 656831920}
   m_Layer: 0
   m_Name: CM AimLook
   m_TagString: Untagged
@@ -3342,6 +3350,36 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 5299020274657015703}
+--- !u!114 &656831920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2977000262092636716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e501d18bb52cf8c40b1853ca4904654f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CollideAgainst:
+    serializedVersion: 2
+    m_Bits: 1
+  m_IgnoreTag: 
+  m_TransparentLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_MinimumDistanceFromTarget: 0.1
+  m_AvoidObstacles: 1
+  m_DistanceLimit: 0
+  m_MinimumOcclusionTime: 0
+  m_CameraRadius: 0.1
+  m_Strategy: 1
+  m_MaximumEffort: 4
+  m_SmoothingTime: 0
+  m_Damping: 0
+  m_DampingWhenOccluded: 0
+  m_OptimalTargetDistance: 0
 --- !u!1 &3315220570696723208
 GameObject:
   m_ObjectHideFlags: 0
@@ -3401,7 +3439,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3466666147747774336}
-  m_LocalRotation: {x: 0.13623603, y: -0.00000001704596, z: 0.0000000023441291, w: 0.99067646}
+  m_LocalRotation: {x: 0.13623603, y: 0.00000001704596, z: -0.0000000023441291, w: 0.99067646}
   m_LocalPosition: {x: 0.8139999, y: 2.3026, z: -4.9960003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

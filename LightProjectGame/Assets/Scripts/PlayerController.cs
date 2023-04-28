@@ -49,18 +49,8 @@ public class PlayerController : State
     private float movementSpeed = 0;
     private float ySpeed;
     private Vector3 movement;
-    private Vector3 lastMovement;
-    private Vector3 dashDirection;
-
-    [Header("Dash")]
-    private bool isDashing = false;
-    public float dashTime = 0.5f;
-    public float dashSpeed = 30;
-    public float dashCooldown = 0.5f;
-    public AnimationCurve dashCurve;
-    private float dashTimer = 0;
-    private float dashCooldownTimer = 0;
-    public Material dashMaterial;
+    [HideInInspector]
+    public Vector3 lastMovement;
 
     [Header("Attack")]
     public VisualEffect slashVFX;
@@ -77,16 +67,16 @@ public class PlayerController : State
     private Volume chaseVolume;
     public AnimationCurve attackCurve;
     public Material normalMaterial;
-    public Renderer renderer;
 
 
-
+    private DashingState dashState;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
+        dashState = GetComponent<DashingState>();
         cc = GetComponent<CharacterController>();
         // mainCamera = Camera.main;
         Cursor.lockState = CursorLockMode.Locked;
@@ -190,16 +180,27 @@ public class PlayerController : State
             lastMovement = cameraDependingMovement;
         }
 
-        if(isDashing)
-        {
-            lastMovement = dashDirection;
-            movementSpeed = dashCurve.Evaluate(Time.time - dashTimer) * dashSpeed;
-            ySpeed = 0;
-        }
-
         cc.Move(lastMovement * movementSpeed * Time.deltaTime 
             + new Vector3(0, ySpeed, 0) * Time.deltaTime
             + slideMovement + anim.deltaPosition);
+    }
+
+    public bool Dash(AnimationCurve dashCurve, Vector3 dashDirection,float dashTimer,float dashSpeed,float dashTotalTime)
+    {
+        lastMovement = dashDirection;
+        float time = Mathf.Clamp01((Time.time - dashTimer) / dashTotalTime);
+        print(time);
+        movementSpeed = dashCurve.Evaluate(time) * dashSpeed;
+
+        cc.Move(lastMovement * movementSpeed * Time.deltaTime
+    + new Vector3(0, ySpeed, 0) * Time.deltaTime
+    + slideMovement + anim.deltaPosition);
+        if (time >= 1)
+        {
+            return false;
+        }
+        
+        return true;
     }
 
     /// <summary>
@@ -254,28 +255,6 @@ public class PlayerController : State
 
     }
 
-    private void HandleDash()
-    {
-        if(Input.GetKey(KeyCode.LeftShift) && !isDashing &&  0 >((dashCooldownTimer + dashCooldown) - Time.time))
-        {
-            dashDirection = lastMovement;
-            isDashing = true;
-            renderer.material = dashMaterial;
-            anim.SetTrigger("Dash");
-            Invoke("EndDash", dashTime);
-            dashTimer = Time.time;
-        }
-
-    }
-
-    private void EndDash()
-    {
-        isDashing = false;
-        renderer.material = normalMaterial;
-        movementSpeed = 0;
-        dashCooldownTimer = Time.time;
-    }
-
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         lastHitPoint = hit.point;
@@ -324,7 +303,6 @@ public class PlayerController : State
         Rotation();
         Animations();
         Attack();
-        HandleDash();
         HandleAim();
         HandleLantern();
     }
@@ -336,13 +314,9 @@ public class PlayerController : State
 
     public override StateName Transition(GameObject source)
     {
-        if(Input.GetKeyDown(KeyCode.E) && gameObject.GetComponent<InteractionHandler>().canInteract && anim.GetCurrentAnimatorStateInfo(0).IsName("Movement"))
+        if (Input.GetKey(KeyCode.LeftShift) && dashState.dashCooldownTimer < Time.time)
         {
-            isSneaking = false;
-            movementSpeed = 0;
-            Animations();
-            isTransitioning = true;
-            return StateName.Interacting;
+            return StateName.Dashing;
         }
         if (Input.GetMouseButton(1))
         {

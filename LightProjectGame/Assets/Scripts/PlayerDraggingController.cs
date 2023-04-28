@@ -61,7 +61,7 @@ public class PlayerDraggingController : State
 
     public override StateName Transition(GameObject source)
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonUp(1))
         {
             return StateName.Controlling;
         }

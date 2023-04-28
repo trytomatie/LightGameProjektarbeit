@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(StateMachine))]
@@ -7,7 +8,6 @@ public class LampOn : State
 {
     public LightController lc;
     private StateMachine sm;
-    [HideInInspector]
     public bool isOn = true;
 
 
@@ -22,7 +22,6 @@ public class LampOn : State
         isOn = !isOn;
         sm.ManualUpdate();
     }
-
 
     #region StateMethods
     public override void EnterState(GameObject source)
@@ -60,6 +59,9 @@ public class LampOn : State
             LampOn myScript = (LampOn)target;
             if (GUILayout.Button("Turn Off/On"))
             {
+                EditorUtility.SetDirty(myScript.GetComponent<StateMachine>());
+                EditorUtility.SetDirty(myScript.lc.lightSource);
+                EditorUtility.SetDirty(myScript);
                 myScript.ChangeStateEditor();
             }
         }
@@ -90,8 +92,6 @@ public class LampOn : State
                 }
             }
         }
-
-
     }
 #endif
 }

@@ -11,7 +11,8 @@ public abstract class State : MonoBehaviour
         Invisible,
         LampOn,
         LampOff,
-        Dragging
+        Dragging,
+        Dashing
     }
     public StateName stateName;
 

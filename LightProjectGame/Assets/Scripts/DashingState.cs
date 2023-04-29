@@ -6,6 +6,7 @@ public class DashingState : State
 {
     private PlayerController playerController;
     private Camera mainCamera;
+    private CharacterController cc;
 
     [Header("Dash")]
     private bool isDashing = false;
@@ -17,18 +18,25 @@ public class DashingState : State
     public float dashCooldownTimer = 0;
     private Vector3 dashDirection;
 
+    public float duckHeight = 0.5f;
+    public float duckOffset = -0.18f;
 
+    private float originalHight;
+    private float originalOffset;
 
     void Start()
     {
         playerController = GetComponent<PlayerController>();
+        cc = GetComponent<CharacterController>();
+        originalHight = cc.height;
+        originalOffset = cc.center.y;
     }
 
 
     private void HandleDash()
     {
             dashDirection = playerController.lastMovement;
-            isDashing = true;;
+            isDashing = true;
             playerController.anim.SetBool("dash", true);
             dashTimer = Time.time;
     }
@@ -36,6 +44,8 @@ public class DashingState : State
     #region StateMethods
     public override void EnterState(GameObject source)
     {
+        cc.height = duckHeight;
+        cc.center = new Vector3(0, duckOffset, 0);
         HandleDash();
     }
     public override void UpdateState(GameObject source)
@@ -61,6 +71,8 @@ public class DashingState : State
         isDashing = false;
         playerController.anim.SetBool("dash", false);
         dashCooldownTimer = Time.time + dashCooldown;
+        cc.height = originalHight;
+        cc.center = new Vector3(0, originalOffset, 0);
     }
     #endregion
 }

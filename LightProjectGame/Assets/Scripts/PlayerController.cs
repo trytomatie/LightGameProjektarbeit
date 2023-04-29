@@ -46,7 +46,7 @@ public class PlayerController : State
 
 
 
-    private float movementSpeed = 0;
+    public float movementSpeed = 0;
     private float ySpeed;
     private Vector3 movement;
     [HideInInspector]

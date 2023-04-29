@@ -56,13 +56,17 @@ public class VFXController : MonoBehaviour
         //vfx[i].Play();
     }
 
-    public void TriggerHitbox(int i)
+    public void TriggerHitbox(AnimationEvent myEvent)
     {
-        hitboxes[i].SetActive(true);
+        hitboxes[myEvent.intParameter].SetActive(true);
+        StartCoroutine(DisableHitbox(myEvent.intParameter, myEvent.floatParameter));
+
     }
 
-    public void UnTriggerHitbox(int i)
+    IEnumerator DisableHitbox(int i,float duration)
     {
+        yield return new WaitForSeconds(duration);
         hitboxes[i].SetActive(false);
     }
+
 }

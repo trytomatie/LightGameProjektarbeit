@@ -56,6 +56,7 @@ public class AttackingState : State
         
     private bool CheckIfInAttackAnimation()
     {
+
         if (playerController.anim.GetCurrentAnimatorStateInfo(2).IsName("Attack1"))
         {
             return true;
@@ -75,6 +76,7 @@ public class AttackingState : State
     public override void EnterState(GameObject source)
     {
         playerController.anim.SetBool("attack", true);
+        playerController.anim.SetFloat("speed", 0);
         originalTurnspeed = playerController.turnspeed;
         playerController.turnspeed = 3000;
     }
@@ -94,6 +96,15 @@ public class AttackingState : State
 
     public override StateName Transition(GameObject source)
     {
+        float verticalInput = Input.GetAxisRaw("Vertical");
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        Vector2 input = new Vector2(verticalInput, horizontalInput);
+
+        if(!playerController.anim.GetBool("attack") && input != new Vector2(0,0) && playerController.anim.GetCurrentAnimatorStateInfo(2).normalizedTime > 0.8f)
+        {
+            return StateName.Controlling;
+        }
+
         if (!playerController.anim.GetBool("attack") && !CheckIfInAttackAnimation())
         {
             return StateName.Controlling;
@@ -110,6 +121,7 @@ public class AttackingState : State
     {
         playerController.anim.SetBool("attack", false);
         playerController.turnspeed = originalTurnspeed;
+        playerController.movementSpeed = 0;
     }
     #endregion
 

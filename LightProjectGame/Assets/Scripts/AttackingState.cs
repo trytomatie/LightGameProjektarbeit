@@ -151,7 +151,7 @@ public class AttackingState : State
     {
         playerController.CalculateGravity();
         HandleAttack();
-        if(Input.GetMouseButton(0) && playerController.anim.GetCurrentAnimatorStateInfo(2).normalizedTime > 0.75f)
+        if(Input.GetMouseButton(0) && playerController.anim.GetCurrentAnimatorStateInfo(2).normalizedTime > 0.35f)
         {
             queueAttack = true;
         }

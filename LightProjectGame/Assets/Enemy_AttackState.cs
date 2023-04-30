@@ -41,6 +41,10 @@ public class Enemy_AttackState : State
         if (enemyController.anim.GetCurrentAnimatorStateInfo(2).IsName("Attack1"))
         {
             movement = transform.forward * attack1.Evaluate(enemyController.anim.GetCurrentAnimatorStateInfo(2).normalizedTime);
+        }
+        if (enemyController.anim.GetCurrentAnimatorStateInfo(2).IsName("Attack2"))
+        {
+            movement = transform.forward * attack1.Evaluate(enemyController.anim.GetCurrentAnimatorStateInfo(2).normalizedTime);
             enemyController.anim.SetBool("attack", false);
         }
     }

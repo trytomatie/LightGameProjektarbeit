@@ -5,8 +5,10 @@ using UnityEngine;
 public class DamageObject : MonoBehaviour
 {
 
+    public StatusManager.Faction faction = StatusManager.Faction.Player;
     public GameObject hitEffect;
     public List<GameObject> hitObjects;
+    public int damage = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -27,12 +29,17 @@ public class DamageObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if((other.tag == "Enemy" || other.tag == "PuzzleElement")  && !hitObjects.Contains(other.gameObject))
+        if((other.GetComponent<StatusManager>() != null || other.tag == "PuzzleElement")  && !hitObjects.Contains(other.gameObject))
         {
-            if(other.tag == "Enemy")
+            if(other.GetComponent<StatusManager>() != null)
             {
-                hitObjects.Add(other.gameObject);
-                ApplyHitEffect(other);
+                StatusManager sm = other.GetComponent<StatusManager>();
+                if(sm.faction != faction)
+                {
+                    sm.Hp -= damage;
+                    hitObjects.Add(other.gameObject);
+                    ApplyHitEffect(other);
+                }
             }
             if (other.tag == "PuzzleElement" && other.GetComponent<LampOn>() != null)
             {

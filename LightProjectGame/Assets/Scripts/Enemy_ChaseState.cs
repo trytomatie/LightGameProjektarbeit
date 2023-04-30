@@ -30,13 +30,21 @@ public class Enemy_ChaseState : State
         enemyController.agent.destination = aggroTarget.position;
     }
 
+    public void Rotation()
+    {
+        Vector3 dir = (aggroTarget.position - transform.position).normalized;
+        float rotation = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, rotation, 0), 3000 * Time.deltaTime);
+    }
 
 
     #region StateMethods
     public override void EnterState(GameObject source)
     {
         aggroTarget = playerTransform;
+        enemyController.agent.updateRotation = false;
     }
+
 
     /// <summary>
     /// Gets called when current state is this state
@@ -45,6 +53,12 @@ public class Enemy_ChaseState : State
     {
         enemyController.Animation();
         Movement();
+        Rotation();
+    }
+
+    public override void ExitState(GameObject source)
+    {
+        enemyController.agent.updateRotation = true;
     }
 
     public override StateName Transition(GameObject source)

@@ -18,6 +18,8 @@ public class AttackingState : State
 
     public List<EnemyController> enemyList = new List<EnemyController>();
 
+    private bool queueAttack = false;
+
     void Start()
     {
         playerController = GetComponent<PlayerController>();
@@ -65,7 +67,8 @@ public class AttackingState : State
         Vector3 movement = Vector3.zero;
         if(stateHasChanged)
         {
-            if(enemyList.Count > 0)
+            queueAttack = false;
+            if (enemyList.Count > 0)
             {
                 EnemyController ec;
                 float distance = GetClosestEnemy(out ec);
@@ -142,12 +145,17 @@ public class AttackingState : State
         enemyList.Clear();
         ScanForEnemies();
         stateHasChanged = true;
+        queueAttack = false;
     }
     public override void UpdateState(GameObject source)
     {
         playerController.CalculateGravity();
         HandleAttack();
-        if(Input.GetMouseButton(0))
+        if(Input.GetMouseButton(0) && playerController.anim.GetCurrentAnimatorStateInfo(2).normalizedTime > 0.75f)
+        {
+            queueAttack = true;
+        }
+        if(Input.GetMouseButton(0) || queueAttack)
         {
             playerController.anim.SetBool("attack", true);
         }

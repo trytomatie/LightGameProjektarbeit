@@ -8,11 +8,13 @@ public class Enemy_ChaseState : State
 {
     private EnemyController enemyController;
     public float aggroRadius = 7;
+    public float attackRadius = 2;
     public Transform aggroTarget;
 
     private StateMachine sm;
 
     private Transform playerTransform;
+    private Enemy_AttackState attackState;
 
     // Start is called before the first frame updat
     void Start()
@@ -20,6 +22,7 @@ public class Enemy_ChaseState : State
         enemyController = GetComponent<EnemyController>();
         playerTransform = GameObject.Find("Player").transform;
         sm = GetComponent<StateMachine>();
+        attackState = GetComponent<Enemy_AttackState>();
     }
 
     private void Movement()
@@ -49,6 +52,10 @@ public class Enemy_ChaseState : State
         if(Vector3.Distance(playerTransform.position, transform.position) > aggroRadius)
         {
             return StateName.Controlling;
+        }
+        if(Vector3.Distance(playerTransform.position, transform.position) < attackRadius && attackState.attackCooldownTimer < Time.time)
+        {
+            return StateName.Attacking;
         }
         return stateName;
     }

@@ -40,6 +40,12 @@ public class DamageObject : MonoBehaviour
                 lamp.ChangeState();
                 Instantiate(hitEffect, other.ClosestPoint(transform.position), Quaternion.identity);
             }
+            if (other.tag == "PuzzleElement" && other.GetComponent<LeverOn>() != null)
+            {
+                LeverOn lever = other.GetComponent<LeverOn>();
+                lever.ChangeState();
+                Instantiate(hitEffect, other.ClosestPoint(transform.position), Quaternion.identity);
+            }
         }
     }
 

@@ -29,7 +29,6 @@ public class EnemyController : State
     private void Movement()
     {
         agent.destination = transform.position;
-        print(agent.pathStatus);
     }
 
     /// <summary>

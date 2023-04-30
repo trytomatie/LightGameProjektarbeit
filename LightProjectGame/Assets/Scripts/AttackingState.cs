@@ -15,6 +15,9 @@ public class AttackingState : State
 
     private DashingState dashState;
     private float originalTurnspeed;
+
+    public List<EnemyController> enemyList = new List<EnemyController>();
+
     void Start()
     {
         playerController = GetComponent<PlayerController>();
@@ -22,12 +25,69 @@ public class AttackingState : State
         mainCamera = Camera.main;
     }
 
+    private void ScanForEnemies()
+    {
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position, 8,Vector3.forward);
+        foreach(RaycastHit hit in hits)
+        {
+            if(hit.collider.GetComponent<EnemyController>() != null)
+            {
+                enemyList.Add(hit.collider.GetComponent<EnemyController>());
+            }
+        }
+    }
+
+    private float GetClosestEnemy(out EnemyController result)
+    {
+        float distance = float.MaxValue;
+        EnemyController target = null;
+        foreach(EnemyController ec in enemyList)
+        {
+            float newDistance = Vector3.Distance(transform.position, ec.transform.position);
+            if (newDistance < distance)
+            {
+                distance = newDistance;
+                target = ec;
+
+            }
+        }
+        result = target;
+        return distance;
+    }
+
+    private Vector3 GetEnemyDirection(Transform enemy)
+    {
+        return -(transform.position - enemy.position).normalized;
+    }
+
     private void HandleAttack()
     {
         Vector3 movement = Vector3.zero;
         if(stateHasChanged)
         {
-             HandleRotation();
+            if(enemyList.Count > 0)
+            {
+                EnemyController ec;
+                float distance = GetClosestEnemy(out ec);
+                print(distance);
+                if(distance < 5)
+                {
+                    Vector3 enemyDirection = GetEnemyDirection(ec.transform);
+                    float rotation = Mathf.Atan2(playerController.lastMovement.x, playerController.lastMovement.z) * Mathf.Rad2Deg;
+                    float enemyExpectedRotation = Mathf.Atan2(enemyDirection.x, enemyDirection.z) * Mathf.Rad2Deg;
+                    float absoluteDifference = Mathf.Abs(rotation - enemyExpectedRotation);
+                    playerController.lastMovement = enemyDirection;
+                    playerController.Rotation();
+                }
+                else
+                {
+                    HandleRotation();
+                }
+            }
+            else
+            {
+                HandleRotation();
+            }
         }
 
         CurrentState = playerController.anim.GetCurrentAnimatorStateInfo(2);
@@ -79,6 +139,9 @@ public class AttackingState : State
         playerController.anim.SetFloat("speed", 0);
         originalTurnspeed = playerController.turnspeed;
         playerController.turnspeed = 3000;
+        enemyList.Clear();
+        ScanForEnemies();
+        stateHasChanged = true;
     }
     public override void UpdateState(GameObject source)
     {

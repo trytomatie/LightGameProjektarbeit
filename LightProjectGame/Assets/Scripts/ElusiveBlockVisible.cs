@@ -48,7 +48,6 @@ public class ElusiveBlockVisible : State
         {
             if(rc.collider.GetComponent<Rigidbody>() != null)
             {
-                print(rc.collider.gameObject.name);
                 rc.collider.GetComponent<Rigidbody>().WakeUp();
             }
         }

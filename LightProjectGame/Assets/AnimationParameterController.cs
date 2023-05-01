@@ -6,7 +6,7 @@ public class AnimationParameterController : MonoBehaviour
 {
     public string selectedParameter; 
     private Animator anim;
-    private void Start()
+    private void Awake()
     {
         anim = GetComponent<Animator>();
     }

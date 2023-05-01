@@ -16,8 +16,8 @@ public class LeverOn : State
     private void Start()
     {
         sm = GetComponent<StateMachine>();
-        sm.currentState.EnterState(gameObject);
         meshRenderer = GetComponent<MeshRenderer>();
+        sm.currentState.EnterState(gameObject);
     }
 
     public void ChangeState()
@@ -30,6 +30,8 @@ public class LeverOn : State
     public override void EnterState(GameObject source)
     {
         eventOn.Invoke();
+        print(meshRenderer.material);
+        print(onMaterial);
         meshRenderer.material = onMaterial;
     }
     public override void UpdateState(GameObject source)

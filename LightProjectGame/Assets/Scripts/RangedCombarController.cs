@@ -63,7 +63,7 @@ public class RangedCombarController : State
                     rcTarget = rc.collider.gameObject;
                     projectedHighlight = Instantiate(rcTargetHighlightPrefab, rcTarget.transform.position, rcTarget.transform.rotation, rcTarget.transform);
                     projectedHighlight.GetComponent<MeshFilter>().mesh = rcTarget.GetComponent<MeshFilter>().mesh;
-                    projectedHighlight.transform.localScale = new Vector3(1, 1, 1);
+                    projectedHighlight.transform.localScale = new Vector3(1.01f, 1.01f, 1.01f);
                 }
                 return;
             }

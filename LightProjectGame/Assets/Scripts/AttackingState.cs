@@ -72,7 +72,7 @@ public class AttackingState : State
             {
                 EnemyController ec;
                 float distance = GetClosestEnemy(out ec);
-                print(distance);
+
                 if(distance < 5)
                 {
                     Vector3 enemyDirection = GetEnemyDirection(ec.transform);

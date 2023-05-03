@@ -39,16 +39,15 @@ Material:
     MotionVector: User
     RenderType: Transparent
   disabledShaderPasses:
-  - TransparentDepthPrepass
+  - MOTIONVECTORS
   - TransparentDepthPostpass
   - TransparentBackface
   - RayTracingPrepass
-  - MOTIONVECTORS
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _Albedo:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: b24b57e0cfed05643be34b0256df875e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_84d74aa1ba2a4d0e856736ef47176944_Texture_1:
@@ -97,8 +96,9 @@ Material:
     - _DoubleSidedGIMode: 0
     - _DoubleSidedNormalMode: 2
     - _DstBlend: 10
-    - _Edge: 0.5
-    - _EmissionIntensity: 0
+    - _Edge: 0.2
+    - _EdgeEmissionWidth: -0.04
+    - _EmissionIntensity: 27.91
     - _EmissionWeight: 0
     - _EnableBlendModePreserveSpecularLighting: 1
     - _EnableFogOnTransparent: 1
@@ -125,23 +125,28 @@ Material:
     - _StencilWriteMaskMV: 40
     - _SupportDecals: 1
     - _SurfaceType: 1
-    - _TextureTiling: 1
+    - _TextureTiling: 0.03
     - _TimeScale: 0.11
     - _TransparentBackfaceEnable: 0
     - _TransparentCullMode: 2
     - _TransparentDepthPostpassEnable: 0
-    - _TransparentDepthPrepassEnable: 0
+    - _TransparentDepthPrepassEnable: 1
     - _TransparentSortPriority: 0
     - _TransparentWritingMotionVec: 0
     - _TransparentZWrite: 0
     - _UseShadowThreshold: 0
-    - _ZTestDepthEqualForOpaque: 4
+    - _ZTestDepthEqualForOpaque: 3
     - _ZTestGBuffer: 4
-    - _ZTestTransparent: 4
+    - _ZTestTransparent: 3
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 22.988712, g: 22.988712, b: 22.988712, a: 0}
-    - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
+    - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColorr: {r: 0.7169812, g: 0.1582769, b: 0.1582769, a: 0}
+    - _Emission_Color: {r: 0, g: 0.051356338, b: 1.2146596, a: 0}
+    - _LightPos1: {r: -4.31, g: 0.57, b: -2.17, a: 0}
+    - _LightPos2: {r: 0, g: 0, b: 0, a: 0}
+    - _LightPos3: {r: 0, g: 0, b: 0, a: 0}
     - _Vector3: {r: 11, g: 2, b: 0, a: 0}
   m_BuildTextureStacks: []

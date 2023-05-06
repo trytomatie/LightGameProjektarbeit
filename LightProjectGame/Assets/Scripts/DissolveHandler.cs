@@ -12,6 +12,7 @@ public class DissolveHandler : MonoBehaviour
 
     private float time = 1;
     public float radius = 3;
+    private float timeScaleMultipler = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,11 +46,11 @@ public class DissolveHandler : MonoBehaviour
 
         if(!orderedList.ToArray()[0].isOn)
         {
-            time = Mathf.Clamp01(time - Time.deltaTime);
+            time = Mathf.Clamp01(time - Time.deltaTime * timeScaleMultipler);
         }
         else
         {
-            time = Mathf.Clamp01(time + Time.deltaTime);
+            time = Mathf.Clamp01(time + Time.deltaTime * timeScaleMultipler);
         }
         if (time == 0)
         {

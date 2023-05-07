@@ -33,7 +33,6 @@ public class HurtState : State
     #region StateMethods
     public override void EnterState(GameObject source)
     {
-        print("i triggerd");
         anim.SetTrigger("hit");
     }
     public override void UpdateState(GameObject source)

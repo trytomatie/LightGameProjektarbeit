@@ -197,7 +197,6 @@ public class PlayerController : State
     {
         lastMovement = dashDirection;
         float time = Mathf.Clamp01((Time.time - dashTimer) / dashTotalTime);
-        print(time);
         movementSpeed = dashCurve.Evaluate(time) * dashSpeed;
 
         cc.Move(lastMovement * movementSpeed * Time.deltaTime

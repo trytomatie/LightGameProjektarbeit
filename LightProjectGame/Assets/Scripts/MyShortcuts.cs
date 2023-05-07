@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MyShortcuts : Editor
 {
-    public static float minScale = -0.1f;
-    public static float maxScale = 0.1f;
+    public static float minScale = -0.5f;
+    public static float maxScale = 0.5f;
     [MenuItem("GameObject/RotateRandom")]
     static void ToggleActivationSelection()
     {

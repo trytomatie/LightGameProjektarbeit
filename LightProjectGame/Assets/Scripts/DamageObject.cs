@@ -58,7 +58,10 @@ public class DamageObject : MonoBehaviour
 
     public void ApplyHitEffect(Collider other)
     {
-        other.GetComponentInChildren<Animator>().SetTrigger("hit");
+        if (other.GetComponent<HurtState>() != null)
+        {
+            other.GetComponent<HurtState>().isHit = true;
+        }
         Instantiate(hitEffect, other.ClosestPoint(transform.position), Quaternion.identity);
     }
 

@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 8004739633829740160}
   - component: {fileID: 2138322217}
   - component: {fileID: 2138322218}
+  - component: {fileID: 1328170325144797663}
   m_Layer: 0
   m_Name: Enemy Big
   m_TagString: Enemy
@@ -178,6 +179,7 @@ MonoBehaviour:
   - {fileID: 8571756979906470175}
   - {fileID: 8004739633829740160}
   - {fileID: 2138322217}
+  - {fileID: 1328170325144797663}
   currentState: {fileID: 8571756979906470175}
   isUpdating: 1
 --- !u!195 &8571756979906470174
@@ -343,6 +345,21 @@ MonoBehaviour:
   damageEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1328170325144797663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230850186771639604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1e85e4cf0add954bb942f508bd5abce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateName: 14
+  anim: {fileID: 8395490288054355030}
+  isHit: 0
 --- !u!1 &503941673266597688
 GameObject:
   m_ObjectHideFlags: 0

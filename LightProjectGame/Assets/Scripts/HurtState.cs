@@ -33,7 +33,8 @@ public class HurtState : State
     #region StateMethods
     public override void EnterState(GameObject source)
     {
-        anim.SetBool("hit", true);
+        print("i triggerd");
+        anim.SetTrigger("hit");
     }
     public override void UpdateState(GameObject source)
     {
@@ -51,7 +52,7 @@ public class HurtState : State
 
     public override StateName AnyTransition(GameObject source)
     {
-        if(isHit && (sm.currentState.stateName != State.StateName.Attacking || sm.currentState.stateName != State.StateName.Dashing) )
+        if(isHit && (sm.currentState.stateName != State.StateName.Attacking && sm.currentState.stateName != State.StateName.Dashing) )
         {
             return StateName.Hurt;
         }
@@ -60,7 +61,7 @@ public class HurtState : State
 
     public override void ExitState(GameObject source)
     {
-        anim.SetBool("hit", false);
+
     }
     #endregion
 }

@@ -72,7 +72,8 @@ GameObject:
   - component: {fileID: 1362314111998053272}
   - component: {fileID: 5905550894970003317}
   - component: {fileID: 1848445474481499750}
-  m_Layer: 0
+  - component: {fileID: 9012242524077341367}
+  m_Layer: 6
   m_Name: TriggerPlatform1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,6 +191,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedParameter: activate
+--- !u!114 &9012242524077341367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3709099205360805547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e3b1ff4b43c8fc40b424a08a0dab90f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movement: {x: 0, y: 0, z: 0}
+  lastPosition: {x: 0, y: 0, z: 0}
+  lastScale: 0
 --- !u!1 &6112046715730552798
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,7 +482,8 @@ GameObject:
   - component: {fileID: 6069214832719870225}
   - component: {fileID: 5717720095645408073}
   - component: {fileID: 7448004063539636147}
-  m_Layer: 0
+  - component: {fileID: 3158076544985724989}
+  m_Layer: 6
   m_Name: TirggerPlatform2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,6 +601,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3158076544985724989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7130068037083492975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e3b1ff4b43c8fc40b424a08a0dab90f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movement: {x: 0, y: 0, z: 0}
+  lastPosition: {x: 0, y: 0, z: 0}
+  lastScale: 0
 --- !u!1001 &20648850331606558
 PrefabInstance:
   m_ObjectHideFlags: 0

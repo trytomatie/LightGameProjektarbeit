@@ -43,6 +43,15 @@ public class PlayerController : State
     public float jumpStrength = 5;
     private Vector3 lastHitPoint;
     private Vector3 slideMovement;
+    private float timeInTheAir = 0;
+
+    [Header("EdgeDetection")]
+    public float edgeDetectionY;
+    public float edgeDetectionZ;
+    public float edgeDetectionDistance = 0.4f;
+    public float edgeSphereCastRadius = 0.5f;
+    public bool edgeDetected;
+    public Vector3 edgePosition;
 
 
 
@@ -103,6 +112,40 @@ public class PlayerController : State
         }
     }
 
+    public void CheckForEdge()
+    {
+        float scaleOverTime = Mathf.Lerp(0.2f, 1, timeInTheAir / 2);
+        float edd = edgeDetectionDistance * scaleOverTime;
+        float edy = edgeDetectionY * scaleOverTime;
+        RaycastHit rc;
+        if(Physics.SphereCast(transform.position + transform.forward * edgeDetectionZ + new Vector3(0, edy, 0), edgeSphereCastRadius, Vector3.down, out rc, edd, layerMask))
+        {
+            if(rc.normal.y > 0.7f && rc.normal.y < 1.4f)
+            {
+                RaycastHit rc2;
+                for (int i = 1; i < 20; i++)
+                {
+                    if (Physics.SphereCast(rc.point - transform.forward - new Vector3(0, 0.1f * i, 0), 0.01f, transform.forward, out rc2, edgeDetectionDistance, layerMask))
+                    {
+                        Debug.DrawLine(rc.point - transform.forward - new Vector3(0, 0.1f * i, 0), rc.point - transform.forward - new Vector3(0, 0.1f * i, 0) + transform.forward, Color.blue, 10);
+                        if (rc.normal != rc2.normal)
+                        {
+                            float dotProduct = Vector3.Dot(rc.normal.normalized, rc2.normal.normalized); // dot product of the normalized vectors
+                            float angle = Mathf.Acos(dotProduct) * Mathf.Rad2Deg;
+                            print(string.Format("Angle:{0} Top:{1} Side:{2}", angle, rc.normal, rc2.normal));
+                            if(angle > 85 && angle < 100)
+                            {
+                                edgeDetected = true;
+                                edgePosition = new Vector3(rc2.point.x,rc.point.y,rc2.point.z);
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     /// <summary>
     /// Handle Animations
     /// </summary>
@@ -110,20 +153,8 @@ public class PlayerController : State
     {
         anim.SetFloat("speed", movementSpeed);
         anim.SetFloat("ySpeed", ySpeed / 12);
+        anim.SetBool("jumping", !grounded);
         transform.position += anim.deltaPosition;
-    }
-
-    private void Attack()
-    {
-        if (Input.GetMouseButton(0))
-        {
-            anim.SetBool("attack", true);
-        }
-        else
-        {
-            anim.SetBool("attack", false);
-        }
-
     }
 
     /// <summary>
@@ -156,22 +187,19 @@ public class PlayerController : State
             targetSpeed = sneakSpeed;
         }
 
-        // If character is landing or attacking, he cant move
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attacking"))
+
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Jumping"))
         {
-            movement = transform.forward * attackCurve.Evaluate(anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+            timeInTheAir += Time.deltaTime;
+            movement = new Vector3(horizontalInput * 1, 0, verticalInput * 1).normalized;
+            CheckForEdge();
         }
         else
         {
-            if (anim.GetCurrentAnimatorStateInfo(0).IsName("Jumping"))
-            {
-                movement = new Vector3(horizontalInput * 1, 0, verticalInput * 1).normalized;
-            }
-            else
-            {
-                movement = new Vector3(horizontalInput, 0, verticalInput).normalized;
-            }
+            timeInTheAir = 0;
+            movement = new Vector3(horizontalInput, 0, verticalInput).normalized;
         }
+
 
 
 
@@ -233,16 +261,19 @@ public class PlayerController : State
     {
         if (Input.GetButtonDown("Jump") && !isJumping && (grounded || (ySpeed > (-0.5f * 12))))
         {
-            isJumping = true;
-            ySpeed = jumpStrength;
-            anim.SetTrigger("jump");
+            Jump();
         }
         if (grounded && isJumping && ySpeed <= 0.07)
         {
             isJumping = false;
-            anim.SetTrigger("land");
             movementSpeed = 0;
         }
+    }
+
+    public void Jump()
+    {
+        isJumping = true;
+        ySpeed = jumpStrength;
     }
 
     /// <summary>
@@ -258,6 +289,7 @@ public class PlayerController : State
         }
         else
         {
+            
             grounded = true;
             if (ySpeed < 0)
             {
@@ -338,6 +370,11 @@ public class PlayerController : State
         {
             return StateName.Attacking;
         }
+        if(edgeDetected)
+        {
+            anim.SetBool("jumping", false);
+            return StateName.Edgeing;
+        }
         return stateName;
     }
 
@@ -354,6 +391,8 @@ public class PlayerController : State
         {
             Gizmos.DrawSphere(transform.position + new Vector3(0, castDistance / i,0),(characterController.radius + characterController.skinWidth) * castScaleFactor);
         }
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position + transform.forward * edgeDetectionZ + new Vector3(0,edgeDetectionY,0), transform.position + transform.forward * edgeDetectionZ + new Vector3(0, edgeDetectionY, 0) + (Vector3.down * edgeDetectionDistance));
 
     }
 

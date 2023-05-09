@@ -15,7 +15,8 @@ public abstract class State : MonoBehaviour
         Dashing,
         Chasing,
         Attacking,
-        Hurt
+        Hurt,
+        Edgeing
     }
     public StateName stateName;
 

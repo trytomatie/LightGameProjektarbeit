@@ -79,8 +79,13 @@ public class PlayerController : State
         dashState = GetComponent<DashingState>();
         cc = GetComponent<CharacterController>();
         // mainCamera = Camera.main;
-        Cursor.lockState = CursorLockMode.Locked;
 
+
+    }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        Cursor.lockState = focus ? CursorLockMode.Locked : CursorLockMode.None;
     }
 
 

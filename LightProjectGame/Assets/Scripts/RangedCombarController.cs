@@ -12,8 +12,13 @@ public class RangedCombarController : State
     public GameObject rcTarget;
     public GameObject reticle;
     public GameObject rcTargetHighlightPrefab;
+    public GameObject draggableHighlightPrefab;
 
     private GameObject projectedHighlight;
+
+
+    private GameObject[] draggableObjects;
+    private List<GameObject> highlightObjectIndicators = new List<GameObject>();
     void Start()
     {
         playerController = GetComponent<PlayerController>();
@@ -63,7 +68,8 @@ public class RangedCombarController : State
                     rcTarget = rc.collider.gameObject;
                     projectedHighlight = Instantiate(rcTargetHighlightPrefab, rcTarget.transform.position, rcTarget.transform.rotation, rcTarget.transform);
                     projectedHighlight.GetComponent<MeshFilter>().mesh = rcTarget.GetComponent<MeshFilter>().mesh;
-                    projectedHighlight.transform.localScale = new Vector3(1.01f, 1.01f, 1.01f);
+                    projectedHighlight.transform.localPosition = projectedHighlight.transform.localPosition - new Vector3(0, -0.001f, 0);
+                    projectedHighlight.transform.localScale = new Vector3(1.02f, 1.02f, 1.02f);
                 }
                 return;
             }
@@ -82,6 +88,15 @@ public class RangedCombarController : State
     {
         playerController.camAnim.SetInteger("cam", 1);
         reticle.SetActive(true);
+        draggableObjects = GameObject.FindGameObjectsWithTag("Dragable");
+        foreach(GameObject go in draggableObjects)
+        {
+            GameObject highLight = Instantiate(draggableHighlightPrefab, go.transform.position, go.transform.rotation, go.transform);
+            highLight.GetComponent<MeshFilter>().mesh = go.GetComponent<MeshFilter>().mesh;
+            highLight.transform.localScale = new Vector3(1.01f, 1.01f, 1.01f);
+            highLight.transform.localPosition = highLight.transform.localPosition - new Vector3(0, -0.001f, 0);
+            highlightObjectIndicators.Add(highLight);
+        }
     }
 
     public override void UpdateState(GameObject source)
@@ -116,6 +131,12 @@ public class RangedCombarController : State
         }
         playerController.camAnim.SetInteger("cam", 0);
         reticle.SetActive(false);
+
+        for(int i = 0; i < highlightObjectIndicators.Count;i++)
+        {
+            Destroy(highlightObjectIndicators[i]);
+        }
+        highlightObjectIndicators.Clear();
     }
     #endregion
 }

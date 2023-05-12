@@ -41,12 +41,7 @@ public class EnemyController : State
     }
 
     public override StateName Transition(GameObject source)
-    {
-        if(lightSources.Count > 0)
-        {
-            return State.StateName.Flee;
-        }
-        
+    {   
         return base.Transition(source);
     }
 }

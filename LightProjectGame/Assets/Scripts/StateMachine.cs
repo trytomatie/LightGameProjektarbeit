@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class StateMachine : MonoBehaviour
 {
@@ -47,7 +48,16 @@ public class StateMachine : MonoBehaviour
         }
         if(state.stateName != stateName)
         {
-            return states.First(state => state.stateName == stateName);
+            State sn = currentState;
+            try
+            {
+               sn = states.First(state => state.stateName == stateName);
+            }
+            catch(Exception e)
+            {
+                Debug.Log(string.Format("{0} not found, Skipping Transition", stateName));
+            }
+            return sn;
         }
         return state;
     }

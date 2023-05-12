@@ -28,11 +28,12 @@ public class StatusManager : MonoBehaviour
         {
             if(value < hp)
             {
+                hp = value;
                 damageEvent.Invoke();
             }
-            hp = value;
             if(hp <= 0)
             {
+                hp = value;
                 deathEvent.Invoke();
             }
         }

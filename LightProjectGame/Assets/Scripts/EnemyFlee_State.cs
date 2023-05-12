@@ -8,6 +8,8 @@ public class EnemyFlee_State : State
 {
     private EnemyController enemyController;
     public float fleeDistance = 3;
+    private float maxFleeTime = 4;
+    private float fleeTime = 0;
 
     private Vector3 averageLightsourcePos;
     // Start is called before the first frame update
@@ -18,7 +20,7 @@ public class EnemyFlee_State : State
 
     private void Movement()
     {
-        enemyController.agent.destination = transform.position + CalculateFleeDirection();
+        enemyController.agent.destination = transform.position + CalculateFleeDirection() * 3;
     }
 
     private Vector3 CalculateFleeDirection()
@@ -38,11 +40,17 @@ public class EnemyFlee_State : State
         return -(averageLightsourcePos - transform.position).normalized;
     }
 
+    public override void EnterState(GameObject source)
+    {
+        fleeTime = 0;
+    }
+
     /// <summary>
     /// Gets called when current state is this state
     /// </summary>
     public override void UpdateState(GameObject source)
     {
+        fleeTime += Time.deltaTime;
         enemyController.Animation();
         Movement();
     }
@@ -53,6 +61,19 @@ public class EnemyFlee_State : State
         {
             return State.StateName.Controlling;
         }
+        if(fleeTime > maxFleeTime)
+        {
+            return StateName.Controlling;
+        }
         return base.Transition(source);
+    }
+
+    public override StateName AnyTransition(GameObject source)
+    {
+        if (enemyController.lightSources.Count > 0 && stateName!=State.StateName.Attacking)
+        {
+            return State.StateName.Flee;
+        }
+        return base.AnyTransition(source);
     }
 }

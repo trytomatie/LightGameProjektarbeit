@@ -79,7 +79,7 @@ public class PlayerController : State
 
 
     private DashingState dashState;
-
+    private RaycastHit slopeHit;
 
 
     // Start is called before the first frame update
@@ -212,6 +212,10 @@ public class PlayerController : State
         {
             lastMovement = cameraDependingMovement;
         }
+        if(OnSlope())
+        {
+            lastMovement = GetSlopeMoveDirection(lastMovement);
+        }
 
         cc.Move(lastMovement * movementSpeed * Time.deltaTime 
             + new Vector3(0, ySpeed, 0) * Time.deltaTime
@@ -243,16 +247,24 @@ public class PlayerController : State
         return true;
     }
 
-    /// <summary>
-    /// Handle Sneaking Functionaltiy
-    /// </summary>
-    private void HandleSneaking()
+    private bool OnSlope()
     {
-        if(Input.GetKeyDown(KeyCode.C))
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, cc.height *0.5f + 0.3f))
         {
-            isSneaking = !isSneaking;
+            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+            return angle < cc.slopeLimit && angle != 0;
         }
+        else
+        {
+            return false;
+        }
+
     }
+
+    private Vector3 GetSlopeMoveDirection(Vector3 mov)
+    {
+        return Vector3.ProjectOnPlane(mov, slopeHit.normal).normalized;
+    }   
 
     /// <summary>
     /// Handle Jump Input
@@ -342,7 +354,6 @@ public class PlayerController : State
         }
         HandleJump();
         CalculateGravity();
-        HandleSneaking();
         Movement();
         Rotation();
         Animations();

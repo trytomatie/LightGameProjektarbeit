@@ -21,7 +21,12 @@ public class GameManager : MonoBehaviour
 
     public void LoadLevel(int i)
     {
+        SceneManager.LoadScene(i);
+    }
 
+    public void LoadLevel(string name)
+    {
+        SceneManager.LoadScene(name);
     }
 
     public static void ReloadThisLevel()

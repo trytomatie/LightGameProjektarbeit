@@ -8,7 +8,7 @@ public class EnemyFlee_State : State
 {
     private EnemyController enemyController;
     public float fleeDistance = 3;
-    private float maxFleeTime = 4;
+    public float maxFleeTime = 4;
     private float fleeTime = 0;
 
     private Vector3 averageLightsourcePos;

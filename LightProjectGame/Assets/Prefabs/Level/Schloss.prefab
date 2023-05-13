@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2039320051}
   - component: {fileID: 874671092}
+  - component: {fileID: 1563269254}
   m_Layer: 0
   m_Name: "Zugbr\xFCcke"
   m_TagString: Untagged
@@ -55,6 +56,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1563269254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2039320050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5facb174fe491a54494cb05bec714e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedParameter: isHit
 --- !u!1 &7841763968972520207
 GameObject:
   m_ObjectHideFlags: 0
@@ -50855,6 +50869,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7841763968972520206}
     m_Modifications:
+    - target: {fileID: 2701943633228151358, guid: 07efea69024a761499b1d4aaa1cbbe7d,
+        type: 3}
+      propertyPath: eventOff.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2701943633228151358, guid: 07efea69024a761499b1d4aaa1cbbe7d,
+        type: 3}
+      propertyPath: eventOff.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2701943633228151358, guid: 07efea69024a761499b1d4aaa1cbbe7d,
+        type: 3}
+      propertyPath: eventOff.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1563269254}
+    - target: {fileID: 2701943633228151358, guid: 07efea69024a761499b1d4aaa1cbbe7d,
+        type: 3}
+      propertyPath: eventOff.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetAnimatorBool
+      objectReference: {fileID: 0}
     - target: {fileID: 3929731411187246458, guid: 07efea69024a761499b1d4aaa1cbbe7d,
         type: 3}
       propertyPath: m_Name
@@ -50929,6 +50963,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5372160261739632129, guid: 07efea69024a761499b1d4aaa1cbbe7d,
+        type: 3}
+      propertyPath: eventOn.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5372160261739632129, guid: 07efea69024a761499b1d4aaa1cbbe7d,
+        type: 3}
+      propertyPath: eventOn.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5372160261739632129, guid: 07efea69024a761499b1d4aaa1cbbe7d,
+        type: 3}
+      propertyPath: eventOn.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1563269254}
+    - target: {fileID: 5372160261739632129, guid: 07efea69024a761499b1d4aaa1cbbe7d,
+        type: 3}
+      propertyPath: eventOn.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetAnimatorBool
+      objectReference: {fileID: 0}
+    - target: {fileID: 5372160261739632129, guid: 07efea69024a761499b1d4aaa1cbbe7d,
+        type: 3}
+      propertyPath: eventOn.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07efea69024a761499b1d4aaa1cbbe7d, type: 3}

@@ -10,6 +10,8 @@ public class StateMachine : MonoBehaviour
     public State currentState;
     public bool isUpdating = true;
 
+    private State.StateName forceState = State.StateName.Empty;
+
     // Start is called before the first frame update
     public void Start()
     {
@@ -30,6 +32,11 @@ public class StateMachine : MonoBehaviour
         Tick(CheckStates(currentState));
     }
 
+    public void ForceState(State state)
+    {
+        forceState = state.stateName;
+    }
+
     State CheckStates(State state)
     {
         State.StateName stateName = state.stateName;
@@ -40,7 +47,6 @@ public class StateMachine : MonoBehaviour
             {
                 stateName = name;
             }
-            //print(stateName);
         }
         if (state.stateName == stateName)
         {
@@ -58,6 +64,11 @@ public class StateMachine : MonoBehaviour
                 Debug.Log(string.Format("{0} not found, Skipping Transition", stateName));
             }
             return sn;
+        }
+        if (forceState != State.StateName.Empty)
+        {
+            state = states.First(state => state.stateName == forceState);
+            forceState = State.StateName.Empty;
         }
         return state;
     }

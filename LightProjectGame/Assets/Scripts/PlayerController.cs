@@ -79,6 +79,7 @@ public class PlayerController : State
 
 
     private DashingState dashState;
+    private LockOnState lockOnState;
     private RaycastHit slopeHit;
 
 
@@ -87,6 +88,7 @@ public class PlayerController : State
     {
         dashState = GetComponent<DashingState>();
         cc = GetComponent<CharacterController>();
+        lockOnState = GetComponent<LockOnState>();
         // mainCamera = Camera.main;
 
 
@@ -178,7 +180,7 @@ public class PlayerController : State
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float targetSpeed = runSpeed;
 
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftControl) || lockOnState.target != null)
         {
             targetSpeed = walkSpeed;
         }
@@ -269,7 +271,7 @@ public class PlayerController : State
     /// <summary>
     /// Handle Jump Input
     /// </summary>
-    private void HandleJump()
+    public void HandleJump()
     {
         if (Input.GetButtonDown("Jump") && !isJumping && (grounded || (ySpeed > (-0.5f * 12))))
         {
@@ -344,6 +346,15 @@ public class PlayerController : State
         }
     }
 
+    private StateName HandleTargeting()
+    {
+        if(lockOnState.CheckForTarget())
+        {
+            return StateName.LockOn;
+        }
+        return stateName;
+    }
+
     #region StateMethodes
     public override void UpdateState(GameObject source)
     {
@@ -380,6 +391,10 @@ public class PlayerController : State
         if(Input.GetMouseButton(0))
         {
             return StateName.Attacking;
+        }
+        if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            return HandleTargeting();
         }
         if(edgeDetected)
         {

@@ -5,9 +5,10 @@ using UnityEngine;
 public class PlayerDraggingController : State
 {
     private PlayerController playerController;
+    private LockOnState lockOnState;
     private RangedCombarController rcc;
     private Camera mainCamera;
-
+    public LayerMask layerMask;
     private Rigidbody targetrb;
     public float force = 20;
     public float dragPointLengthMin = 1;
@@ -17,6 +18,7 @@ public class PlayerDraggingController : State
     {
         playerController = GetComponent<PlayerController>();
         rcc = GetComponent<RangedCombarController>();
+        lockOnState = GetComponent<LockOnState>();
         mainCamera = Camera.main;
     }
 
@@ -24,6 +26,17 @@ public class PlayerDraggingController : State
     {
         Vector3 dragPoint = transform.position + new Vector3(0,1.4f,0) + (mainCamera.transform.forward * dragPointOffset);
         Vector3 direction = dragPoint - targetrb.position;
+        RaycastHit raycast;
+        if (Physics.SphereCast(transform.position,0.2f,Vector3.down, out raycast,1f, layerMask))
+        {
+            print(raycast.collider.gameObject.name);
+            if(raycast.collider.gameObject == targetrb.gameObject)
+            {
+                targetrb.velocity = new Vector3(0, -9, 0);
+                return;
+            }
+        }
+
         targetrb.velocity = direction *force;
     }
 
@@ -46,6 +59,7 @@ public class PlayerDraggingController : State
     public override void EnterState(GameObject source)
     {
         playerController.camAnim.SetInteger("cam", 2);
+        playerController.anim.SetFloat("movementMode",1);
         targetrb = rcc.rcTarget.GetComponent<Rigidbody>();
     }
     public override void UpdateState(GameObject source)
@@ -55,6 +69,7 @@ public class PlayerDraggingController : State
         playerController.Animations();
         playerController.CalculateGravity();
         playerController.HandleLantern();
+        lockOnState.AnimationsParemetersInput();
         Dragging();
         SetDragPointLength();
     }
@@ -71,6 +86,7 @@ public class PlayerDraggingController : State
     public override void ExitState(GameObject source)
     {
         playerController.camAnim.SetInteger("cam", 0);
+        playerController.anim.SetFloat("movementMode", 0);
     }
     #endregion
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class RangedCombarController : State
 {
     private PlayerController playerController;
+    private LockOnState lockOnState;
     private Camera mainCamera;
     public GameObject projectile;
     public Vector3 shootOffset = new Vector3(0,0.6f,0);
@@ -23,6 +24,7 @@ public class RangedCombarController : State
     {
         playerController = GetComponent<PlayerController>();
         mainCamera = Camera.main;
+        lockOnState = GetComponent<LockOnState>();
     }
 
     void Rotation()
@@ -97,6 +99,7 @@ public class RangedCombarController : State
             highLight.transform.localPosition = highLight.transform.localPosition - new Vector3(0, -0.001f, 0);
             highlightObjectIndicators.Add(highLight);
         }
+        playerController.anim.SetFloat("movementMode", 1);
     }
 
     public override void UpdateState(GameObject source)
@@ -108,6 +111,7 @@ public class RangedCombarController : State
         HandleShooting();
         playerController.HandleLantern();
         RaycastForObjects();
+        lockOnState.AnimationsParemetersInput();
     }
 
     public override StateName Transition(GameObject source)
@@ -137,6 +141,7 @@ public class RangedCombarController : State
             Destroy(highlightObjectIndicators[i]);
         }
         highlightObjectIndicators.Clear();
+        playerController.anim.SetFloat("movementMode", 0);
     }
     #endregion
 }

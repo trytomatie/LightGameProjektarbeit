@@ -74,7 +74,7 @@ public class LockOnState : State
         targetIndicator.position = mainCamera.WorldToScreenPoint(target.transform.position + new Vector3(0, targetIndicatorYoffset,0));
     }
 
-    private void AnimationsParemetersInput()
+    public void AnimationsParemetersInput()
     {
         float verticalInput = Input.GetAxisRaw("Vertical");
         float horizontalInput = Input.GetAxisRaw("Horizontal");

@@ -8,7 +8,9 @@ public class LockOnState : State
     [Header("Targeting")]
     public StatusManager target;
     public Transform targetCameraPivot;
+    public Transform targetIkPosition;
     public RectTransform targetIndicator;
+    public GameObject shield;
     private NavMeshAgent targetNavMeshAgent;
     private float targetIndicatorYoffset;
     private float lockOnSpeed = 1.5f;
@@ -67,6 +69,7 @@ public class LockOnState : State
     private void CalculateTargetCameraPivot()
     {
         targetCameraPivot.position = (transform.position + target.transform.position) /2;
+        targetIkPosition.position = target.transform.position + new Vector3(0, 0.5f, 0);
     }
 
     private void SetTargetIndicator()
@@ -107,8 +110,10 @@ public class LockOnState : State
         stateName = StateName.Controlling;
         pc.camAnim.SetInteger("cam", 3);
         pc.anim.SetFloat("movementMode", 1);
+        pc.anim.SetBool("shielding", true);
         CalculateTargetCameraPivot();
         SetTargetIndicator();
+        shield.SetActive(true);
         targetIndicator.gameObject.SetActive(true);
     }
     public override void UpdateState(GameObject source)
@@ -169,7 +174,9 @@ public class LockOnState : State
 
     public override void ExitState(GameObject source)
     {
+        shield.SetActive(false);
         pc.anim.SetFloat("movementMode", 0);
+        pc.anim.SetBool("shielding", false);
         HandleRotationForDash();
     }
     #endregion

@@ -127,7 +127,7 @@ public class LockOnState : State
     #region StateMethods
     public override void EnterState(GameObject source)
     {
-        pc.stateName = StateName.LockOn;
+        sm.states.Find(e => e.stateName == StateName.Controlling).stateName = StateName.LockOn;
         stateName = StateName.Controlling;
         pc.camAnim.SetInteger("cam", 3);
         pc.anim.SetFloat("movementMode", 1);
@@ -192,7 +192,7 @@ public class LockOnState : State
 
     private StateName ReturnToControlling()
     {
-        pc.stateName = StateName.Controlling;
+        sm.states.Find(e => e.stateName == StateName.LockOn).stateName = StateName.Controlling;
         stateName = StateName.LockOn;
         pc.camAnim.SetInteger("cam", 0);
         targetIndicator.gameObject.SetActive(false);

@@ -19,7 +19,8 @@ public abstract class State : MonoBehaviour
         Edgeing,
         Dead,
         LockOn,
-        Staggered
+        Staggered,
+        Invalid
     }
     public StateName stateName;
 

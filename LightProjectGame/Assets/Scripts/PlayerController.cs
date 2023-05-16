@@ -11,6 +11,8 @@ using UnityEngine.VFX;
 /// </summary>
 public class PlayerController : State
 {
+    public bool startWeakend = true;
+
     [Header("Speed stats")]
     public float walkSpeed = 2;
     public float  runSpeed = 6;
@@ -64,7 +66,7 @@ public class PlayerController : State
     [Header("Attack")]
     public VisualEffect slashVFX;
 
-    private bool isTransitioning = false;
+    internal bool isTransitioning = false;
 
     private CharacterController cc;
     public Animator anim;
@@ -81,6 +83,7 @@ public class PlayerController : State
     private DashingState dashState;
     private LockOnState lockOnState;
     private StateMachine sm;
+    private WeakendControllsState weakendState;
     private RaycastHit slopeHit;
 
 
@@ -91,7 +94,13 @@ public class PlayerController : State
         cc = GetComponent<CharacterController>();
         lockOnState = GetComponent<LockOnState>();
         sm = GetComponent<StateMachine>();
+        weakendState = GetComponent<WeakendControllsState>();
         // mainCamera = Camera.main;
+        if (startWeakend)
+        {
+            weakendState.stateName = StateName.Controlling;
+            stateName = StateName.Invalid;
+        }
 
 
     }
@@ -319,18 +328,6 @@ public class PlayerController : State
     {
         lastHitPoint = hit.point;
     }
-    private void HandleAim()
-    {
-        if (Input.GetMouseButton(1))
-        {
-            camAnim.SetInteger("cam", 1);
-        }
-        else
-        {
-            camAnim.SetInteger("cam", 0);
-        }
-
-    }
 
     public void HandleLantern()
     {
@@ -348,7 +345,7 @@ public class PlayerController : State
         }
     }
 
-    private StateName HandleTargeting()
+    public StateName HandleTargeting()
     {
         if(lockOnState.CheckForTarget())
         {
@@ -370,14 +367,12 @@ public class PlayerController : State
         Movement();
         Rotation();
         Animations();
-        //Attack();
-        HandleAim();
         HandleLantern();
     }
 
     public override void EnterState(GameObject source)
     {
-
+        camAnim.SetInteger("cam", 0);
     }
 
     public override StateName Transition(GameObject source)
@@ -388,6 +383,7 @@ public class PlayerController : State
         }
         if (Input.GetMouseButton(1))
         {
+            camAnim.SetInteger("cam", 1);
             return StateName.Aiming;
         }
         if(Input.GetMouseButton(0))
@@ -403,7 +399,7 @@ public class PlayerController : State
             anim.SetBool("jumping", false);
             return StateName.Edgeing;
         }
-        return stateName;
+        return StateName.Controlling;
     }
 
     public override void ExitState(GameObject source)

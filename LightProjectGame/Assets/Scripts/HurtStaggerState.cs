@@ -13,7 +13,10 @@ public class HurtStaggerState : State
     #region StateMethods
     public override void EnterState(GameObject source)
     {
-        staggerTimer = Time.time + staggerTime;
+        if(staggerTimer + staggerTime <= Time.time)
+        {
+            staggerTimer = Time.time + staggerTime;
+        }
     }
     public override void UpdateState(GameObject source)
     {

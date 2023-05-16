@@ -17,6 +17,12 @@ public class LampOn : State
         sm = GetComponent<StateMachine>();
     }
 
+    public void ChangeState(bool value)
+    {
+        isOn = value;
+        sm.ManualUpdate();
+    }
+
     public void ChangeState()
     {
         isOn = !isOn;

@@ -67,6 +67,11 @@ public class StatusManager : MonoBehaviour
                 shieldHp = value;
                 shieldDamageEvent.Invoke();
             }
+            else
+            {
+                shieldHp = value;
+            }
+
         }
     }
 

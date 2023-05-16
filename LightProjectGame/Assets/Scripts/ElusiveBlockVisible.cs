@@ -43,7 +43,7 @@ public class ElusiveBlockVisible : State
 
     public void WakeUpAllRbs()
     {
-        RaycastHit[] rcs = Physics.SphereCastAll(transform.position, 3, Vector3.forward,0.1f);
+        RaycastHit[] rcs = Physics.SphereCastAll(transform.position, 30, Vector3.forward,0.1f);
         foreach(RaycastHit rc in rcs)
         {
             if(rc.collider.GetComponent<Rigidbody>() != null)

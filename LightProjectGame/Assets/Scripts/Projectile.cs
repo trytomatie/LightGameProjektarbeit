@@ -5,15 +5,16 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public float speed = 1;
+    private Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += transform.forward * speed * Time.deltaTime;
+         rb.velocity = transform.forward * speed;
     }
 }

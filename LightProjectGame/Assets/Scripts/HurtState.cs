@@ -10,10 +10,13 @@ public class HurtState : State
     public bool isHit = false;
     private int frameCount = 0;
     private StateMachine sm;
+    private StatusManager myStatus;
+    public UnityEvent shieldingEvent;
 
     private void Start()
     {
         sm = GetComponent<StateMachine>();
+        myStatus = GetComponent<StatusManager>();
     }
 
     private void Update()
@@ -33,6 +36,10 @@ public class HurtState : State
     #region StateMethods
     public override void EnterState(GameObject source)
     {
+        if (myStatus.shielding)
+        {
+            shieldingEvent.Invoke();
+        }
         anim.SetTrigger("hit");
     }
     public override void UpdateState(GameObject source)

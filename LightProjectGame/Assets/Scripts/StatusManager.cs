@@ -11,14 +11,32 @@ public class StatusManager : MonoBehaviour
     public int maxHp;
     public int hp;
 
+    [Header("Shielding")]
+    public bool shielding = false;
+    public int shieldHp = 3;
+    public int shieldMaxHp = 3;
+
     public UnityEvent deathEvent;
     public UnityEvent damageEvent;
+    public UnityEvent shieldDamageEvent;
 
 
     // Start is called before the first frame update
     void Start()
     {
         hp = maxHp;
+    }
+
+    public void ApplyDamage(int damage)
+    {
+        if(shielding)
+        {
+            ShieldHp -= damage;
+        }
+        else
+        {
+            Hp -= damage;
+        }
     }
 
     public int Hp
@@ -35,6 +53,19 @@ public class StatusManager : MonoBehaviour
             {
                 hp = value;
                 deathEvent.Invoke();
+            }
+        }
+    }
+
+    public int ShieldHp
+    {
+        get => shieldHp;
+        set
+        {
+            if (value < shieldHp)
+            {
+                shieldHp = value;
+                shieldDamageEvent.Invoke();
             }
         }
     }

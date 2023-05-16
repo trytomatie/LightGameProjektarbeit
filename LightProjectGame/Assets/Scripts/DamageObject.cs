@@ -36,7 +36,7 @@ public class DamageObject : MonoBehaviour
                 StatusManager sm = other.GetComponent<StatusManager>();
                 if(sm.faction != faction)
                 {
-                    sm.Hp -= damage;
+                    sm.ApplyDamage(damage);
                     hitObjects.Add(other.gameObject);
                     ApplyHitEffect(other);
                 }

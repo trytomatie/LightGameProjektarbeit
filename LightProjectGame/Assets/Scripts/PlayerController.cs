@@ -80,6 +80,7 @@ public class PlayerController : State
 
     private DashingState dashState;
     private LockOnState lockOnState;
+    private StateMachine sm;
     private RaycastHit slopeHit;
 
 
@@ -89,6 +90,7 @@ public class PlayerController : State
         dashState = GetComponent<DashingState>();
         cc = GetComponent<CharacterController>();
         lockOnState = GetComponent<LockOnState>();
+        sm = GetComponent<StateMachine>();
         // mainCamera = Camera.main;
 
 
@@ -180,7 +182,7 @@ public class PlayerController : State
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float targetSpeed = runSpeed;
 
-        if (Input.GetKey(KeyCode.LeftControl) || lockOnState.target != null)
+        if (Input.GetKey(KeyCode.LeftControl) || lockOnState.target != null || sm.currentState.stateName == StateName.Aiming || sm.currentState.stateName == StateName.Dragging)
         {
             targetSpeed = walkSpeed;
         }

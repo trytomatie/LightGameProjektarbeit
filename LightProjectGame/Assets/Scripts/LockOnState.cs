@@ -13,13 +13,13 @@ public class LockOnState : State
     public GameObject shield;
     private NavMeshAgent targetNavMeshAgent;
     private float targetIndicatorYoffset;
-    private float lockOnSpeed = 1.5f;
 
 
     private Camera mainCamera;
     private PlayerController pc;
     private StatusManager myStatus;
     private DashingState dashState;
+    private StateMachine sm;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +28,7 @@ public class LockOnState : State
         myStatus = GetComponent<StatusManager>();
         dashState = GetComponent<DashingState>();
         pc = GetComponent<PlayerController>();
+        sm = GetComponent<StateMachine>();
     }
 
     public bool CheckForTarget()
@@ -77,6 +78,18 @@ public class LockOnState : State
         targetIndicator.position = mainCamera.WorldToScreenPoint(target.transform.position + new Vector3(0, targetIndicatorYoffset,0));
     }
 
+    public void HandleShielding()
+    {
+        if(myStatus.ShieldHp > 0)
+        {
+            Shielding(true);
+        }
+        else
+        {
+            Shielding(false);
+        }
+    }
+
     public void AnimationsParemetersInput()
     {
         float verticalInput = Input.GetAxisRaw("Vertical");
@@ -103,6 +116,14 @@ public class LockOnState : State
         pc.anim.SetFloat("yInput", Mathf.RoundToInt(dot), 0.1f, Time.deltaTime);
     }
 
+
+    public void Shielding(bool value)
+    {
+        pc.anim.SetBool("shielding", value);
+        shield.SetActive(value);
+        myStatus.shielding = value;
+    }
+
     #region StateMethods
     public override void EnterState(GameObject source)
     {
@@ -110,12 +131,13 @@ public class LockOnState : State
         stateName = StateName.Controlling;
         pc.camAnim.SetInteger("cam", 3);
         pc.anim.SetFloat("movementMode", 1);
-        pc.anim.SetBool("shielding", true);
+        HandleShielding();
         CalculateTargetCameraPivot();
         SetTargetIndicator();
-        shield.SetActive(true);
+
         targetIndicator.gameObject.SetActive(true);
     }
+
     public override void UpdateState(GameObject source)
     {
         if (target == null)
@@ -174,9 +196,11 @@ public class LockOnState : State
 
     public override void ExitState(GameObject source)
     {
-        shield.SetActive(false);
         pc.anim.SetFloat("movementMode", 0);
-        pc.anim.SetBool("shielding", false);
+        if(sm.CheckStates(this).stateName != StateName.Hurt)
+        {
+            Shielding(false);
+        }
         HandleRotationForDash();
     }
     #endregion

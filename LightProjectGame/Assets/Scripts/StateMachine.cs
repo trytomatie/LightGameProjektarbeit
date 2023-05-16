@@ -37,7 +37,7 @@ public class StateMachine : MonoBehaviour
         forceState = state.stateName;
     }
 
-    State CheckStates(State state)
+    public State CheckStates(State state)
     {
         State.StateName stateName = state.stateName;
         foreach (State s in states)

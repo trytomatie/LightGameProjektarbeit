@@ -51,7 +51,7 @@ public class HurtState : State
     {
         if(!isHit)
         {
-            return StateName.Controlling;
+            return StateName.Staggered;
         }
         return stateName;
     }

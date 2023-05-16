@@ -158,7 +158,13 @@ public class LockOnState : State
         float enemyExpectedRotation = Mathf.Atan2(enemyDirection.x, enemyDirection.z) * Mathf.Rad2Deg;
         float absoluteDifference = Mathf.Abs(rotation - enemyExpectedRotation);
         pc.lastMovement = enemyDirection;
-        pc.Rotation();
+        Rotation();
+    }
+
+    public void Rotation()
+    {
+        float rotation = Mathf.Atan2(pc.lastMovement.x, pc.lastMovement.z) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, rotation, 0), 333 * Time.deltaTime);
     }
 
     public override StateName Transition(GameObject source)
@@ -202,6 +208,9 @@ public class LockOnState : State
             Shielding(false);
         }
         HandleRotationForDash();
+        pc.anim.SetFloat("xInput", 0);
+        pc.anim.SetFloat("yInput", 0);
+        pc.anim.SetFloat("speed", 0);
     }
     #endregion
 }

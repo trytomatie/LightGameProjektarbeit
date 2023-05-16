@@ -35,10 +35,14 @@ public class DashingState : State
 
     private void HandleDash()
     {
-            dashDirection = playerController.lastMovement;
-            isDashing = true;
-            playerController.anim.SetBool("dash", true);
-            dashTimer = Time.time;
+        dashDirection = playerController.lastMovement;
+        float ts = playerController.turnspeed;
+        playerController.turnspeed = 3000;
+        playerController.Rotation();
+        playerController.turnspeed = ts;
+        isDashing = true;
+        playerController.anim.SetBool("dash", true);
+        dashTimer = Time.time;
     }
 
     #region StateMethods

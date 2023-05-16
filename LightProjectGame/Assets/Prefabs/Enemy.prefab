@@ -1604,6 +1604,7 @@ GameObject:
   - component: {fileID: 7641448833818740335}
   - component: {fileID: 1659554217}
   - component: {fileID: 1659554218}
+  - component: {fileID: -3616872161263282458}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -1709,6 +1710,7 @@ MonoBehaviour:
   - {fileID: 7641448833818740335}
   - {fileID: 1659554218}
   - {fileID: 1659554217}
+  - {fileID: -3616872161263282458}
   currentState: {fileID: 905740182859954695}
   isUpdating: 1
 --- !u!195 &905740182859954694
@@ -1765,6 +1767,9 @@ MonoBehaviour:
   faction: 0
   maxHp: 3
   hp: 3
+  shielding: 0
+  shieldHp: 3
+  shieldMaxHp: 3
   deathEvent:
     m_PersistentCalls:
       m_Calls:
@@ -1783,6 +1788,9 @@ MonoBehaviour:
   damageEvent:
     m_PersistentCalls:
       m_Calls: []
+  shieldDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7641448833818740335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1798,6 +1806,9 @@ MonoBehaviour:
   stateName: 14
   anim: {fileID: 1074090389266112334}
   isHit: 0
+  shieldingEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1659554217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1835,6 +1846,19 @@ MonoBehaviour:
     m_RotationOrder: 4
   attackCooldown: 0.2
   attackCooldownTimer: 0
+--- !u!114 &-3616872161263282458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8741785319788901932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e3e65bdec66dc44aa57b08ed78e854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateName: 18
 --- !u!1 &8978900174872286240
 GameObject:
   m_ObjectHideFlags: 0

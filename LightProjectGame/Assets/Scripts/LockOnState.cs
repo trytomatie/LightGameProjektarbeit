@@ -20,6 +20,7 @@ public class LockOnState : State
     private StatusManager myStatus;
     private DashingState dashState;
     private StateMachine sm;
+    public RectTransform blockIndicator;
 
     // Start is called before the first frame update
     void Start()
@@ -122,6 +123,7 @@ public class LockOnState : State
         pc.anim.SetBool("shielding", value);
         shield.SetActive(value);
         myStatus.shielding = value;
+        blockIndicator.gameObject.SetActive(value);
     }
 
     #region StateMethods
@@ -149,6 +151,11 @@ public class LockOnState : State
         pc.HandleJump();
         HandleRotation();
         AnimationsParemetersInput();
+        if(myStatus.shielding)
+        {
+            blockIndicator.position = mainCamera.WorldToScreenPoint(transform.position + new Vector3(0, 1.5f, 0));
+        }
+
     }
 
     private void HandleRotation()

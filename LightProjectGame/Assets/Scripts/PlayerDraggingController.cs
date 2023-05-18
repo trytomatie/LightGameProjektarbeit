@@ -19,6 +19,7 @@ public class PlayerDraggingController : State
     public float lineSize = 0.5f;
     public float lineEndSize = 0.5f;
     public Transform staffTip;
+
     void Start()
     {
         playerController = GetComponent<PlayerController>();

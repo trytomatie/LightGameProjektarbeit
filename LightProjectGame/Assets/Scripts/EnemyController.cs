@@ -10,6 +10,7 @@ public class EnemyController : State
     public List<Transform> lightSources = new List<Transform>();
 
     public Animator anim;
+    public GameObject wispPrefab;
 
     [HideInInspector]
     public NavMeshAgent agent;
@@ -29,6 +30,11 @@ public class EnemyController : State
     private void Movement()
     {
         agent.destination = transform.position;
+    }
+
+    public void DeathEvent()
+    {
+        Instantiate(wispPrefab, transform.position+ new Vector3(0,0.5f,0), transform.rotation);
     }
 
     /// <summary>

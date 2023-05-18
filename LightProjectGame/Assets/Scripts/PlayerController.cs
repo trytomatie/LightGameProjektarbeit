@@ -85,6 +85,7 @@ public class PlayerController : State
     private StateMachine sm;
     private WeakendControllsState weakendState;
     private RaycastHit slopeHit;
+    internal StatusManager myStatus;
 
 
     // Start is called before the first frame update
@@ -95,6 +96,7 @@ public class PlayerController : State
         lockOnState = GetComponent<LockOnState>();
         sm = GetComponent<StateMachine>();
         weakendState = GetComponent<WeakendControllsState>();
+        myStatus = GetComponent<StatusManager>();
         // mainCamera = Camera.main;
         if (startWeakend)
         {

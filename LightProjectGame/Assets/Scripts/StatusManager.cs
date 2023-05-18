@@ -16,8 +16,13 @@ public class StatusManager : MonoBehaviour
     public int shieldHp = 3;
     public int shieldMaxHp = 3;
 
+    public float lightEnergy = 0;
+    public float maxLightEnergy = 0;
+    private bool hasCast = false;
+
     public UnityEvent deathEvent;
     public UnityEvent damageEvent;
+    public UnityEvent lightEnergyEvent;
     public UnityEvent shieldDamageEvent;
 
 
@@ -26,6 +31,7 @@ public class StatusManager : MonoBehaviour
     {
         hp = maxHp;
     }
+
 
     public void ApplyDamage(int damage)
     {
@@ -36,6 +42,50 @@ public class StatusManager : MonoBehaviour
         else
         {
             Hp -= damage;
+        }
+    }
+
+
+
+    public void RestoreMinimumLightEnergy()
+    {
+        hasCast = false;
+        StartCoroutine(RegenLightEnergy());
+        CancelInvoke();
+    }
+
+    public IEnumerator RegenLightEnergy()
+    {
+        while(lightEnergy < 10 && !hasCast)
+        {
+            yield return new WaitForEndOfFrame();
+            LightEnergy += Time.deltaTime * 2;
+        }
+    }
+
+    public float LightEnergy
+    {
+        get => lightEnergy;
+        set
+        {
+            if (value < lightEnergy)
+            {
+                lightEnergy = value;
+                hasCast = true;
+                if (lightEnergy < 10)
+                {
+                    Invoke("RestoreMinimumLightEnergy", 5);
+                }
+            }
+            else
+            {
+                lightEnergy = value;
+                if(lightEnergy > maxLightEnergy)
+                {
+                    lightEnergy = maxLightEnergy;
+                }
+            }
+            lightEnergyEvent.Invoke();
         }
     }
 

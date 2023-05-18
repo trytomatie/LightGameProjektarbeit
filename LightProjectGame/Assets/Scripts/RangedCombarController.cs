@@ -35,8 +35,9 @@ public class RangedCombarController : State
 
     void HandleShooting()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && playerController.myStatus.LightEnergy>= 5)
         {
+            playerController.myStatus.LightEnergy -= 5;
             RaycastHit raycastHit;
 
             //if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out raycastHit, 50, layerMask))
@@ -48,7 +49,7 @@ public class RangedCombarController : State
             //else
             //{
             Ray ray = new Ray(mainCamera.transform.position, mainCamera.transform.forward);
-            GameObject _projectile = Instantiate(projectile, transform.position + shootOffset, Quaternion.identity);
+            GameObject _projectile = Instantiate(projectile, transform.position + shootOffset, Quaternion.identity); 
             _projectile.transform.LookAt(ray.GetPoint(15));
             //}
         }

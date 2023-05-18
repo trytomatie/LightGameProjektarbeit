@@ -8,6 +8,7 @@ public class EnemyFlee_State : State
 {
     private EnemyController enemyController;
     public float fleeDistance = 3;
+    public float fleeDirectionMutliplier = 3;
     public float maxFleeTime = 4;
     private float fleeTime = 0;
 
@@ -20,7 +21,7 @@ public class EnemyFlee_State : State
 
     private void Movement()
     {
-        enemyController.agent.destination = transform.position + CalculateFleeDirection() * 3;
+        enemyController.agent.destination = transform.position + CalculateFleeDirection() * fleeDirectionMutliplier;
     }
 
     private Vector3 CalculateFleeDirection()

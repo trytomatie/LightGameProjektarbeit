@@ -1,3 +1,4 @@
+using Dreamteck.Splines;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,10 @@ public class PlayerDraggingController : State
     public float dragPointLengthMin = 1;
     public float dragPointLengthMax = 5;
     private float dragPointOffset = 1;
+    public SplineComputer splineComputer;
+    public float lineSize = 0.5f;
+    public float lineEndSize = 0.5f;
+    public Transform staffTip;
     void Start()
     {
         playerController = GetComponent<PlayerController>();
@@ -54,6 +59,26 @@ public class PlayerDraggingController : State
         }
     }
 
+    private void ToggleSpline(bool value)
+    {
+        splineComputer.gameObject.SetActive(value);
+    }
+
+    private void SetSplinePoints()
+    {
+        Vector3 middle = (targetrb.transform.position + staffTip.position) / 2;
+        splineComputer.SetPoint(0, new SplinePoint(staffTip.position));
+        splineComputer.SetPoint(1, new SplinePoint(middle + new Vector3(0,1,0)));
+        splineComputer.SetPoint(2, new SplinePoint(targetrb.transform.position));
+        for(int i = 0; i<= 2;i++)
+        {
+            splineComputer.SetPointSize(i, lineSize);
+        }
+        splineComputer.SetPointSize(2, lineEndSize);
+
+        splineComputer.Rebuild();
+    }
+
 
     #region StateMethods
     public override void EnterState(GameObject source)
@@ -61,6 +86,8 @@ public class PlayerDraggingController : State
         playerController.camAnim.SetInteger("cam", 2);
         playerController.anim.SetFloat("movementMode",1);
         targetrb = rcc.rcTarget.GetComponent<Rigidbody>();
+        ToggleSpline(true);
+        SetSplinePoints();
     }
     public override void UpdateState(GameObject source)
     {
@@ -71,6 +98,7 @@ public class PlayerDraggingController : State
         playerController.HandleLantern();
         lockOnState.AnimationsParemetersInput();
         Dragging();
+        SetSplinePoints();
         SetDragPointLength();
     }
 
@@ -87,6 +115,7 @@ public class PlayerDraggingController : State
     {
         playerController.camAnim.SetInteger("cam", 0);
         playerController.anim.SetFloat("movementMode", 0);
+        ToggleSpline(false);
     }
     #endregion
 }

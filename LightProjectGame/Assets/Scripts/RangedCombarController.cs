@@ -14,17 +14,25 @@ public class RangedCombarController : State
     public GameObject reticle;
     public GameObject rcTargetHighlightPrefab;
     public GameObject draggableHighlightPrefab;
-
+    public Transform ikTarget;
+    public GameObject chargeAttackVFX;
+    public Transform staffTip;
+    public float reloadTime = 0.5f;
+    private float reloadTimer = 0;
+    private bool isReloading = false;
     private GameObject projectedHighlight;
 
 
     private GameObject[] draggableObjects;
     private List<GameObject> highlightObjectIndicators = new List<GameObject>();
+
+    private StateMachine sm;
     void Start()
     {
         playerController = GetComponent<PlayerController>();
         mainCamera = Camera.main;
         lockOnState = GetComponent<LockOnState>();
+        sm = GetComponent<StateMachine>();
     }
 
     void Rotation()
@@ -35,7 +43,7 @@ public class RangedCombarController : State
 
     void HandleShooting()
     {
-        if(Input.GetMouseButtonDown(0) && playerController.myStatus.LightEnergy>= 5)
+        if(Input.GetMouseButtonDown(0) && playerController.myStatus.LightEnergy>= 5 && !isReloading)
         {
             playerController.myStatus.LightEnergy -= 5;
             RaycastHit raycastHit;
@@ -49,10 +57,32 @@ public class RangedCombarController : State
             //else
             //{
             Ray ray = new Ray(mainCamera.transform.position, mainCamera.transform.forward);
-            GameObject _projectile = Instantiate(projectile, transform.position + shootOffset, Quaternion.identity); 
+            GameObject _projectile = Instantiate(projectile, staffTip.transform.position, Quaternion.identity); 
             _projectile.transform.LookAt(ray.GetPoint(15));
+            chargeAttackVFX.SetActive(false);
+            isReloading = true;
+            Invoke("ReadyShot", reloadTime);
             //}
         }
+    }
+
+    private void ReadyShot()
+    {
+        if (playerController.myStatus.LightEnergy < 5)
+        {
+            Invoke("ReloadingDone", 1);
+            return;
+        }
+        if (sm.CheckStates(sm.currentState) == this)
+        {
+            chargeAttackVFX.SetActive(true);
+        }
+        Invoke("ReloadingFinish", 0.5f);
+    }
+
+    private void ReloadingFinish()
+    {
+        isReloading = false;
     }
 
     private void RaycastForObjects()
@@ -84,6 +114,11 @@ public class RangedCombarController : State
         }
     }
 
+    private void SetIKTargetPosition()
+    {
+        ikTarget.position = mainCamera.transform.position + mainCamera.transform.forward * 10;
+    }
+
 
 
     #region StateMethods
@@ -101,6 +136,8 @@ public class RangedCombarController : State
             highlightObjectIndicators.Add(highLight);
         }
         playerController.anim.SetFloat("movementMode", 1);
+        playerController.anim.SetBool("aiming", true);
+        chargeAttackVFX.SetActive(true);
     }
 
     public override void UpdateState(GameObject source)
@@ -113,6 +150,7 @@ public class RangedCombarController : State
         playerController.HandleLantern();
         RaycastForObjects();
         lockOnState.AnimationsParemetersInput();
+        SetIKTargetPosition();
     }
 
     public override StateName Transition(GameObject source)
@@ -143,6 +181,8 @@ public class RangedCombarController : State
         }
         highlightObjectIndicators.Clear();
         playerController.anim.SetFloat("movementMode", 0);
+        playerController.anim.SetBool("aiming", false);
+        chargeAttackVFX.SetActive(false);
     }
     #endregion
 }

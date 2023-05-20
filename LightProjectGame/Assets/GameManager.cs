@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-
+    private float hitPauseTime = 0.1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +38,19 @@ public class GameManager : MonoBehaviour
     public static void ExitApplication()
     {
         Application.Quit(0);
+    }
+
+    public static void CallHitPause()
+    {
+        instance.StartCoroutine(instance.HitPause());
+    }
+
+    public IEnumerator HitPause()
+    {
+        yield return new WaitForSecondsRealtime(0.1f);
+        Time.timeScale = 0.1f;
+        yield return new WaitForSecondsRealtime(hitPauseTime);
+        Time.timeScale = 1;
     }
 
 }

@@ -7,14 +7,14 @@ public class PlayerDraggingController : State
 {
     private PlayerController playerController;
     private LockOnState lockOnState;
-    private RangedCombarController rcc;
+    private LookingForDragables lookingForDragables;
     private Camera mainCamera;
     public LayerMask layerMask;
     private Rigidbody targetrb;
     public float force = 20;
     public float dragPointLengthMin = 1;
     public float dragPointLengthMax = 5;
-    private float dragPointOffset = 1;
+    private float dragPointOffset = 4;
     public SplineComputer splineComputer;
     public float lineSize = 0.5f;
     public float lineEndSize = 0.5f;
@@ -23,7 +23,7 @@ public class PlayerDraggingController : State
     void Start()
     {
         playerController = GetComponent<PlayerController>();
-        rcc = GetComponent<RangedCombarController>();
+        lookingForDragables = GetComponent<LookingForDragables>();
         lockOnState = GetComponent<LockOnState>();
         mainCamera = Camera.main;
     }
@@ -86,7 +86,7 @@ public class PlayerDraggingController : State
     {
         playerController.camAnim.SetInteger("cam", 2);
         playerController.anim.SetFloat("movementMode",1);
-        targetrb = rcc.rcTarget.GetComponent<Rigidbody>();
+        targetrb = lookingForDragables.rcTarget.GetComponent<Rigidbody>();
         ToggleSpline(true);
         SetSplinePoints();
     }
@@ -105,7 +105,7 @@ public class PlayerDraggingController : State
 
     public override StateName Transition(GameObject source)
     {
-        if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonUp(1))
+        if (Input.GetMouseButtonUp(1) || Input.GetMouseButtonDown(0))
         {
             return StateName.Controlling;
         }

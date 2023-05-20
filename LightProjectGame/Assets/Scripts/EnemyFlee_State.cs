@@ -21,29 +21,40 @@ public class EnemyFlee_State : State
 
     private void Movement()
     {
-        enemyController.agent.destination = transform.position + CalculateFleeDirection() * fleeDirectionMutliplier;
+        if(Vector3.Distance(transform.position, CalculateAveragePos())<fleeDistance)
+        {
+            enemyController.agent.destination = transform.position + CalculateFleeDirection() * fleeDirectionMutliplier;
+        }
     }
 
     private Vector3 CalculateFleeDirection()
     {
-        
-        Vector3 averageLightsourcePos = Vector3.zero;
-        foreach(Transform pos in enemyController.lightSources)
-        {
-            averageLightsourcePos += pos.position;
-        }
-        if(enemyController.lightSources.Count <= 0)
+        Vector3 averageLightsourcePos = CalculateAveragePos();
+        if (enemyController.lightSources.Count <= 0)
         {
             return -(this.averageLightsourcePos - transform.position).normalized;
         }
-        averageLightsourcePos /= enemyController.lightSources.Count;
+
         this.averageLightsourcePos = averageLightsourcePos;
         return -(averageLightsourcePos - transform.position).normalized;
+    }
+
+    private Vector3 CalculateAveragePos()
+    {
+        Vector3 averageLightsourcePos = Vector3.zero;
+        foreach (Transform pos in enemyController.lightSources)
+        {
+            averageLightsourcePos += pos.position;
+            averageLightsourcePos /= enemyController.lightSources.Count;
+        }
+
+        return averageLightsourcePos;
     }
 
     public override void EnterState(GameObject source)
     {
         fleeTime = 0;
+        enemyController.agent.destination = CalculateAveragePos();
     }
 
     /// <summary>

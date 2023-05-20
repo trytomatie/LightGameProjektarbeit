@@ -87,6 +87,9 @@ public class PlayerController : State
     private RaycastHit slopeHit;
     internal StatusManager myStatus;
 
+    [Header("Skills")]
+    public int selectedSkill = 0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -109,7 +112,11 @@ public class PlayerController : State
 
     private void OnApplicationFocus(bool focus)
     {
-        Cursor.lockState = focus ? CursorLockMode.Locked : CursorLockMode.None;
+        if(myStatus.Hp > 0)
+        {
+            Cursor.lockState = focus ? CursorLockMode.Locked : CursorLockMode.None;
+        }
+
     }
 
 
@@ -124,6 +131,15 @@ public class PlayerController : State
         else
         {
             //slideMovement = Vector3.zero;
+        }
+
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            selectedSkill = 1;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            selectedSkill = 2;
         }
     }
 

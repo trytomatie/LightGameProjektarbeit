@@ -20,7 +20,8 @@ public abstract class State : MonoBehaviour
         Dead,
         LockOn,
         Staggered,
-        Invalid
+        Invalid,
+        LookForDraggables
     }
     public StateName stateName;
 

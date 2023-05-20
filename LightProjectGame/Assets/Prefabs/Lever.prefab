@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5372160261739632129}
   - component: {fileID: 2701943633228151358}
   - component: {fileID: 4058321722335267769}
+  - component: {fileID: 6079087346261442540}
   m_Layer: 0
   m_Name: Lever
   m_TagString: PuzzleElement
@@ -96,7 +97,7 @@ MeshCollider:
   m_GameObject: {fileID: 3929731411187246458}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -201,3 +202,16 @@ MonoBehaviour:
   - {fileID: 2701943633228151358}
   currentState: {fileID: 2701943633228151358}
   isUpdating: 0
+--- !u!65 &6079087346261442540
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3929731411187246458}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5233105, y: 1.0775115, z: 0.259624}
+  m_Center: {x: 0, y: 0, z: 0.0045621395}

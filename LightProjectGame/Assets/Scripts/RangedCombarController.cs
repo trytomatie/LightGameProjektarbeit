@@ -10,21 +10,14 @@ public class RangedCombarController : State
     public GameObject projectile;
     public Vector3 shootOffset = new Vector3(0,0.6f,0);
     public LayerMask layerMask;
-    public GameObject rcTarget;
     public GameObject reticle;
-    public GameObject rcTargetHighlightPrefab;
-    public GameObject draggableHighlightPrefab;
     public Transform ikTarget;
     public GameObject chargeAttackVFX;
     public Transform staffTip;
     public float reloadTime = 0.5f;
     private float reloadTimer = 0;
     private bool isReloading = false;
-    private GameObject projectedHighlight;
 
-
-    private GameObject[] draggableObjects;
-    private List<GameObject> highlightObjectIndicators = new List<GameObject>();
 
     private StateMachine sm;
     void Start()
@@ -70,7 +63,7 @@ public class RangedCombarController : State
     {
         if (playerController.myStatus.LightEnergy < 5)
         {
-            Invoke("ReloadingDone", 1);
+            Invoke("ReadyShot", 1);
             return;
         }
         if (sm.CheckStates(sm.currentState) == this)
@@ -85,35 +78,6 @@ public class RangedCombarController : State
         isReloading = false;
     }
 
-    private void RaycastForObjects()
-    {
-        RaycastHit rc;
-        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward,out rc, 7, layerMask))
-        {
-            if(rc.collider.tag == "Dragable")
-            {
-                if(rcTarget != rc.collider.gameObject)
-                {
-                    if (projectedHighlight != null)
-                    {
-                        Destroy(projectedHighlight);
-                    }
-                    rcTarget = rc.collider.gameObject;
-                    projectedHighlight = Instantiate(rcTargetHighlightPrefab, rcTarget.transform.position, rcTarget.transform.rotation, rcTarget.transform);
-                    projectedHighlight.GetComponent<MeshFilter>().mesh = rcTarget.GetComponent<MeshFilter>().mesh;
-                    projectedHighlight.transform.localPosition = projectedHighlight.transform.localPosition - new Vector3(0, -0.001f, 0);
-                    projectedHighlight.transform.localScale = new Vector3(1.02f, 1.02f, 1.02f);
-                }
-                return;
-            }
-        }
-        rcTarget = null;
-        if (rcTarget == null)
-        {
-            Destroy(projectedHighlight);
-        }
-    }
-
     private void SetIKTargetPosition()
     {
         ikTarget.position = mainCamera.transform.position + mainCamera.transform.forward * 10;
@@ -126,15 +90,6 @@ public class RangedCombarController : State
     {
         playerController.camAnim.SetInteger("cam", 1);
         reticle.SetActive(true);
-        draggableObjects = GameObject.FindGameObjectsWithTag("Dragable");
-        foreach(GameObject go in draggableObjects)
-        {
-            GameObject highLight = Instantiate(draggableHighlightPrefab, go.transform.position, go.transform.rotation, go.transform);
-            highLight.GetComponent<MeshFilter>().mesh = go.GetComponent<MeshFilter>().mesh;
-            highLight.transform.localScale = new Vector3(1.01f, 1.01f, 1.01f);
-            highLight.transform.localPosition = highLight.transform.localPosition - new Vector3(0, -0.001f, 0);
-            highlightObjectIndicators.Add(highLight);
-        }
         playerController.anim.SetFloat("movementMode", 1);
         playerController.anim.SetBool("aiming", true);
         chargeAttackVFX.SetActive(true);
@@ -148,7 +103,6 @@ public class RangedCombarController : State
         playerController.CalculateGravity();
         HandleShooting();
         playerController.HandleLantern();
-        RaycastForObjects();
         lockOnState.AnimationsParemetersInput();
         SetIKTargetPosition();
     }
@@ -159,29 +113,18 @@ public class RangedCombarController : State
         {
             return StateName.Controlling;
         }
-        if(Input.GetKeyDown(KeyCode.E) && rcTarget != null)
+        if(playerController.selectedSkill == 2)
         {
-            return StateName.Dragging;
+            return StateName.LookForDraggables;
         }
         return stateName;
     }
 
     public override void ExitState(GameObject source)
     {
-        if(projectedHighlight != null)
-        {
-            Destroy(projectedHighlight);
-        }
-        playerController.camAnim.SetInteger("cam", 0);
-        reticle.SetActive(false);
-
-        for(int i = 0; i < highlightObjectIndicators.Count;i++)
-        {
-            Destroy(highlightObjectIndicators[i]);
-        }
-        highlightObjectIndicators.Clear();
         playerController.anim.SetFloat("movementMode", 0);
         playerController.anim.SetBool("aiming", false);
+        reticle.SetActive(false);
         chargeAttackVFX.SetActive(false);
     }
     #endregion

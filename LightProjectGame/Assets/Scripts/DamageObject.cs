@@ -36,6 +36,7 @@ public class DamageObject : MonoBehaviour
                 StatusManager sm = other.GetComponent<StatusManager>();
                 if(sm.faction != faction)
                 {
+                    GameManager.CallHitPause();
                     sm.ApplyDamage(damage);
                     hitObjects.Add(other.gameObject);
                     ApplyHitEffect(other);

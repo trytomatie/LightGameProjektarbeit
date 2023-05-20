@@ -112,7 +112,11 @@ public class PlayerController : State
 
     private void OnApplicationFocus(bool focus)
     {
-        Cursor.lockState = focus ? CursorLockMode.Locked : CursorLockMode.None;
+        if(myStatus.Hp > 0)
+        {
+            Cursor.lockState = focus ? CursorLockMode.Locked : CursorLockMode.None;
+        }
+
     }
 
 

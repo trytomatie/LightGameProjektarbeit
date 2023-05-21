@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    private float hitPauseTime = 0.1f;
+    private float hitPauseTime = 0.05f;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,16 +22,19 @@ public class GameManager : MonoBehaviour
 
     public void LoadLevel(int i)
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(i);
     }
 
     public void LoadLevel(string name)
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(name);
     }
 
     public static void ReloadThisLevel()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

@@ -38,7 +38,7 @@ public class LookingForDragables : State
     private void RaycastForObjects()
     {
         RaycastHit rc;
-        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward,out rc, 7, layerMask))
+        if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward,out rc, 12, layerMask))
         {
             if(rc.collider.tag == "Dragable")
             {

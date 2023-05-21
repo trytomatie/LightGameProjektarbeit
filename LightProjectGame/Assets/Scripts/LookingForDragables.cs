@@ -67,6 +67,7 @@ public class LookingForDragables : State
     private void SetIKTargetPosition()
     {
         ikTarget.position = mainCamera.transform.position + mainCamera.transform.forward * 10;
+
     }
 
     #region StateMethods

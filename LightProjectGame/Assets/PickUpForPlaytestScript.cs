@@ -7,6 +7,7 @@ public class PickUpForPlaytestScript : MonoBehaviour
     public Transform target;
     public GameObject pressEToPickup;
     public GameObject powerUpVFX;
+    public GameObject weakenEnemiesPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,7 @@ public class PickUpForPlaytestScript : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 target.GetComponent<WeakendControllsState>().switchToHeightendState = true;
+                Instantiate(weakenEnemiesPrefab, transform.position, transform.rotation);
                 powerUpVFX.SetActive(true);
                 Destroy(gameObject);
             }

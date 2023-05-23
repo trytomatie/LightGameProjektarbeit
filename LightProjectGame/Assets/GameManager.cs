@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     private float hitPauseTime = 0.05f;
+    public static List<TargetInfo> enemyTargetsInScene = new List<TargetInfo>();
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,11 @@ public class GameManager : MonoBehaviour
         {
             this.enabled = false;
         }
+    }
+
+    public static void AddToEnemyTargetList(TargetInfo targetInfo)
+    {
+        enemyTargetsInScene.Add(targetInfo);
     }
 
     public void LoadLevel(int i)

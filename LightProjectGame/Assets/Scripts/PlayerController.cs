@@ -106,13 +106,14 @@ public class PlayerController : State
             weakendState.stateName = StateName.Controlling;
             stateName = StateName.Invalid;
         }
+        GameManager.AddToEnemyTargetList(myStatus.targetInfo);
 
 
     }
 
     private void OnApplicationFocus(bool focus)
     {
-        if(myStatus.Hp > 0)
+        if(GetComponent<StatusManager>().Hp > 0)
         {
             Cursor.lockState = focus ? CursorLockMode.Locked : CursorLockMode.None;
         }

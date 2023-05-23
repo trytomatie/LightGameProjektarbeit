@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,11 @@ public class StatusManager : MonoBehaviour
     public int shieldHp = 3;
     public int shieldMaxHp = 3;
 
+    [Header("Speed")]
+    public float moveSpeed = 3;
+
+
+    [Header("LightEnergy")]
     public float lightEnergy = 0;
     public float maxLightEnergy = 0;
     private bool hasCast = false;
@@ -25,11 +31,14 @@ public class StatusManager : MonoBehaviour
     public UnityEvent lightEnergyEvent;
     public UnityEvent shieldDamageEvent;
 
+    [HideInInspector]
+    public TargetInfo targetInfo;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         hp = maxHp;
+        targetInfo = new TargetInfo(gameObject);
     }
 
 
@@ -124,5 +133,70 @@ public class StatusManager : MonoBehaviour
 
         }
     }
+}
 
+public class TargetInfo
+{
+    private Vector3 position;
+    public List<GameObject> aggroList = new List<GameObject>();
+    public StatusManager sm;
+
+    public Vector3 Position 
+    { 
+        get => sm.transform.position;
+    }
+
+    public TargetInfo(GameObject gameObject)
+    {
+        sm = gameObject.GetComponent<StatusManager>();
+    }
+    
+    public float Distance(Vector3 pos)
+    {
+        return Vector3.Distance(pos, Position);
+    }
+
+    public bool HasLoS(Vector3 pos,float sightDistance,LayerMask layerMask)
+    {
+        return Physics.Raycast(new Ray(pos, Direction(pos)), sightDistance, layerMask);
+    }
+
+    public Vector3 Direction(Vector3 pos)
+    {
+        return Position - pos;
+    }
+
+    public void MoveInAggroList(int targetIndex,int direction)
+    {
+        if (aggroList == null)
+        {
+            throw new ArgumentNullException(nameof(aggroList));
+        }
+
+        if (targetIndex < 0 || targetIndex >= aggroList.Count)
+        {
+            throw new ArgumentOutOfRangeException(nameof(aggroList));
+        }
+
+        if (direction == 0)
+        {
+            return; // No movement required
+        }
+
+        int newIndex = targetIndex + direction;
+
+        if (newIndex < 0)
+        {
+            newIndex = 0;
+        }
+
+        if(newIndex >= aggroList.Count)
+        {
+            newIndex = aggroList.Count - 1;
+        }
+
+        GameObject item = aggroList[targetIndex];
+        aggroList.RemoveAt(targetIndex);
+        aggroList.Insert(newIndex, item);
+    }
 }

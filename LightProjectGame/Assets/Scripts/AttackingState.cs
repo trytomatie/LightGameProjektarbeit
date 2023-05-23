@@ -16,12 +16,14 @@ public class AttackingState : State
     private DashingState dashState;
     private float originalTurnspeed;
 
-    public List<EnemyController> enemyList = new List<EnemyController>();
+    public List<StatusManager> enemyList = new List<StatusManager>();
+    private LayerMask enemyLayer;
 
     private bool queueAttack = false;
 
     void Start()
     {
+        enemyLayer = LayerMask.GetMask("Enemy");
         playerController = GetComponent<PlayerController>();
         dashState = GetComponent<DashingState>();
         mainCamera = Camera.main;
@@ -29,21 +31,21 @@ public class AttackingState : State
 
     private void ScanForEnemies()
     {
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position, 8,Vector3.forward);
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position, 8,Vector3.forward, enemyLayer);
         foreach(RaycastHit hit in hits)
         {
-            if(hit.collider.GetComponent<EnemyController>() != null)
+            if(hit.collider.CompareTag("Enemy"))
             {
-                enemyList.Add(hit.collider.GetComponent<EnemyController>());
+                enemyList.Add(hit.collider.GetComponent<StatusManager>());
             }
         }
     }
 
-    private float GetClosestEnemy(out EnemyController result)
+    private float GetClosestEnemy(out StatusManager result)
     {
         float distance = float.MaxValue;
-        EnemyController target = null;
-        foreach(EnemyController ec in enemyList)
+        StatusManager target = null;
+        foreach(StatusManager ec in enemyList)
         {
             float newDistance = Vector3.Distance(transform.position, ec.transform.position);
             if (newDistance < distance)
@@ -70,7 +72,7 @@ public class AttackingState : State
             queueAttack = false;
             if (enemyList.Count > 0)
             {
-                EnemyController ec;
+                StatusManager ec;
                 float distance = GetClosestEnemy(out ec);
 
                 if(distance < 5)

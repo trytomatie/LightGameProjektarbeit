@@ -23,7 +23,9 @@ public abstract class State : MonoBehaviour
         Invalid,
         LookForDraggables,
         Alerted,
-        Idle
+        Idle,
+        Approaching,
+        Circling
     }
     public StateName stateName;
 

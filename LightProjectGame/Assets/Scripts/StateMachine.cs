@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using UnityEngine.Events;
 
 public class StateMachine : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class StateMachine : MonoBehaviour
     public bool isUpdating = true;
 
     private State.StateName forceState = State.StateName.Empty;
+    [HideInInspector]
+    public UnityEvent Transitioning;
 
     // Start is called before the first frame update
     public void Start()
@@ -87,6 +90,7 @@ public class StateMachine : MonoBehaviour
 
         currentState?.ExitState(gameObject);
         currentState = state;
+        Transitioning.Invoke();
         currentState.EnterState(gameObject);
     }
 }

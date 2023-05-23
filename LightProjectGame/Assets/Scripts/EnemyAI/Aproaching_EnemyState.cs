@@ -2,12 +2,11 @@
 using UnityEngine;
 
 
-public class Alerted_EnemyState : State
+public class Aproaching_EnemyState : State
 {
     private EnemyStateMethods esm;
     private EnemyStateVarriables esv;
 
-    private float alertedTimer = 0;
 
     private void Start()
     {
@@ -17,9 +16,7 @@ public class Alerted_EnemyState : State
     #region StateMethods
     public override void EnterState(GameObject source)
     {
-        esv.anim.SetTrigger(esv.animAlertedHash);
-        esv.agent.updateRotation = false;
-        alertedTimer = Time.time + esv.alertedTime;
+
     }
 
 
@@ -29,18 +26,20 @@ public class Alerted_EnemyState : State
     public override void UpdateState(GameObject source)
     {
         esm.RotateToPos(esv.target.Position);
+        esm.MoveToPosition(esv.target.Position);
+        esm.Animation();
     }
 
     public override void ExitState(GameObject source)
     {
-        esv.agent.updateRotation = true;
+
     }
 
     public override StateName Transition(GameObject source)
     {
-        if(Time.time >= alertedTimer)
+        if(esv.target.Distance(transform.position) <= esv.circleRange)
         {
-            return StateName.Approaching;
+            return StateName.Circling;
         }
         return stateName;
     }

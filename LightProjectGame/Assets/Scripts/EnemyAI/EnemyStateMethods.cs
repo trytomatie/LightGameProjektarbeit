@@ -37,6 +37,30 @@ public class EnemyStateMethods : MonoBehaviour
         esv.anim.SetFloat(esv.animSpeedHash, esv.agent.velocity.magnitude);
     }
 
+    public void AnimationsParemetersInput()
+    {
+
+        Vector3 forward = transform.forward;
+        Vector3 right = transform.right;
+
+        Vector3 movement = esv.agent.velocity;
+        float dot = Vector3.Dot(forward, movement.normalized);
+        float dotRight = Vector3.Dot(right, movement.normalized);
+
+        float maxDot = Mathf.Max(Mathf.Abs(dotRight), Mathf.Abs(dot));
+        if (maxDot == Mathf.Abs(dot))
+        {
+            dotRight = 0;
+        }
+        else
+        {
+            dot = 0;
+        }
+
+        esv.anim.SetFloat(esv.animXInputHash, Mathf.RoundToInt(dotRight) * esv.Speed/1.8f, 0.1f, Time.deltaTime);
+        esv.anim.SetFloat(esv.animYInputHash, Mathf.RoundToInt(dot) * esv.Speed /1.8f, 0.1f, Time.deltaTime);
+    }
+
     public void Attack()
     {
         esv.anim.SetBool(esv.animAttackHash, true);
@@ -91,6 +115,7 @@ public class EnemyStateMethods : MonoBehaviour
         return result;
     }
 
+
     public int CheckAggroPossition(TargetInfo target)
     {
         for(int i = 0; i < target.aggroList.Count;i++)
@@ -101,6 +126,30 @@ public class EnemyStateMethods : MonoBehaviour
             }
         }
         return int.MaxValue;
+    }
+
+    public Vector3 AngleToVector(float angle)
+    {
+        // Convert the angle to radians
+        float radians = angle * Mathf.Deg2Rad;
+
+        // Calculate the direction vector using a reference vector (e.g., forward)
+        Vector3 referenceVector = Vector3.forward;
+        Vector3 direction = Quaternion.Euler(0f, angle, 0f) * referenceVector;
+
+        return direction;
+    }
+
+    public float VectorToAngle(Vector3 direction)
+    {
+        // Calculate the angle using Atan2 function
+        float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+
+        // Convert the angle to the range of 0 to 360 degrees
+        if (angle < 0)
+            angle += 360f;
+
+        return angle;
     }
 
     #region Gizomos

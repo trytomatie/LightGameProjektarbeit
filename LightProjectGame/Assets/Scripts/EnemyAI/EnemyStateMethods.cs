@@ -99,16 +99,20 @@ public class EnemyStateMethods : MonoBehaviour
         GetPossibleTargets();
         foreach (TargetInfo possibleTarget in esv.possibleTargets)
         {
-            Vector3 direction = possibleTarget.Direction(transform.position);
-            float angle = Vector3.Angle(direction, transform.forward);
-            print(angle);
-            if (angle <= esv.horizontalFieldOfView / 2f && Mathf.Abs(Vector3.Angle(direction, transform.up)) <= esv.verticalFieldOfView / 2f && possibleTarget.Distance(transform.position) < esv.aggroRange)
+            if(esv.ignoreLoS && possibleTarget.Distance(transform.position) < esv.aggroRange)
             {
-                print("isInFOV");
-                if (possibleTarget.HasLoS(esv.EyePosition, esv.aggroRange, esv.layerMask))
+                result = possibleTarget;
+            }
+            else
+            {
+                Vector3 direction = possibleTarget.Direction(transform.position);
+                float angle = Vector3.Angle(direction, transform.forward);
+                if (angle <= esv.horizontalFieldOfView / 2f && Mathf.Abs(Vector3.Angle(direction, transform.up)) <= esv.verticalFieldOfView / 2f && possibleTarget.Distance(transform.position) < esv.aggroRange)
                 {
-                    print("sawHimBoss");
-                    result = possibleTarget;
+                    if (possibleTarget.HasLoS(esv.EyePosition, esv.aggroRange, esv.layerMask))
+                    {
+                        result = possibleTarget;
+                    }
                 }
             }
         }
@@ -127,6 +131,40 @@ public class EnemyStateMethods : MonoBehaviour
         }
         return int.MaxValue;
     }
+
+    public bool AttackRoll()
+    {
+        float attackRoll = Random.value;
+        if (attackRoll - GetAggroListAttackRollPenalty(esv.target) > 0f)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool AttackRoll(float extraPenalty)
+    {
+        float attackRoll = Random.value;
+        attackRoll = attackRoll - GetAggroListAttackRollPenalty(esv.target) - extraPenalty;
+        print(attackRoll);
+        if (attackRoll > 0f)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public float GetAggroListPositionModifier(TargetInfo target)
+    {
+        return esv.AggrolistPositionModifier[Mathf.Clamp(CheckAggroPossition(target),0,esv.AggrolistPositionModifier.Length-1)];
+    }
+
+    public float GetAggroListAttackRollPenalty(TargetInfo target)
+    {
+        return esv.AggroListAttackRollPenalty[Mathf.Clamp(CheckAggroPossition(target), 0, esv.AggrolistPositionModifier.Length - 1)];
+    }
+
+
 
     public Vector3 AngleToVector(float angle)
     {

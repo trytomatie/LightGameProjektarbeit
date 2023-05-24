@@ -1657,7 +1657,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 385916754}
-  m_LocalRotation: {x: 0.14369458, y: 0.00000004761991, z: -0.000000019921853, w: 0.9896221}
+  m_LocalRotation: {x: 0.14369458, y: 0.000000015873304, z: -0.000000006640618, w: 0.9896221}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -26818,6 +26818,39 @@ MonoBehaviour:
     m_RotationOrder: 4
   normalMaterial: {fileID: 2100000, guid: 82b5dccef0f3ac54fab5024aa9d6177e, type: 2}
   selectedSkill: 0
+  knockbackPower:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.9975128
+      inSlope: -0.10079488
+      outSlope: -0.10079488
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.70910895
+      value: 0.92603827
+      inSlope: -0.31786126
+      outSlope: -0.31786126
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.19412944
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.021198273
+      inSlope: -3.1105804
+      outSlope: -3.1105804
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &2864954321289360895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26845,6 +26878,9 @@ MonoBehaviour:
   - {fileID: 114797121}
   currentState: {fileID: 2864954321289360893}
   isUpdating: 1
+  Transitioning:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!95 &987032588
 Animator:
   serializedVersion: 4
@@ -27134,9 +27170,11 @@ MonoBehaviour:
   faction: 1
   maxHp: 15
   hp: 15
+  isInvulnerable: 0
   shielding: 0
   shieldHp: 30
   shieldMaxHp: 30
+  moveSpeed: 3
   lightEnergy: 100
   maxLightEnergy: 100
   deathEvent:
@@ -27440,7 +27478,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2977000262092636716}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.6399884, y: 10.267613, z: 10.769793}
+  m_LocalPosition: {x: -0.6398325, y: 10.267613, z: 10.769793}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

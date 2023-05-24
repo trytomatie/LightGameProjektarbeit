@@ -25,7 +25,10 @@ public abstract class State : MonoBehaviour
         Alerted,
         Idle,
         Approaching,
-        Circling
+        Circling,
+        Taunting,
+        ApproachForAttack,
+        AttackRecovery
     }
     public StateName stateName;
 

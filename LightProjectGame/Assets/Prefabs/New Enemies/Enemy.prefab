@@ -1049,6 +1049,13 @@ GameObject:
   - component: {fileID: 5825887541171667085}
   - component: {fileID: 5825887541171667075}
   - component: {fileID: 5825887541171667072}
+  - component: {fileID: 2805552595618158620}
+  - component: {fileID: 2195266203896416092}
+  - component: {fileID: 8058742642455960281}
+  - component: {fileID: 4396939594287226267}
+  - component: {fileID: 8529970325724383464}
+  - component: {fileID: 1710149991175586386}
+  - component: {fileID: 3710253614372809029}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
@@ -1142,6 +1149,13 @@ MonoBehaviour:
   - {fileID: 5825887541171667085}
   - {fileID: 5825887541171667075}
   - {fileID: 5825887541171667072}
+  - {fileID: 2805552595618158620}
+  - {fileID: 2195266203896416092}
+  - {fileID: 8058742642455960281}
+  - {fileID: 4396939594287226267}
+  - {fileID: 8529970325724383464}
+  - {fileID: 1710149991175586386}
+  - {fileID: 3710253614372809029}
   currentState: {fileID: 5825887541171667084}
   isUpdating: 1
   Transitioning:
@@ -1162,6 +1176,7 @@ MonoBehaviour:
   faction: 0
   maxHp: 3
   hp: 3
+  isInvulnerable: 0
   shielding: 0
   shieldHp: 3
   shieldMaxHp: 3
@@ -1183,13 +1198,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: EnemyController, Assembly-CSharp
-        m_MethodName: DeathEvent
-        m_Mode: 1
+      - m_Target: {fileID: 3246760601683976110}
+        m_TargetAssemblyTypeName: StateMachine, Assembly-CSharp
+        m_MethodName: ForceState
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1710149991175586386}
+          m_ObjectArgumentAssemblyTypeName: State, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1232,16 +1247,28 @@ MonoBehaviour:
   circleRange: 5
   speed: 4
   aggroRange: 3
-  attackRange: 2
+  attackIntervalls: {x: 1, y: 7}
+  attackRange: 1.3
   circleSpeed: 3
   alertedTime: 2
   verticalFieldOfView: 180
   horizontalFieldOfView: 160.8
+  ignoreLoS: 0
   eyeHeight: 1.3
   layerMask:
     serializedVersion: 2
     m_Bits: 511
   previousState: {fileID: 0}
+  aggrolistPositionModifier:
+  - 1
+  - 1
+  - 0.7
+  - 0.2
+  aggroListAttackRollPenalty:
+  - 0
+  - 0.5
+  - 0.8
+  - 1
   ciclingStartAngle: 0
   currentCircelingAngle: 0
   statusManager: {fileID: 0}
@@ -1254,6 +1281,7 @@ MonoBehaviour:
   animMovementModeHash: 0
   animXInputHash: 0
   animYInputHash: 0
+  animTauntHash: 0
 --- !u!114 &5825887541171667084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1306,6 +1334,102 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateName: 24
+--- !u!114 &2805552595618158620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6399075329948554119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfa9aaf9c969d90459c60db962f609f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateName: 25
+--- !u!114 &2195266203896416092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6399075329948554119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9660704f03ea41549a80f4ca1c10dc79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateName: 26
+--- !u!114 &8058742642455960281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6399075329948554119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ace02ff7782ae04c807776144a2ee09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateName: 13
+--- !u!114 &4396939594287226267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6399075329948554119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36b282250d6b56d45bb54bcb092daf8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateName: 14
+  anim: {fileID: 3420754335660735205}
+  isHit: 0
+  shieldingEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &8529970325724383464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6399075329948554119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e3e65bdec66dc44aa57b08ed78e854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateName: 18
+--- !u!114 &1710149991175586386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6399075329948554119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e895a65a40f506644a442ecdc7d5171d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateName: 16
+--- !u!114 &3710253614372809029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6399075329948554119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9add95fba94cc3d4e9c5ddb43389d219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateName: 27
 --- !u!1 &6702601263814930827
 GameObject:
   m_ObjectHideFlags: 0

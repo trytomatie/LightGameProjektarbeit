@@ -10,14 +10,19 @@ public class EnemyStateVarriables : MonoBehaviour
     public float circleRange = 5;
     public float speed = 4; 
     public float aggroRange = 10;
+    public Vector2 attackIntervalls = new Vector2(1, 7);
     public float attackRange = 10;
     public float circleSpeed = 3;
     public float alertedTime = 2;
     public float verticalFieldOfView = 60;
     public float horizontalFieldOfView = 360f;
+    public bool ignoreLoS = false;
     public float eyeHeight = 1.3f;
     public LayerMask layerMask;
     public State previousState;
+
+    public float[] aggrolistPositionModifier = { 1, 1f, 0.7f,0.2f };
+    public float[] aggroListAttackRollPenalty = { 0f, 0.5f, 0.8f, 1f };
 
     // Specific State Variables
     [HideInInspector] public float ciclingStartAngle;
@@ -35,7 +40,7 @@ public class EnemyStateVarriables : MonoBehaviour
     [HideInInspector] public int animMovementModeHash;
     [HideInInspector] public int animXInputHash;
     [HideInInspector] public int animYInputHash;
-
+    [HideInInspector] public int animTauntHash;
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -48,6 +53,7 @@ public class EnemyStateVarriables : MonoBehaviour
         animMovementModeHash = Animator.StringToHash("movementMode");
         animXInputHash = Animator.StringToHash("xInput");
         animYInputHash = Animator.StringToHash("yInput");
+        animTauntHash = Animator.StringToHash("taunt");
         stateMachine.Transitioning.AddListener(GetPreviousState);
         Speed = Speed;
     }
@@ -66,9 +72,12 @@ public class EnemyStateVarriables : MonoBehaviour
         } 
     }
 
+    public float[] AggrolistPositionModifier { get => aggrolistPositionModifier; }
+    public float[] AggroListAttackRollPenalty { get => aggroListAttackRollPenalty; }
+
     private void OnValidate()
     {
-        agent.speed = speed;
+        GetComponent<NavMeshAgent>().speed = speed;
     }
 
 }

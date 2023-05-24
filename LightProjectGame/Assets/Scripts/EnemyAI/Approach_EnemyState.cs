@@ -2,11 +2,11 @@
 using UnityEngine;
 
 
-public class Aproaching_EnemyState : State
+public class Approach_EnemyState : State
 {
     private EnemyStateMethods esm;
     private EnemyStateVarriables esv;
-
+    private Vector3 direction;
 
     private void Start()
     {
@@ -16,7 +16,9 @@ public class Aproaching_EnemyState : State
     #region StateMethods
     public override void EnterState(GameObject source)
     {
-
+        direction = Random.onUnitSphere - (transform.forward * 0.1f);
+        direction = direction.normalized;
+        esv.Speed = 4.5f;
     }
 
 
@@ -26,7 +28,7 @@ public class Aproaching_EnemyState : State
     public override void UpdateState(GameObject source)
     {
         esm.RotateToPos(esv.target.Position);
-        esm.MoveToPosition(esv.target.Position);
+        esm.MoveToPosition(transform.position + transform.forward + direction);
         esm.Animation();
     }
 
@@ -39,7 +41,15 @@ public class Aproaching_EnemyState : State
     {
         if(esv.target.Distance(transform.position) <= esv.circleRange)
         {
-            return StateName.Circling;
+            if(esm.AttackRoll())
+            {
+                return StateName.ApproachForAttack;
+            }
+            else
+            {
+                return StateName.Circling;
+            }
+
         }
         return stateName;
     }

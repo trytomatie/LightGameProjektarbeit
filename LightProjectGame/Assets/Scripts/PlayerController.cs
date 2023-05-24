@@ -90,6 +90,9 @@ public class PlayerController : State
     [Header("Skills")]
     public int selectedSkill = 0;
 
+    [Header("Knockback")]
+    public AnimationCurve knockbackPower;
+
 
     // Start is called before the first frame update
     void Start()
@@ -141,6 +144,22 @@ public class PlayerController : State
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             selectedSkill = 2;
+        }
+    }
+
+    public void ApplyKnockback(Vector3 force, float time)
+    {
+        StartCoroutine(KnockBack(force, time));
+
+    }
+    private IEnumerator KnockBack(Vector3 force, float time)
+    {
+        float timer = 0;
+        while(time > timer)
+        {
+            cc.Move(force * Time.deltaTime * knockbackPower.Evaluate(timer / time));
+            yield return new WaitForEndOfFrame();
+            timer += Time.deltaTime;
         }
     }
 

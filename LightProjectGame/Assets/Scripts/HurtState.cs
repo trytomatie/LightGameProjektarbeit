@@ -8,12 +8,12 @@ public class HurtState : State
 {
     public Animator anim;
     public bool isHit = false;
-    private int frameCount = 0;
-    private StateMachine sm;
-    private StatusManager myStatus;
+    internal int frameCount = 0;
+    internal StateMachine sm;
+    internal StatusManager myStatus;
     public UnityEvent shieldingEvent;
 
-    private void Start()
+    public virtual void Start()
     {
         sm = GetComponent<StateMachine>();
         myStatus = GetComponent<StatusManager>();
@@ -58,7 +58,7 @@ public class HurtState : State
 
     public override StateName AnyTransition(GameObject source)
     {
-        if(isHit && (sm.currentState.stateName != State.StateName.Attacking && sm.currentState.stateName != State.StateName.Dashing) )
+        if(isHit && (sm.currentState.stateName != State.StateName.Attacking && myStatus.faction == StatusManager.Faction.Enemy) )
         {
             return StateName.Hurt;
         }

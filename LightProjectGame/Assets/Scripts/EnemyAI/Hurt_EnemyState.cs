@@ -4,24 +4,26 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(StateMachine))]
-public class HurtStaggerState : State
+public class Hurt_EnemyState : HurtState
 {
-    private float staggerTime = 0.5f;
-    private float staggerTimer = 0;
-    private StatusManager sm;
 
+    private EnemyStateVarriables esv;
+    private EnemyStateMethods esm;
 
-    private void Start()
+    public override void Start()
     {
-        sm = GetComponent<StatusManager>();
+        esm = GetComponent<EnemyStateMethods>();
+        esv = GetComponent<EnemyStateVarriables>();
+
+        base.Start();
     }
+
+
     #region StateMethods
     public override void EnterState(GameObject source)
     {
-        if(staggerTimer + staggerTime <= Time.time)
-        {
-            staggerTimer = Time.time + staggerTime;
-        }
+        esv.target.MoveInAggroList(esm.CheckAggroPossition(esv.target), 2);
+        base.EnterState(source);
     }
     public override void UpdateState(GameObject source)
     {
@@ -30,15 +32,7 @@ public class HurtStaggerState : State
 
     public override StateName Transition(GameObject source)
     {
-        if(staggerTimer <= Time.time)
-        {
-            if(sm.faction == StatusManager.Faction.Enemy)
-            {
-                return StateName.ApproachForAttack;
-            }
-            return StateName.Controlling;
-        }
-        return stateName;
+        return base.Transition(source);
     }
 
     public override StateName AnyTransition(GameObject source)

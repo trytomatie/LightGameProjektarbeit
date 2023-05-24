@@ -89,8 +89,8 @@ public class StateMachine : MonoBehaviour
         return;
 
         currentState?.ExitState(gameObject);
-        currentState = state;
         Transitioning.Invoke();
+        currentState = state;
         currentState.EnterState(gameObject);
     }
 }

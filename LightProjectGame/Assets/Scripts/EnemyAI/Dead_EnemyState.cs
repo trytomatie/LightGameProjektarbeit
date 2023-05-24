@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-public class Idle_EnemyState : State
+public class Dead_EnemyState : State
 {
     private EnemyStateMethods esm;
     private EnemyStateVarriables esv;
@@ -16,7 +16,7 @@ public class Idle_EnemyState : State
     #region StateMethods
     public override void EnterState(GameObject source)
     {
-
+        esv.target.aggroList.Remove(gameObject);
     }
 
 
@@ -35,13 +35,7 @@ public class Idle_EnemyState : State
 
     public override StateName Transition(GameObject source)
     {
-        TargetInfo target = esm.CheckLoSPossibleTarget();
-        if (target != null)
-        {
-            esv.target = target;
-            target.aggroList.Add(gameObject);
-            return StateName.Alerted;
-        }
+
         return stateName;
     }
 

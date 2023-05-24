@@ -2,10 +2,11 @@
 using UnityEngine;
 
 
-public class Idle_EnemyState : State
+public class Taunt_EnemyState : State
 {
     private EnemyStateMethods esm;
     private EnemyStateVarriables esv;
+    private float tauntTime = 0.5f;
 
 
     private void Start()
@@ -16,7 +17,8 @@ public class Idle_EnemyState : State
     #region StateMethods
     public override void EnterState(GameObject source)
     {
-
+        esv.anim.SetTrigger(esv.animTauntHash);
+        tauntTime = Time.time + 0.5f;
     }
 
 
@@ -35,12 +37,9 @@ public class Idle_EnemyState : State
 
     public override StateName Transition(GameObject source)
     {
-        TargetInfo target = esm.CheckLoSPossibleTarget();
-        if (target != null)
+        if(tauntTime <= Time.time && !esv.anim.GetCurrentAnimatorStateInfo(2).IsName("Taunt"))
         {
-            esv.target = target;
-            target.aggroList.Add(gameObject);
-            return StateName.Alerted;
+            return esv.previousState.stateName;
         }
         return stateName;
     }

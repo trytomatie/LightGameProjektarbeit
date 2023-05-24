@@ -2,10 +2,11 @@
 using UnityEngine;
 
 
-public class Idle_EnemyState : State
+public class ApproachAttackRange_EnemyState : State
 {
     private EnemyStateMethods esm;
     private EnemyStateVarriables esv;
+    private float chaseTime;
 
 
     private void Start()
@@ -16,7 +17,8 @@ public class Idle_EnemyState : State
     #region StateMethods
     public override void EnterState(GameObject source)
     {
-
+        esv.Speed = 4.5f;
+        chaseTime = Time.time + Random.Range(2, 8f);
     }
 
 
@@ -25,22 +27,25 @@ public class Idle_EnemyState : State
     /// </summary>
     public override void UpdateState(GameObject source)
     {
-
+        esm.RotateToPos(esv.target.Position);
+        esm.MoveToPosition(esv.target.Position);
+        esm.Animation();
     }
 
     public override void ExitState(GameObject source)
     {
-
+        esv.Speed = 4;
     }
 
     public override StateName Transition(GameObject source)
     {
-        TargetInfo target = esm.CheckLoSPossibleTarget();
-        if (target != null)
+        if(esv.target.Distance(transform.position) <= esv.attackRange)
         {
-            esv.target = target;
-            target.aggroList.Add(gameObject);
-            return StateName.Alerted;
+            return StateName.Attacking;
+        }
+        if(Time.time > chaseTime)
+        {
+            return StateName.Circling;
         }
         return stateName;
     }

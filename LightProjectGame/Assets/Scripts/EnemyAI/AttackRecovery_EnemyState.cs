@@ -2,11 +2,11 @@
 using UnityEngine;
 
 
-public class Idle_EnemyState : State
+public class AttackRecovery_EnemyState : State
 {
     private EnemyStateMethods esm;
     private EnemyStateVarriables esv;
-
+    private float timer;
 
     private void Start()
     {
@@ -16,7 +16,7 @@ public class Idle_EnemyState : State
     #region StateMethods
     public override void EnterState(GameObject source)
     {
-
+        timer = Time.time + 1f;
     }
 
 
@@ -35,12 +35,17 @@ public class Idle_EnemyState : State
 
     public override StateName Transition(GameObject source)
     {
-        TargetInfo target = esm.CheckLoSPossibleTarget();
-        if (target != null)
+        if(timer <= Time.time)
         {
-            esv.target = target;
-            target.aggroList.Add(gameObject);
-            return StateName.Alerted;
+            if(esm.AttackRoll(0.2f))
+            {
+                return StateName.ApproachForAttack;
+            }
+            else
+            {
+                return StateName.Circling;
+            }
+
         }
         return stateName;
     }

@@ -12,6 +12,8 @@ public class StatusManager : MonoBehaviour
     public int maxHp;
     public int hp;
 
+    public bool isInvulnerable = false;
+
     [Header("Shielding")]
     public bool shielding = false;
     public int shieldHp = 3;

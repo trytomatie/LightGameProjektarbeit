@@ -34,12 +34,18 @@ public class DamageObject : MonoBehaviour
             if(other.GetComponent<StatusManager>() != null)
             {
                 StatusManager sm = other.GetComponent<StatusManager>();
-                if(sm.faction != faction)
+                if(sm.faction != faction && !sm.isInvulnerable)
                 {
                     GameManager.CallHitPause();
                     sm.ApplyDamage(damage);
                     hitObjects.Add(other.gameObject);
                     ApplyHitEffect(other);
+                    if(sm.faction == StatusManager.Faction.Player)
+                    {
+                        Vector3 dir = transform.position - other.transform.position;
+                        dir.y = 0;
+                        other.GetComponent<PlayerController>().ApplyKnockback(-dir.normalized * 5, 0.3f);
+                    }
                 }
             }
             if (other.tag == "PuzzleElement" && other.GetComponent<LampOn>() != null)

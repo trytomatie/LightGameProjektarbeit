@@ -31,14 +31,7 @@ public class AttackingState : State
 
     private void ScanForEnemies()
     {
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position, 8,Vector3.forward, enemyLayer);
-        foreach(RaycastHit hit in hits)
-        {
-            if(hit.collider.CompareTag("Enemy"))
-            {
-                enemyList.Add(hit.collider.GetComponent<StatusManager>());
-            }
-        }
+        enemyList = GameManager.enemysInScene;
     }
 
     private float GetClosestEnemy(out StatusManager result)

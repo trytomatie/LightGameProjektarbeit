@@ -19,6 +19,7 @@ public class Dead_EnemyState : State
         esv.target.aggroList.Remove(gameObject);
         esv.anim.SetTrigger("death");
         Destroy(gameObject, 5);
+        GameManager.enemysInScene.Remove(esv.statusManager);
     }
 
 

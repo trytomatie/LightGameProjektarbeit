@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     private float hitPauseTime = 0.2f;
     public static TargetInfo[] enemyTargetsInScene;
-    public static List<StatusManager> enemysInScene = new List<StatusManager>();
+    public List<StatusManager> enemysInScene = new List<StatusManager>();
     // Start is called before the first frame update
     void Start()
     {

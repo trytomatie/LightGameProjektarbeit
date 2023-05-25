@@ -13,6 +13,8 @@ public class DissolveHandler : MonoBehaviour
     private float time = 1;
     public float radius = 3;
     private float timeScaleMultipler = 3;
+
+    private int lightSourcesInScene = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +23,7 @@ public class DissolveHandler : MonoBehaviour
         foreach(LightController lc in GameObject.FindObjectsOfType<LightController>())
         {
             lightsInScene.Add(lc);
+            lightSourcesInScene++;
         }
 
         UpdateDistance();
@@ -35,8 +38,11 @@ public class DissolveHandler : MonoBehaviour
     private void Update()
     {
         meshRenderer.material.SetVector("_LightPos1", positions[0].position);
-        meshRenderer.material.SetVector("_LightPos2", positions[1].position);
-        meshRenderer.material.SetVector("_LightPos3", positions[2].position);
+        if (positions[1] != null)
+        {
+            meshRenderer.material.SetVector("_LightPos2", positions[1].position);
+            meshRenderer.material.SetVector("_LightPos3", positions[2].position);
+        }
     }
 
     private void UpdateDistance()
@@ -61,7 +67,7 @@ public class DissolveHandler : MonoBehaviour
             meshCollider.enabled = false;
         }
         meshRenderer.material.SetFloat("_Radius", time * radius);
-        for (int i = 0; i < 3;i++)
+        for (int i = 0; i < lightSourcesInScene; i++)
         {
             positions[i] = orderedList.ToArray()[i].transform;
         }

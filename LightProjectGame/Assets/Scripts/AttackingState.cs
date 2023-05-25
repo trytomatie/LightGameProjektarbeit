@@ -31,7 +31,7 @@ public class AttackingState : State
 
     private void ScanForEnemies()
     {
-        enemyList = GameManager.enemysInScene;
+        enemyList = GameManager.instance.enemysInScene;
     }
 
     private float GetClosestEnemy(out StatusManager result)
@@ -139,7 +139,6 @@ public class AttackingState : State
         playerController.anim.SetFloat("speed", 0);
         originalTurnspeed = playerController.turnspeed;
         playerController.turnspeed = 3000;
-        enemyList.Clear();
         ScanForEnemies();
         stateHasChanged = true;
         queueAttack = false;

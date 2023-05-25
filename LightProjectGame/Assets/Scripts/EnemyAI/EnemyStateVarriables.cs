@@ -55,6 +55,7 @@ public class EnemyStateVarriables : MonoBehaviour
         animYInputHash = Animator.StringToHash("yInput");
         animTauntHash = Animator.StringToHash("taunt");
         stateMachine.Transitioning.AddListener(GetPreviousState);
+        GameManager.instance.enemysInScene.Add(statusManager);
         Speed = Speed;
     }
 

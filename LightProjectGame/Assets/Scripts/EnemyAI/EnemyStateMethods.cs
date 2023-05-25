@@ -11,7 +11,6 @@ public class EnemyStateMethods : MonoBehaviour
     private void Start()
     {
         esv = GetComponent<EnemyStateVarriables>();
-        GameManager.enemysInScene.Add(esv.statusManager);
     }
     public void SetSpeed(float speed)
     {

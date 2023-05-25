@@ -58,9 +58,16 @@ public class HurtState : State
 
     public override StateName AnyTransition(GameObject source)
     {
-        if(isHit && (sm.currentState.stateName != State.StateName.Attacking && myStatus.faction == StatusManager.Faction.Enemy) )
+        if(isHit)
         {
-            return StateName.Hurt;
+            if (myStatus.faction == StatusManager.Faction.Enemy && (sm.currentState.stateName != State.StateName.Attacking && sm.currentState.stateName != StateName.Dead))
+            {
+                return StateName.Hurt;
+            }
+            if (myStatus.faction == StatusManager.Faction.Player)
+            {
+                return StateName.Hurt;
+            }
         }
         return base.AnyTransition(source);
     }

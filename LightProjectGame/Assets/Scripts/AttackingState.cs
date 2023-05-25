@@ -47,6 +47,8 @@ public class AttackingState : State
         StatusManager target = null;
         foreach(StatusManager ec in enemyList)
         {
+            if (ec == null || ec.Hp <= 0)
+                continue;
             float newDistance = Vector3.Distance(transform.position, ec.transform.position);
             if (newDistance < distance)
             {

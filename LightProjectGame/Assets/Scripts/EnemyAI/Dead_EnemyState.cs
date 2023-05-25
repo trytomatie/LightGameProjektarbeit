@@ -17,6 +17,8 @@ public class Dead_EnemyState : State
     public override void EnterState(GameObject source)
     {
         esv.target.aggroList.Remove(gameObject);
+        esv.anim.SetTrigger("death");
+        Destroy(gameObject, 5);
     }
 
 

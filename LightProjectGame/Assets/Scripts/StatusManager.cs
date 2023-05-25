@@ -33,7 +33,6 @@ public class StatusManager : MonoBehaviour
     public UnityEvent lightEnergyEvent;
     public UnityEvent shieldDamageEvent;
 
-    [HideInInspector]
     public TargetInfo targetInfo;
 
     // Start is called before the first frame update
@@ -137,7 +136,8 @@ public class StatusManager : MonoBehaviour
     }
 }
 
-public class TargetInfo
+[System.Serializable]
+public class TargetInfo 
 {
     private Vector3 position;
     public List<GameObject> aggroList = new List<GameObject>();

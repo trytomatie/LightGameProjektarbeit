@@ -69,7 +69,7 @@ public class EnemyStateMethods : MonoBehaviour
 
     public void GetPossibleTargets()
     {
-        esv.possibleTargets = GameManager.enemyTargetsInScene.ToArray();
+        esv.possibleTargets = GameManager.enemyTargetsInScene;
     }
 
     public void RotateToPos(Vector3 pos)
@@ -146,7 +146,6 @@ public class EnemyStateMethods : MonoBehaviour
     {
         float attackRoll = Random.value;
         attackRoll = attackRoll - GetAggroListAttackRollPenalty(esv.target) - extraPenalty;
-        print(attackRoll);
         if (attackRoll > 0f)
         {
             return true;

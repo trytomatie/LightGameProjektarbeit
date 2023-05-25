@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
+    public CinemachineVirtualCamera[] cams;
     public static GameManager instance;
-    private float hitPauseTime = 0.05f;
-    public static List<TargetInfo> enemyTargetsInScene = new List<TargetInfo>();
+    private float hitPauseTime = 0.2f;
+    public static TargetInfo[] enemyTargetsInScene;
     // Start is called before the first frame update
     void Start()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
@@ -21,26 +24,37 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private static void Init()
+    {
+        Time.timeScale = 1;
+        UnshakeCamera();
+    }
+
     public static void AddToEnemyTargetList(TargetInfo targetInfo)
     {
-        enemyTargetsInScene.Add(targetInfo);
+        List<TargetInfo> list = new List<TargetInfo>();
+        list.Add(targetInfo);
+        enemyTargetsInScene = list.Where(e => e != null).ToArray();
     }
 
     public void LoadLevel(int i)
     {
-        Time.timeScale = 1;
+        Init();
+
         SceneManager.LoadScene(i);
     }
 
     public void LoadLevel(string name)
     {
-        Time.timeScale = 1;
+        Init();
+
         SceneManager.LoadScene(name);
     }
 
     public static void ReloadThisLevel()
     {
-        Time.timeScale = 1;
+        Init();
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -51,15 +65,30 @@ public class GameManager : MonoBehaviour
 
     public static void CallHitPause()
     {
+        return;
         instance.StartCoroutine(instance.HitPause());
     }
 
     public IEnumerator HitPause()
     {
-        yield return new WaitForSecondsRealtime(0.1f);
         Time.timeScale = 0.1f;
         yield return new WaitForSecondsRealtime(hitPauseTime);
         Time.timeScale = 1;
+    }
+
+    public static void CameraShake(float duration)
+    {
+
+    }
+
+    private static void ShakeCamera()
+    {
+
+    }
+
+    private static void UnshakeCamera()
+    {
+
     }
 
 }

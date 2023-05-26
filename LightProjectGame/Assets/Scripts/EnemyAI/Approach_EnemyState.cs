@@ -7,6 +7,7 @@ public class Approach_EnemyState : State
     private EnemyStateMethods esm;
     private EnemyStateVarriables esv;
     private Vector3 direction;
+    private float timer = 0;
 
     private void Start()
     {
@@ -19,6 +20,7 @@ public class Approach_EnemyState : State
         direction = Random.onUnitSphere - (transform.forward * 0.1f);
         direction = direction.normalized;
         esv.Speed = 4.5f;
+        timer = Time.time + 5;
     }
 
 
@@ -50,6 +52,10 @@ public class Approach_EnemyState : State
                 return StateName.Circling;
             }
 
+        }
+        if(timer >= Time.time)
+        {
+            return StateName.Circling;
         }
         return stateName;
     }

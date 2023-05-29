@@ -7,6 +7,7 @@ public class PickUpForPlaytestScript : MonoBehaviour
     public Transform target;
     public GameObject pressEToPickup;
     public GameObject powerUpVFX;
+    public GameObject splineVFX;
     public GameObject weakenEnemiesPrefab;
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,7 @@ public class PickUpForPlaytestScript : MonoBehaviour
                 target.GetComponent<WeakendControllsState>().switchToHeightendState = true;
                 Instantiate(weakenEnemiesPrefab, transform.position, transform.rotation);
                 powerUpVFX.SetActive(true);
+                splineVFX.SetActive(true);
                 Destroy(gameObject);
             }
         }

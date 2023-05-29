@@ -7,6 +7,7 @@ public class EnemyStateMethods : MonoBehaviour
 {
     [HideInInspector]
     public EnemyStateVarriables esv;
+    private Vector3 currentMovePos;
 
     private void Start()
     {
@@ -19,6 +20,7 @@ public class EnemyStateMethods : MonoBehaviour
 
     public void MoveToPosition(Vector3 pos)
     {
+        currentMovePos = pos;
         esv.agent.SetDestination(pos);
     }
 
@@ -144,7 +146,7 @@ public class EnemyStateMethods : MonoBehaviour
 
     public bool AttackRoll(float extraPenalty)
     {
-        float attackRoll = Random.value;
+        float attackRoll = Random.value * esv.aggroListAttackRollPenalty[Mathf.Clamp(esv.lightsInRange.Count,0,3)];
         attackRoll = attackRoll - GetAggroListAttackRollPenalty(esv.target) - extraPenalty;
         if (attackRoll > 0f)
         {
@@ -189,11 +191,26 @@ public class EnemyStateMethods : MonoBehaviour
         return angle;
     }
 
+    public Vector3 AverageLightPosition()
+    {
+        int i = 0;
+        Vector3 pos = Vector3.zero;
+        foreach(LightController lc in esv.lightsInRange)
+        {
+            pos += lc.transform.position;
+            i++;
+        }
+        pos /= i;
+        return pos;
+    }
+
     #region Gizomos
     private void OnDrawGizmosSelected()
     {
         // Draw Gizmo for the field of view
         DrawFieldOfView();
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(currentMovePos, 0.5f);
     }
 
     private void DrawFieldOfView()

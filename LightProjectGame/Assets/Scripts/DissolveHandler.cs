@@ -67,7 +67,7 @@ public class DissolveHandler : MonoBehaviour
             meshCollider.enabled = false;
         }
         meshRenderer.material.SetFloat("_Radius", time * radius);
-        for (int i = 0; i < lightSourcesInScene; i++)
+        for (int i = 0; i < lightSourcesInScene-1; i++)
         {
             positions[i] = orderedList.ToArray()[i].transform;
         }

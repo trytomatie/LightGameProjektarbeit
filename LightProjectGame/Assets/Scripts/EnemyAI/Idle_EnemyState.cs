@@ -25,7 +25,7 @@ public class Idle_EnemyState : State
     /// </summary>
     public override void UpdateState(GameObject source)
     {
-
+        esm.Animation();
     }
 
     public override void ExitState(GameObject source)

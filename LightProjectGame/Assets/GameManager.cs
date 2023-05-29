@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public static TargetInfo[] enemyTargetsInScene;
     public List<StatusManager> enemysInScene = new List<StatusManager>();
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (instance == null)
         {

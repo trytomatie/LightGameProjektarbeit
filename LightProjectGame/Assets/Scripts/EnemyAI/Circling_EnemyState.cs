@@ -40,6 +40,7 @@ public class Circling_EnemyState : State
             direction = direction.normalized;
             changeDirectionTimer = Time.time + Random.Range(1f, 2f);
         }
+
         esm.RotateToPos(esv.target.Position);
         esm.AnimationsParemetersInput();
         if(esv.target.Distance(transform.position) > esv.circleRange)

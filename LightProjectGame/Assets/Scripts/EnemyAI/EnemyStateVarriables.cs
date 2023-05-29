@@ -7,6 +7,7 @@ public class EnemyStateVarriables : MonoBehaviour
 {
     public TargetInfo target;
     public TargetInfo[] possibleTargets;
+    public List<LightController> lightsInRange = new List<LightController>();
     public float circleRange = 5;
     public float speed = 4; 
     public float aggroRange = 10;
@@ -21,7 +22,7 @@ public class EnemyStateVarriables : MonoBehaviour
     public LayerMask layerMask;
     public State previousState;
 
-    public float[] aggrolistPositionModifier = { 1, 1f, 0.7f,0.2f };
+    public float[] aggrolistPositionModifier = { 1, 0f, 0f,0f };
     public float[] aggroListAttackRollPenalty = { 0f, 0.5f, 0.8f, 1f };
 
     // Specific State Variables

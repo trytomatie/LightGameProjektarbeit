@@ -6,7 +6,6 @@ using UnityEngine.Events;
 [RequireComponent(typeof(StateMachine))]
 public class DeadState : State
 {
-
     private void Start()
     {
 

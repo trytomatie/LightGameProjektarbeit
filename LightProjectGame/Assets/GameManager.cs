@@ -12,6 +12,12 @@ public class GameManager : MonoBehaviour
     private float hitPauseTime = 0.2f;
     public static TargetInfo[] enemyTargetsInScene;
     public List<StatusManager> enemysInScene = new List<StatusManager>();
+    public Transform lastSavePoint;
+    [Header("Interface")]
+    public GameObject deathMessageUI;
+    public GameObject savingUI;
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -25,10 +31,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            ReloadThisLevel();
+        }
+    }
+
     private static void Init()
     {
         Time.timeScale = 1;
-        UnshakeCamera();
     }
 
     public static void AddToEnemyTargetList(TargetInfo targetInfo)
@@ -55,8 +68,19 @@ public class GameManager : MonoBehaviour
     public static void ReloadThisLevel()
     {
         Init();
+        if(instance.lastSavePoint != null)
+        {
+            GameObject player = GameObject.Find("Player");
+            player.GetComponent<PlayerController>().RevivePlayer();
+            player.GetComponent<CharacterController>().enabled = false;
+            player.transform.position = instance.lastSavePoint.position;
+            player.GetComponent<CharacterController>().enabled = true;
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public static void ExitApplication()
@@ -67,7 +91,6 @@ public class GameManager : MonoBehaviour
     public static void CallHitPause()
     {
         return;
-        instance.StartCoroutine(instance.HitPause());
     }
 
     public IEnumerator HitPause()
@@ -76,20 +99,4 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(hitPauseTime);
         Time.timeScale = 1;
     }
-
-    public static void CameraShake(float duration)
-    {
-
-    }
-
-    private static void ShakeCamera()
-    {
-
-    }
-
-    private static void UnshakeCamera()
-    {
-
-    }
-
 }

@@ -43,6 +43,10 @@ public class MyShortcuts : Editor
     [MenuItem("GameObject/SimulatePhysics")]
     static void SimulatePhysics()
     {
+        if(EditorApplication.isPlaying)
+        {
+            return;
+        }
         toggleState = !toggleState;
         if (toggleState)
         {

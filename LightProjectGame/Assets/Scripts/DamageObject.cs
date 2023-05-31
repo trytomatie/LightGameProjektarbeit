@@ -6,9 +6,11 @@ public class DamageObject : MonoBehaviour
 {
 
     public StatusManager.Faction faction = StatusManager.Faction.Player;
+    public StatusManager source;
     public GameObject hitEffect;
     public List<GameObject> hitObjects;
     public int damage = 1;
+    public bool isActive = true;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,10 @@ public class DamageObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(!isActive)
+        {
+            return;
+        }
         if((other.GetComponent<StatusManager>() != null || other.tag == "PuzzleElement")  && !hitObjects.Contains(other.gameObject))
         {
             if(other.GetComponent<StatusManager>() != null)
@@ -45,6 +51,10 @@ public class DamageObject : MonoBehaviour
                         Vector3 dir = transform.position - other.transform.position;
                         dir.y = 0;
                         other.GetComponent<PlayerController>().ApplyKnockback(-dir.normalized * 5, 0.3f);
+                    }
+                    else
+                    {
+                        other.GetComponent<EnemyStateVarriables>().target = source.targetInfo;
                     }
                 }
             }

@@ -31,7 +31,8 @@ public class LightController : MonoBehaviour
             }
             if(other.gameObject.GetComponent<EnemyStateVarriables>() != null)
             {
-                other.gameObject.GetComponent<EnemyStateVarriables>().lightsInRange.Add(this);
+                print("test");
+                other.gameObject.GetComponent<EnemyStateVarriables>().LightsInRange.Add(this);
             }
         }
     }
@@ -53,7 +54,7 @@ public class LightController : MonoBehaviour
         }
         if (block.GetComponent<EnemyStateVarriables>() != null)
         {
-            block.GetComponent<EnemyStateVarriables>().lightsInRange.Remove(this);
+            block.GetComponent<EnemyStateVarriables>().LightsInRange.Remove(this);
         }
         objectsInRange.Remove(block);
     }
@@ -61,20 +62,22 @@ public class LightController : MonoBehaviour
     public void TurnOn()
     {
         lightCollision.enabled = true;
-        lightSource.enabled = true;
+
         isOn = true;
+        lightSource.enabled = true;
     }
 
     public void TurnOff()
     {
         lightCollision.enabled = false;
-        lightSource.enabled = false;
+
         isOn = false;
-        GameObject[] objectsToBeRemoved = objectsInRange.ToArray();
+        GameObject[] objectsToBeRemoved = objectsInRange.FindAll(e=> e != null).ToArray();
         foreach (GameObject go in objectsToBeRemoved)
         {
             RemoveLightInfluence(go);
         }
+        lightSource.enabled = false;
 
     }
 }

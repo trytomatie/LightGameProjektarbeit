@@ -39,6 +39,10 @@ public class ApproachAttackRange_EnemyState : State
 
     public override StateName Transition(GameObject source)
     {
+        if(esv.target == null)
+        {
+            return StateName.Idle;
+        }
         if(esv.target.Distance(transform.position) <= esv.attackRange)
         {
             return StateName.Attacking;

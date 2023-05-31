@@ -38,6 +38,7 @@ public class Idle_EnemyState : State
         TargetInfo target = esm.CheckLoSPossibleTarget();
         if (target != null)
         {
+            print("found target");
             esv.target = target;
             target.aggroList.Add(gameObject);
             return StateName.Alerted;

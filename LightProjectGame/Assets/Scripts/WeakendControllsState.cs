@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.VFX;
+using Cinemachine;
 
 [RequireComponent(typeof(StateMachine))]
 public class WeakendControllsState : State
@@ -11,8 +13,13 @@ public class WeakendControllsState : State
     public GameObject lampModel;
     public LightController lc;
     private StatusManager sm;
-
+    public GameObject[] hitBoxes;
     private DashingState dashState;
+
+    [Header("WeaponsOnCharacter")]
+    public GameObject mainWeapon;
+    public GameObject[] brokenWeapons;
+    public GameObject[] vfx;
 
     public bool switchToHeightendState = false;
     private void Start()
@@ -31,6 +38,18 @@ public class WeakendControllsState : State
         lampModel.SetActive(false);
         sm.shieldHp = 0;
         sm.shieldMaxHp = 0;
+
+        foreach(GameObject hitbox in hitBoxes)
+        {
+            if(hitbox.GetComponent<DestroyWeaponOnHit>() == null)
+            {
+                DestroyWeaponOnHit d = hitbox.AddComponent<DestroyWeaponOnHit>();
+                d.currentWeapon = mainWeapon;
+                d.brokenWeaponParts = brokenWeapons;
+                d.ws = this;
+            }
+
+        }
     }
     public override void UpdateState(GameObject source)
     {
@@ -81,6 +100,19 @@ public class WeakendControllsState : State
             lampModel.SetActive(true);
             sm.shieldHp = 30;
             sm.shieldMaxHp = 30;
+            foreach (GameObject hitbox in hitBoxes)
+            {
+                Destroy(hitbox.GetComponent<DestroyWeaponOnHit>());
+                hitbox.GetComponent<DamageObject>().enabled = true;
+                hitbox.GetComponent<CinemachineCollisionImpulseSource>().enabled = true;
+                hitbox.GetComponent<DamageObject>().isActive = true;
+            }
+            foreach (GameObject v in vfx)
+            {
+                v.SetActive(true);
+            }
+            mainWeapon.SetActive(true);
+            brokenWeapons[0].SetActive(false);
             stateName = StateName.Invalid;
             pc.stateName = StateName.Controlling;
             return StateName.Controlling;

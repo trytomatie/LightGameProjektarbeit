@@ -360,6 +360,28 @@ public class PlayerController : State
             }
         }
 
+       
+
+    }
+
+    public void CalculateGravityAndApplyForce()
+    {
+
+        if (!Helper.CheckBeneath(transform.position, cc, layerMask, castDistance, castScaleFactor))
+        {
+            ySpeed += gravity * Time.deltaTime;
+            grounded = false;
+        }
+        else
+        {
+
+            grounded = true;
+            if (ySpeed < 0)
+            {
+                ySpeed = 0;
+            }
+        }
+        cc.Move(new Vector3(0, ySpeed, 0) * Time.deltaTime);
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -390,6 +412,13 @@ public class PlayerController : State
             return StateName.LockOn;
         }
         return stateName;
+    }
+
+    public void RevivePlayer()
+    {
+        myStatus.Hp = myStatus.maxHp;
+        anim.Play("Empty", 2);
+        sm.ForceState(this);
     }
 
     #region StateMethodes

@@ -22,7 +22,10 @@ public class Hurt_EnemyState : HurtState
     #region StateMethods
     public override void EnterState(GameObject source)
     {
-        esv.target.MoveInAggroList(esm.CheckAggroPossition(esv.target), 2);
+        if(esv.target != null)
+        {
+            esv.target.MoveInAggroList(esm.CheckAggroPossition(esv.target), 2);
+        }
         base.EnterState(source);
     }
     public override void UpdateState(GameObject source)

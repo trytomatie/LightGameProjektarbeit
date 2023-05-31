@@ -13,6 +13,7 @@ public class LockOnState : State
     public GameObject shield;
     private NavMeshAgent targetNavMeshAgent;
     private float targetIndicatorYoffset;
+    private bool isShielding = false;
 
 
     private Camera mainCamera;
@@ -21,6 +22,7 @@ public class LockOnState : State
     private DashingState dashState;
     private StateMachine sm;
     public RectTransform blockIndicator;
+
 
     // Start is called before the first frame update
     void Start()
@@ -134,10 +136,9 @@ public class LockOnState : State
         stateName = StateName.Controlling;
         pc.camAnim.SetInteger("cam", 3);
         pc.anim.SetFloat("movementMode", 1);
-        HandleShielding();
         CalculateTargetCameraPivot();
         SetTargetIndicator();
-
+        isShielding = false;
         targetIndicator.gameObject.SetActive(true);
     }
 
@@ -152,6 +153,14 @@ public class LockOnState : State
         pc.HandleJump();
         HandleRotation();
         AnimationsParemetersInput();
+        if(Input.GetKey(KeyCode.LeftControl) || Input.GetMouseButton(1))
+        {
+            Shielding(true);
+        }
+        else
+        {
+            Shielding(false);
+        }
         if(myStatus.shielding)
         {
             blockIndicator.position = mainCamera.WorldToScreenPoint(transform.position + new Vector3(0, 1.5f, 0));

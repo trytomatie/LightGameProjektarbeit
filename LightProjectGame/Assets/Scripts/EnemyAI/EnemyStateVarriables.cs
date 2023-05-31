@@ -76,6 +76,14 @@ public class EnemyStateVarriables : MonoBehaviour
 
     public float[] AggrolistPositionModifier { get => aggrolistPositionModifier; }
     public float[] AggroListAttackRollPenalty { get => aggroListAttackRollPenalty; }
+    public List<LightController> LightsInRange 
+    { 
+        get 
+        {
+            return lightsInRange;
+        }
+        set => lightsInRange = value; 
+    }
 
     private void OnValidate()
     {

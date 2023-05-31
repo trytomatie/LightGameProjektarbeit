@@ -12,11 +12,13 @@ public class HurtState : State
     internal StateMachine sm;
     internal StatusManager myStatus;
     public UnityEvent shieldingEvent;
+    private PlayerController pc;
 
     public virtual void Start()
     {
         sm = GetComponent<StateMachine>();
         myStatus = GetComponent<StatusManager>();
+        pc = GetComponent<PlayerController>();
     }
 
     private void Update()
@@ -44,7 +46,7 @@ public class HurtState : State
     }
     public override void UpdateState(GameObject source)
     {
-
+        pc.CalculateGravityAndApplyForce();
     }
 
     public override StateName Transition(GameObject source)

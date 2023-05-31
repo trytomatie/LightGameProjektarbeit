@@ -47,8 +47,8 @@ public class DissolveHandler : MonoBehaviour
 
     private void UpdateDistance()
     {
-
-        var orderedList = lightsInScene.OrderBy(x => Vector3.Distance(x.transform.position, transform.position));
+        var lights = lightsInScene.FindAll(e => e != null);
+        var orderedList = lights.OrderBy(x => Vector3.Distance(x.transform.position, transform.position));
 
         if(!orderedList.ToArray()[0].isOn)
         {

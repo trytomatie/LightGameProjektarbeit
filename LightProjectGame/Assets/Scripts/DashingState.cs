@@ -50,6 +50,7 @@ public class DashingState : State
     {
         cc.height = duckHeight;
         cc.center = new Vector3(0, duckOffset, 0);
+        playerController.myStatus.isInvulnerable = true;
         HandleDash();
     }
     public override void UpdateState(GameObject source)
@@ -74,6 +75,7 @@ public class DashingState : State
     {
         isDashing = false;
         playerController.anim.SetBool("dash", false);
+        playerController.myStatus.isInvulnerable = false;
         dashCooldownTimer = Time.time + dashCooldown;
         cc.height = originalHight;
         cc.center = new Vector3(0, originalOffset, 0);

@@ -146,7 +146,7 @@ public class EnemyStateMethods : MonoBehaviour
 
     public bool AttackRoll(float extraPenalty)
     {
-        float attackRoll = Random.value * esv.aggroListAttackRollPenalty[Mathf.Clamp(esv.lightsInRange.Count,0,3)];
+        float attackRoll = Random.value * esv.aggroListAttackRollPenalty[Mathf.Clamp(esv.LightsInRange.Count,0,3)];
         attackRoll = attackRoll - GetAggroListAttackRollPenalty(esv.target) - extraPenalty;
         if (attackRoll > 0f)
         {
@@ -195,10 +195,13 @@ public class EnemyStateMethods : MonoBehaviour
     {
         int i = 0;
         Vector3 pos = Vector3.zero;
-        foreach(LightController lc in esv.lightsInRange)
+        foreach(LightController lc in esv.LightsInRange)
         {
-            pos += lc.transform.position;
-            i++;
+            if(lc != null)
+            {
+                pos += lc.transform.position;
+                i++;
+            }
         }
         pos /= i;
         return pos;

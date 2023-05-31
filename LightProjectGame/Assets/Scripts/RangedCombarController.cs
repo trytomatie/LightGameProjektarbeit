@@ -52,6 +52,7 @@ public class RangedCombarController : State
             Ray ray = new Ray(mainCamera.transform.position, mainCamera.transform.forward);
             GameObject _projectile = Instantiate(projectile, staffTip.transform.position, Quaternion.identity); 
             _projectile.transform.LookAt(ray.GetPoint(15));
+            _projectile.GetComponent<DamageObject>().source = playerController.myStatus;
             chargeAttackVFX.SetActive(false);
             isReloading = true;
             Invoke("ReadyShot", reloadTime);

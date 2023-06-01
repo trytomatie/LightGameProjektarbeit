@@ -42,7 +42,11 @@ public class HurtState : State
         {
             shieldingEvent.Invoke();
         }
-        anim.SetTrigger("hit");
+        if(myStatus.Hp > 0) 
+        {
+            anim.SetTrigger("hit");
+        }
+
     }
     public override void UpdateState(GameObject source)
     {

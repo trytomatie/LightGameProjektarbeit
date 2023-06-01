@@ -8944,15 +8944,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 390601016, guid: f72e808aa38e4174ab894cd7b39d3996, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.028831486
+      value: 0.028831512
       objectReference: {fileID: 0}
     - target: {fileID: 390601016, guid: f72e808aa38e4174ab894cd7b39d3996, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000029802319
+      value: 0.000000059604638
       objectReference: {fileID: 0}
     - target: {fileID: 390601016, guid: f72e808aa38e4174ab894cd7b39d3996, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.000000009313225
       objectReference: {fileID: 0}
     - target: {fileID: 484354802, guid: f72e808aa38e4174ab894cd7b39d3996, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9423,7 +9423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Intensity: 200
+  m_Intensity: 50
   m_EnableSpotReflector: 1
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 0
@@ -9520,7 +9520,7 @@ MonoBehaviour:
   m_ShadowVariant: 0
   m_ShadowPrecision: 0
   useOldInspector: 0
-  useVolumetric: 1
+  useVolumetric: 0
   featuresFoldout: 1
   m_AreaLightEmissiveMeshShadowCastingMode: 0
   m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
@@ -9544,8 +9544,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.07896225, g: 0.06367925, b: 0.254717, a: 1}
-  m_Intensity: 200
+  m_Color: {r: 0.44949272, g: 0.59106886, b: 0.8584906, a: 1}
+  m_Intensity: 50
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -50055,6 +50055,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5142747381852689960, guid: 22659321ef5237441b0fa567fd73f23b,
+        type: 3}
+      propertyPath: m_Range
+      value: 125
+      objectReference: {fileID: 0}
+    - target: {fileID: 5142747381852689960, guid: 22659321ef5237441b0fa567fd73f23b,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.654902
+      objectReference: {fileID: 0}
+    - target: {fileID: 5142747381852689960, guid: 22659321ef5237441b0fa567fd73f23b,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.94529295
+      objectReference: {fileID: 0}
+    - target: {fileID: 5142747381852689960, guid: 22659321ef5237441b0fa567fd73f23b,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5142747381852689960, guid: 22659321ef5237441b0fa567fd73f23b,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 795.7747
+      objectReference: {fileID: 0}
+    - target: {fileID: 5142747381852689960, guid: 22659321ef5237441b0fa567fd73f23b,
+        type: 3}
+      propertyPath: m_ShadowRadius
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5142747381852689960, guid: 22659321ef5237441b0fa567fd73f23b,
+        type: 3}
+      propertyPath: m_ColorTemperature
+      value: 9778
+      objectReference: {fileID: 0}
     - target: {fileID: 6347311403501190356, guid: 22659321ef5237441b0fa567fd73f23b,
         type: 3}
       propertyPath: m_Name
@@ -50070,6 +50105,16 @@ PrefabInstance:
       propertyPath: powerUpVFX
       value: 
       objectReference: {fileID: 839389117}
+    - target: {fileID: 8354855635581343635, guid: 22659321ef5237441b0fa567fd73f23b,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8354855635581343635, guid: 22659321ef5237441b0fa567fd73f23b,
+        type: 3}
+      propertyPath: m_ShapeRadius
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

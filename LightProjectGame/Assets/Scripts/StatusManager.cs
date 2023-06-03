@@ -177,7 +177,7 @@ public class TargetInfo
 
         if (targetIndex < 0 || targetIndex >= aggroList.Count)
         {
-            throw new ArgumentOutOfRangeException(nameof(aggroList));
+            return;
         }
 
         if (direction == 0)

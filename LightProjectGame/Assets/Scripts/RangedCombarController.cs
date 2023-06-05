@@ -15,6 +15,8 @@ public class RangedCombarController : State
     public GameObject chargeAttackVFX;
     public Transform staffTip;
     public float reloadTime = 0.5f;
+    public GameObject shootHud;
+    public GameObject magentHud;
     private float reloadTimer = 0;
     private bool isReloading = false;
 
@@ -32,6 +34,27 @@ public class RangedCombarController : State
     {
         float rotation = mainCamera.transform.eulerAngles.y;
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, rotation, 0), 360 * Time.deltaTime);
+    }
+
+    public void HandleHud(bool value)
+    {
+        shootHud.SetActive(false);
+        magentHud.SetActive(false);
+        if (value)
+        {
+            switch (playerController.selectedSkill)
+            {
+                case 1:
+                    shootHud.SetActive(true);
+                    break;
+                case 2:
+                    magentHud.SetActive(true);
+                    break;
+                default:
+                    shootHud.SetActive(true);
+                    break;
+            }
+        }
     }
 
     void HandleShooting()
@@ -94,6 +117,7 @@ public class RangedCombarController : State
         playerController.anim.SetFloat("movementMode", 1);
         playerController.anim.SetBool("aiming", true);
         chargeAttackVFX.SetActive(true);
+        HandleHud(true);
     }
 
     public override void UpdateState(GameObject source)
@@ -127,6 +151,7 @@ public class RangedCombarController : State
         playerController.anim.SetBool("aiming", false);
         reticle.SetActive(false);
         chargeAttackVFX.SetActive(false);
+        HandleHud(false);
     }
     #endregion
 }

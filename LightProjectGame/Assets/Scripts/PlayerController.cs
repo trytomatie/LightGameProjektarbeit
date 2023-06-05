@@ -78,17 +78,20 @@ public class PlayerController : State
     private Volume chaseVolume;
     public AnimationCurve attackCurve;
     public Material normalMaterial;
+    public Material transparentMaterial;
+    public Renderer characterRenderer;
 
 
     private DashingState dashState;
     private LockOnState lockOnState;
     private StateMachine sm;
     private WeakendControllsState weakendState;
+    public RangedCombarController rcc;
     private RaycastHit slopeHit;
     internal StatusManager myStatus;
 
     [Header("Skills")]
-    public int selectedSkill = 0;
+    public int selectedSkill = 1;
 
     [Header("Knockback")]
     public AnimationCurve knockbackPower;
@@ -103,6 +106,7 @@ public class PlayerController : State
         sm = GetComponent<StateMachine>();
         weakendState = GetComponent<WeakendControllsState>();
         myStatus = GetComponent<StatusManager>();
+        rcc = GetComponent<RangedCombarController>();
         // mainCamera = Camera.main;
         if (startWeakend)
         {
@@ -144,6 +148,15 @@ public class PlayerController : State
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             selectedSkill = 2;
+        }
+
+        if(Vector3.Distance(transform.position + new Vector3(0,1.2f,0),mainCamera.transform.position)< 1.9f)
+        {
+            characterRenderer.material = transparentMaterial;
+        }
+        else
+        {
+            characterRenderer.material = normalMaterial;
         }
     }
 

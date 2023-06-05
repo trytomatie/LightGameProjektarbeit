@@ -19,6 +19,7 @@ public class PlayerDraggingController : State
     public float lineSize = 0.5f;
     public float lineEndSize = 0.5f;
     public Transform staffTip;
+    private RangedCombarController rcc;
 
     void Start()
     {
@@ -26,6 +27,7 @@ public class PlayerDraggingController : State
         lookingForDragables = GetComponent<LookingForDragables>();
         lockOnState = GetComponent<LockOnState>();
         mainCamera = Camera.main;
+        rcc = GetComponent<RangedCombarController>();
     }
 
     void Dragging()
@@ -54,7 +56,16 @@ public class PlayerDraggingController : State
 
     void SetDragPointLength()
     {
-        if(Input.mouseScrollDelta.y != 0)
+        
+        if(Input.GetKey(KeyCode.Q))
+        {
+            dragPointOffset = Mathf.Clamp(dragPointOffset + (1 * Time.deltaTime), dragPointLengthMin, dragPointLengthMax);
+        }
+        if (Input.GetKey(KeyCode.E))
+        {
+            dragPointOffset = Mathf.Clamp(dragPointOffset - (1 * Time.deltaTime), dragPointLengthMin, dragPointLengthMax);
+        }
+        if (Input.mouseScrollDelta.y != 0)
         {
             dragPointOffset = Mathf.Clamp(dragPointOffset + Input.mouseScrollDelta.y, dragPointLengthMin, dragPointLengthMax);
         }
@@ -89,6 +100,7 @@ public class PlayerDraggingController : State
         targetrb = lookingForDragables.rcTarget.GetComponent<Rigidbody>();
         ToggleSpline(true);
         SetSplinePoints();
+        rcc.HandleHud(true);
     }
     public override void UpdateState(GameObject source)
     {
@@ -117,6 +129,7 @@ public class PlayerDraggingController : State
         playerController.camAnim.SetInteger("cam", 0);
         playerController.anim.SetFloat("movementMode", 0);
         ToggleSpline(false);
+        rcc.HandleHud(false);
     }
     #endregion
 }

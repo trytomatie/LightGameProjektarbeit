@@ -6,14 +6,13 @@ using UnityEngine.UI;
 
 public class UI_HealthBar : MonoBehaviour
 {
-    private TextMeshProUGUI text;
     private Image img;
+    public bool isMP;
 
     private void Start()
     {
-        text = GetComponent<TextMeshProUGUI>();
         img = GetComponent<Image>();
-        if (text.text.StartsWith("MP"))
+        if (isMP)
         {
             print("test");
             UpdateMP(GameObject.Find("Player").GetComponent<StatusManager>());
@@ -37,7 +36,8 @@ public class UI_HealthBar : MonoBehaviour
     public void UpdateMP(StatusManager sm)
     {
 
-        text.text = string.Format("MP: {0} / {1}", Mathf.FloorToInt(sm.LightEnergy), sm.maxLightEnergy);
+        float value = Remap(sm.lightEnergy, 0, sm.maxLightEnergy, 0.127f, 1f);
+        img.fillAmount = value;
     }
 
     public static float Remap(float value, float inputMin, float inputMax, float outputMin, float outputMax)

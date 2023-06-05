@@ -21,12 +21,14 @@ public class LookingForDragables : State
     private List<GameObject> highlightObjectIndicators = new List<GameObject>();
 
     private StateMachine sm;
+    private RangedCombarController rcc;
     void Start()
     {
         playerController = GetComponent<PlayerController>();
         mainCamera = Camera.main;
         lockOnState = GetComponent<LockOnState>();
         sm = GetComponent<StateMachine>();
+        rcc = GetComponent<RangedCombarController>();
     }
 
     void Rotation()
@@ -85,6 +87,7 @@ public class LookingForDragables : State
             highlightObjectIndicators.Add(highLight);
         }
         playerController.anim.SetFloat("movementMode", 1);
+        rcc.HandleHud(true);
     }
 
     public override void UpdateState(GameObject source)
@@ -131,6 +134,7 @@ public class LookingForDragables : State
         highlightObjectIndicators.Clear();
         playerController.anim.SetFloat("movementMode", 0);
         playerController.anim.SetBool("aiming", false);
+        rcc.HandleHud(false);
     }
     #endregion
 }

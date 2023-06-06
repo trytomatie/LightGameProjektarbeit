@@ -23,7 +23,7 @@ public class Circling_EnemyState : State
         esv.anim.SetFloat(esv.animMovementModeHash, 1);
         esv.currentCircelingAngle = esv.ciclingStartAngle;
         esv.agent.stoppingDistance = 0.1f;
-        esv.Speed = 2f;
+        esv.Speed = esv.circleSpeed;
         tauntTimer = Time.time + Random.Range(esv.attackIntervalls.x, esv.attackIntervalls.y);
     }
 

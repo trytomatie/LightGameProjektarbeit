@@ -80,4 +80,9 @@ public class LightController : MonoBehaviour
         lightSource.enabled = false;
 
     }
+
+    private void OnDestroy()
+    {
+        TurnOff();
+    }
 }

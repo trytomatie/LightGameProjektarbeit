@@ -44,7 +44,7 @@ public class Fleeing_EnemyState : State
 
     public override StateName AnyTransition(GameObject source)
     {
-        if (esv.LightsInRange.Count > 0 && (esv.stateMachine.currentState.stateName != StateName.Hurt || esv.stateMachine.currentState.stateName != StateName.Dead) )
+        if (esv.LightsInRange.Count > 0 && (esv.stateMachine.currentState.stateName != StateName.Hurt && esv.stateMachine.currentState.stateName != StateName.Dead) )
         {
             return StateName.Flee;
         }

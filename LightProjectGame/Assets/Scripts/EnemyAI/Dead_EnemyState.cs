@@ -6,7 +6,7 @@ public class Dead_EnemyState : State
 {
     private EnemyStateMethods esm;
     private EnemyStateVarriables esv;
-
+    public GameObject wisp;
 
     private void Start()
     {
@@ -20,6 +20,7 @@ public class Dead_EnemyState : State
         esv.anim.SetTrigger("death");
         Destroy(gameObject, 5);
         GameManager.instance.enemysInScene.Remove(esv.statusManager);
+        Instantiate(wisp, transform.position, Quaternion.identity);
     }
 
 

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class DissolveHandler : MonoBehaviour
 {
-    private List<LightController> lightsInScene = new List<LightController>();
     public Transform[] positions = new Transform[3];
+    public LightController playerLight;
     private Renderer meshRenderer;
     private Collider meshCollider;
 
@@ -20,11 +20,10 @@ public class DissolveHandler : MonoBehaviour
     {
         meshRenderer = GetComponent<Renderer>();
         meshCollider = GetComponent<Collider>();
-        foreach(LightController lc in GameObject.FindObjectsOfType<LightController>())
-        {
-            lightsInScene.Add(lc);
-            lightSourcesInScene++;
-        }
+        GameObject player = GameObject.Find("Player");
+        positions[0] = player.transform;
+        playerLight = player.GetComponentInChildren<LightController>();
+
 
         UpdateDistance();
     }
@@ -38,19 +37,12 @@ public class DissolveHandler : MonoBehaviour
     private void Update()
     {
         meshRenderer.material.SetVector("_LightPos1", positions[0].position);
-        if (positions[1] != null)
-        {
-            meshRenderer.material.SetVector("_LightPos2", positions[1].position);
-            meshRenderer.material.SetVector("_LightPos3", positions[2].position);
-        }
     }
 
     private void UpdateDistance()
     {
-        var lights = lightsInScene.FindAll(e => e != null);
-        var orderedList = lights.OrderBy(x => Vector3.Distance(x.transform.position, transform.position));
 
-        if(!orderedList.ToArray()[0].isOn)
+        if(!playerLight.isOn)
         {
             time = Mathf.Clamp01(time - Time.deltaTime * timeScaleMultipler);
         }
@@ -67,10 +59,6 @@ public class DissolveHandler : MonoBehaviour
             meshCollider.enabled = false;
         }
         meshRenderer.material.SetFloat("_Radius", time * radius);
-        for (int i = 0; i < lightSourcesInScene-1; i++)
-        {
-            positions[i] = orderedList.ToArray()[i].transform;
-        }
 
     }
 }

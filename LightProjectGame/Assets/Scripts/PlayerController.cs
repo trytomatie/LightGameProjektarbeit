@@ -242,7 +242,7 @@ public class PlayerController : State
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float targetSpeed = runSpeed;
 
-        if (Input.GetKey(KeyCode.LeftControl) || lockOnState.target != null || sm.currentState.stateName == StateName.Aiming || sm.currentState.stateName == StateName.Dragging)
+        if (lockOnState.target != null || sm.currentState.stateName == StateName.Aiming || sm.currentState.stateName == StateName.Dragging || sm.currentState.stateName == StateName.Shielding)
         {
             targetSpeed = walkSpeed;
         }
@@ -473,6 +473,10 @@ public class PlayerController : State
         if(Input.GetKeyDown(KeyCode.Tab))
         {
             return HandleTargeting();
+        }
+        if(Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            return StateName.Shielding;
         }
         if(edgeDetected)
         {

@@ -126,7 +126,7 @@ public class LockOnState : State
         pc.anim.SetBool("shielding", value);
         shield.SetActive(value);
         myStatus.shielding = value;
-        blockIndicator.gameObject.SetActive(value);
+        //blockIndicator.gameObject.SetActive(value);
     }
 
     #region StateMethods

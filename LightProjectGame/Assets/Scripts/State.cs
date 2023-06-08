@@ -28,7 +28,8 @@ public abstract class State : MonoBehaviour
         Circling,
         Taunting,
         ApproachForAttack,
-        AttackRecovery
+        AttackRecovery,
+        Shielding
     }
     public StateName stateName;
 

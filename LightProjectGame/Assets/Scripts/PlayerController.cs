@@ -97,6 +97,7 @@ public class PlayerController : State
     public AnimationCurve knockbackPower;
 
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -404,7 +405,7 @@ public class PlayerController : State
 
     public void HandleLantern()
     {
-        if(Input.GetKeyDown(KeyCode.Q))
+        if(Input.GetKeyDown(KeyCode.F))
         {
             if(lightController.isOn)
             {

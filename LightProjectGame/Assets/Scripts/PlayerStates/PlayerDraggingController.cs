@@ -59,11 +59,11 @@ public class PlayerDraggingController : State
         
         if(Input.GetKey(KeyCode.Q))
         {
-            dragPointOffset = Mathf.Clamp(dragPointOffset + (1 * Time.deltaTime), dragPointLengthMin, dragPointLengthMax);
+            dragPointOffset = Mathf.Clamp(dragPointOffset + (8 * Time.deltaTime), dragPointLengthMin, dragPointLengthMax);
         }
         if (Input.GetKey(KeyCode.E))
         {
-            dragPointOffset = Mathf.Clamp(dragPointOffset - (1 * Time.deltaTime), dragPointLengthMin, dragPointLengthMax);
+            dragPointOffset = Mathf.Clamp(dragPointOffset - (8 * Time.deltaTime), dragPointLengthMin, dragPointLengthMax);
         }
         if (Input.mouseScrollDelta.y != 0)
         {

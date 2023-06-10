@@ -8,10 +8,13 @@ using UnityEngine.UI;
 public class VolumeEditor : MonoBehaviour
 {
     public VolumeProfile[] volumeProfiles;
-    // Start is called before the first frame update
-    void Start()
+    private Slider s;
+    private Exposure exposure;
+
+    private void Start()
     {
-        
+        // Get the Exposure component from the HDRP Volume
+        volumeProfiles[0].TryGet(out exposure);
     }
 
     // Update is called once per frame
@@ -24,11 +27,11 @@ public class VolumeEditor : MonoBehaviour
     {
         foreach(VolumeProfile vp in volumeProfiles)
         {
-            LiftGammaGain lgg;
-            if(vp.TryGet( out lgg))
-            {
-                lgg.gamma.value = new Vector4(slider.value, slider.value, slider.value, slider.value);
-            }
+            // Map the slider value to the desired exposure range
+            float exposureValue = -slider.value;
+
+            // Set the exposure value
+            exposure.fixedExposure.value = exposureValue;
         }
     }
 }

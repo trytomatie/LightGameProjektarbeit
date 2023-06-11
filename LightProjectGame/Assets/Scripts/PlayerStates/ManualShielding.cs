@@ -33,13 +33,14 @@ public class ManualShielding : State
     {
         playerController.Animations();
         playerController.Movement();
+        playerController.CalculateGravity();
         lockOnState.AnimationsParemetersInput();
         ikTarget.position = transform.position + transform.forward;
     }
 
     public override StateName Transition(GameObject source)
     {
-        if (Input.GetKeyUp(KeyCode.LeftControl))
+        if (Input.GetAxisRaw("Manual Block") <= 0)
         {
             return StateName.Controlling;
         }

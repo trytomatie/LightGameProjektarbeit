@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class UI_AbilitySelectTest : MonoBehaviour
 {
     public GameObject[] images;
+    private static UI_AbilitySelectTest instance;
+    private PlayerController player;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,25 +15,36 @@ public class UI_AbilitySelectTest : MonoBehaviour
         images[1].SetActive(true);
         images[2].SetActive(true);
         images[3].SetActive(false);
+        instance = this;
+        player = FindObjectOfType<PlayerController>();
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha2))
+
+    }
+
+    public static void UpdateSkillUI()
+    {
+        if (instance.player.selectedSkill == 2)
         {
-            images[0].SetActive(true);
-            images[1].SetActive(false);
-            images[2].SetActive(false);
-            images[3].SetActive(true);
+            instance.images[0].SetActive(true);
+            instance.images[1].SetActive(false);
+            instance.images[2].SetActive(false);
+            instance.images[3].SetActive(true);
 
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (instance.player.selectedSkill == 1)
         {
-            images[0].SetActive(false);
-            images[1].SetActive(true);
-            images[2].SetActive(true);
-            images[3].SetActive(false);
+            instance.images[0].SetActive(false);
+            instance.images[1].SetActive(true);
+            instance.images[2].SetActive(true);
+            instance.images[3].SetActive(false);
         }
     }
+
+    
 }

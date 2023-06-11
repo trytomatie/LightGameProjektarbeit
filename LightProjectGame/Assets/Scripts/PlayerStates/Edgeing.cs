@@ -28,7 +28,7 @@ public class Edgeing : State
     }
     public override void UpdateState(GameObject source)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Jump"))
         {
             playerController.Jump();
             playerController.edgeDetected = false;

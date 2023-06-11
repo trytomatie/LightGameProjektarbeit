@@ -104,11 +104,11 @@ public class LookingForDragables : State
 
     public override StateName Transition(GameObject source)
     {
-        if (!Input.GetMouseButton(1))
+        if (!PlayerController.IsAiming())
         {
             return StateName.Controlling;
         }
-        if(Input.GetMouseButtonDown(0) && rcTarget != null)
+        if(Input.GetButtonDown("Shoot") && rcTarget != null)
         {
             return StateName.Dragging;
         }

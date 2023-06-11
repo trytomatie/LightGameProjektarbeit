@@ -153,7 +153,7 @@ public class LockOnState : State
         pc.HandleJump();
         HandleRotation();
         AnimationsParemetersInput();
-        if(Input.GetKey(KeyCode.LeftControl) || Input.GetMouseButton(1))
+        if(Input.GetAxisRaw("Manual Block") > 0 || PlayerController.IsAiming())
         {
             Shielding(true);
         }
@@ -186,15 +186,15 @@ public class LockOnState : State
 
     public override StateName Transition(GameObject source)
     {
-        if(Input.GetKeyDown(KeyCode.Tab) || target == null || target.Hp <= 0)
+        if(PlayerController.TargetButtonDown() || target == null || target.Hp <= 0)
         {
             return ReturnToControlling();
         }
-        if (Input.GetMouseButton(0))
+        if (Input.GetButton("Shoot"))
         {
             return StateName.Attacking;
         }
-        if (Input.GetKey(KeyCode.LeftShift) && dashState.dashCooldownTimer < Time.time)
+        if (Input.GetButton("Dodge") && dashState.dashCooldownTimer < Time.time)
         {
             return StateName.Dashing;
         }

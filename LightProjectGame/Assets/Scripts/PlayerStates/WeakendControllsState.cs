@@ -67,11 +67,11 @@ public class WeakendControllsState : State
 
     public override StateName Transition(GameObject source)
     {
-        if (Input.GetKey(KeyCode.LeftShift) && dashState.dashCooldownTimer < Time.time)
+        if (Input.GetButton("Dodge") && dashState.dashCooldownTimer < Time.time)
         {
             return StateName.Dashing;
         }
-        if (Input.GetMouseButton(1))
+        if (PlayerController.IsAiming())
         {
             pc.camAnim.SetInteger("cam", 1);
             return StateName.Controlling;
@@ -80,11 +80,11 @@ public class WeakendControllsState : State
         {
             pc.camAnim.SetInteger("cam", 0);
         }
-        if (Input.GetMouseButton(0))
+        if (Input.GetButton("Shoot"))
         {
             return StateName.Attacking;
         }
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (PlayerController.TargetButtonDown())
         {
             return pc.HandleTargeting();
         }

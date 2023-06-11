@@ -147,11 +147,11 @@ public class AttackingState : State
     {
         playerController.CalculateGravity();
         HandleAttack();
-        if(Input.GetMouseButton(0) && playerController.anim.GetCurrentAnimatorStateInfo(2).normalizedTime > 0.35f)
+        if(Input.GetButton("Shoot") && playerController.anim.GetCurrentAnimatorStateInfo(2).normalizedTime > 0.35f)
         {
             queueAttack = true;
         }
-        if(Input.GetMouseButton(0) || queueAttack)
+        if(Input.GetButton("Shoot") || queueAttack)
         {
             playerController.anim.SetBool("attack", true);
         }
@@ -172,11 +172,11 @@ public class AttackingState : State
             return StateName.Controlling;
         }
 
-        if (!playerController.anim.GetBool("attack") && !CheckIfInAttackAnimation())
+        if ((!playerController.anim.GetBool("attack") && !CheckIfInAttackAnimation()) || Input.GetKey(KeyCode.LeftControl))
         {
             return StateName.Controlling;
         }
-        if (Input.GetKey(KeyCode.LeftShift) && dashState.dashCooldownTimer < Time.time)
+        if (Input.GetButton("Dodge") && dashState.dashCooldownTimer < Time.time)
         {
             HandleRotation();
             return StateName.Dashing;

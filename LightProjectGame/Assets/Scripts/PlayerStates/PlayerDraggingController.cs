@@ -2,6 +2,7 @@ using Dreamteck.Splines;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PlayerDraggingController : State
 {
@@ -15,12 +16,15 @@ public class PlayerDraggingController : State
     public float dragPointLengthMin = 1;
     public float dragPointLengthMax = 5;
     private float dragPointOffset = 4;
+    private float pickUpDelay = 0.3f;
+    private float pickUpDelayTimer = 0;
     public SplineComputer splineComputer;
     public float lineSize = 0.5f;
     public float lineEndSize = 0.5f;
     public Transform staffTip;
+    public Transform targetIk;
     private RangedCombarController rcc;
-
+    public VisualEffect pickUpVFX;
     void Start()
     {
         playerController = GetComponent<PlayerController>();
@@ -32,6 +36,8 @@ public class PlayerDraggingController : State
 
     void Dragging()
     {
+        if (targetrb == null)
+            return;
         Vector3 dragPoint = transform.position + new Vector3(0,1.4f,0) + (mainCamera.transform.forward * dragPointOffset);
         Vector3 direction = dragPoint - targetrb.position;
         RaycastHit raycast;
@@ -44,7 +50,7 @@ public class PlayerDraggingController : State
                 return;
             }
         }
-
+        targetIk.position = targetrb.transform.position;
         targetrb.velocity = direction *force;
     }
 
@@ -69,11 +75,18 @@ public class PlayerDraggingController : State
         {
             dragPointOffset = Mathf.Clamp(dragPointOffset + Input.mouseScrollDelta.y, dragPointLengthMin, dragPointLengthMax);
         }
+        if(Input.GetAxis("DraggableAxis") != 0)
+        {
+            dragPointOffset = Mathf.Clamp(dragPointOffset + Input.GetAxis("DraggableAxis") * Time.deltaTime * 8, dragPointLengthMin, dragPointLengthMax);
+        }
     }
 
     private void ToggleSpline(bool value)
     {
         splineComputer.gameObject.SetActive(value);
+        splineComputer.SetPoint(0, new SplinePoint(new Vector3(0,-100,0)));
+        splineComputer.SetPoint(1, new SplinePoint(new Vector3(0, -100, 0)));
+        splineComputer.SetPoint(2, new SplinePoint(new Vector3(0, -100, 0)));
     }
 
     private void SetSplinePoints()
@@ -91,19 +104,41 @@ public class PlayerDraggingController : State
         splineComputer.Rebuild();
     }
 
+    private void PlayPickUPVFX()
+    {
+        pickUpVFX.transform.position = lookingForDragables.rcTarget.transform.position;
+        pickUpVFX.transform.LookAt(transform.position);
+        pickUpVFX.transform.eulerAngles += new Vector3(90, 0, 0);
+        pickUpVFX.Play();
+    }
+
 
     #region StateMethods
     public override void EnterState(GameObject source)
     {
+        if (lookingForDragables.rcTarget == null)
+            return;
         playerController.camAnim.SetInteger("cam", 2);
         playerController.anim.SetFloat("movementMode",1);
+        playerController.anim.SetBool("aiming", true);
         targetrb = lookingForDragables.rcTarget.GetComponent<Rigidbody>();
         ToggleSpline(true);
-        SetSplinePoints();
+        PlayPickUPVFX();
+        //SetSplinePoints();
         rcc.HandleHud(true);
+
+        pickUpDelayTimer = Time.time + pickUpDelay;
+        
+        // Set Input Animations to 0
+        playerController.anim.SetFloat("xInput", 0);
+        playerController.anim.SetFloat("yInput", 0);
     }
     public override void UpdateState(GameObject source)
     {
+        if(pickUpDelayTimer >= Time.time)
+        {
+            return;
+        }
         playerController.Movement();
         Rotation();
         playerController.Animations();
@@ -117,7 +152,7 @@ public class PlayerDraggingController : State
 
     public override StateName Transition(GameObject source)
     {
-        if (Input.GetMouseButtonUp(1) || Input.GetMouseButtonDown(0))
+        if (!PlayerController.IsAiming() || Input.GetButtonDown("Shoot") || lookingForDragables.rcTarget == null)
         {
             return StateName.Controlling;
         }
@@ -128,6 +163,7 @@ public class PlayerDraggingController : State
     {
         playerController.camAnim.SetInteger("cam", 0);
         playerController.anim.SetFloat("movementMode", 0);
+        playerController.anim.SetBool("aiming", false);
         ToggleSpline(false);
         rcc.HandleHud(false);
     }

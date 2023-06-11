@@ -21,7 +21,7 @@ public class PickUpForPlaytestScript : MonoBehaviour
         if(Vector3.Distance(transform.position,target.position) < 2)
         {
             pressEToPickup.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetButtonDown("Interact"))
             {
                 target.GetComponent<WeakendControllsState>().switchToHeightendState = true;
                 Instantiate(weakenEnemiesPrefab, transform.position, transform.rotation);

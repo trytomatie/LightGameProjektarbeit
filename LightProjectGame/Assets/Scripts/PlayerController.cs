@@ -96,7 +96,10 @@ public class PlayerController : State
     [Header("Knockback")]
     public AnimationCurve knockbackPower;
 
-
+    // Button Stuff
+    private static bool targetingButtonDown = false;
+    private static bool skillSelectLeft = false;
+    private static bool skillSelectRight = false;
 
     // Start is called before the first frame update
     void Start()
@@ -142,13 +145,28 @@ public class PlayerController : State
             //slideMovement = Vector3.zero;
         }
 
+        if(SkillLeft() || SkillRight())
+        {
+            if(selectedSkill == 1)
+            {
+                selectedSkill = 2;
+            }
+            else
+            {
+                selectedSkill = 1;
+            }
+            UI_AbilitySelectTest.UpdateSkillUI();
+        }
+
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
             selectedSkill = 1;
+            UI_AbilitySelectTest.UpdateSkillUI();
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             selectedSkill = 2;
+            UI_AbilitySelectTest.UpdateSkillUI();
         }
 
         if(Vector3.Distance(transform.position + new Vector3(0,1.2f,0),mainCamera.transform.position)< 1.9f)
@@ -405,7 +423,7 @@ public class PlayerController : State
 
     public void HandleLantern()
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        if(Input.GetButtonDown("Toggle Lantern"))
         {
             if(lightController.isOn)
             {
@@ -426,6 +444,57 @@ public class PlayerController : State
             return StateName.LockOn;
         }
         return stateName;
+    }
+
+    public static bool IsAiming()
+    {
+        if(Input.GetButton("Aim") || Input.GetAxis("Aim") > 0.2f)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public static bool TargetButtonDown()
+    {
+        if(Input.GetAxisRaw("Targeting") != 0 && targetingButtonDown == false)
+        {
+            targetingButtonDown = true;
+            return true;
+        }
+        if(Input.GetAxisRaw("Targeting") == 0)
+        {
+            targetingButtonDown = false;
+        }
+         return false;
+    }
+
+    public static bool SkillLeft()
+    {
+        if (Input.GetAxis("SkillSelect") == 1)
+        {
+            skillSelectLeft = true;
+            return true;
+        }
+        if (Input.GetAxis("SkillSelect") <= 0)
+        {
+            skillSelectLeft = false;
+        }
+        return false;
+    }
+
+    public static bool SkillRight()
+    {
+        if (Input.GetAxis("SkillSelect") == -1)
+        {
+            skillSelectRight = true;
+            return true;
+        }
+        if (Input.GetAxis("SkillSelect") >= 0)
+        {
+            skillSelectRight = false;
+        }
+        return false;
     }
 
     public void RevivePlayer()
@@ -458,26 +527,26 @@ public class PlayerController : State
 
     public override StateName Transition(GameObject source)
     {
-        if (Input.GetKey(KeyCode.LeftShift) && dashState.dashCooldownTimer < Time.time)
+        if (Input.GetButton("Dodge") && dashState.dashCooldownTimer < Time.time)
         {
             return StateName.Dashing;
         }
-        if (Input.GetMouseButton(1))
+        if (PlayerController.IsAiming())
         {
             camAnim.SetInteger("cam", 1);
             return StateName.Aiming;
         }
-        if(Input.GetMouseButton(0))
+        if (Input.GetAxisRaw("Manual Block") > 0)
+        {
+            return StateName.Shielding;
+        }
+        if (Input.GetButton("Shoot"))
         {
             return StateName.Attacking;
         }
-        if(Input.GetKeyDown(KeyCode.Tab))
+        if(TargetButtonDown())
         {
             return HandleTargeting();
-        }
-        if(Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            return StateName.Shielding;
         }
         if(edgeDetected)
         {

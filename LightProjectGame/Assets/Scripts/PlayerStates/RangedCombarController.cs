@@ -59,7 +59,7 @@ public class RangedCombarController : State
 
     void HandleShooting()
     {
-        if(Input.GetMouseButtonDown(0) && playerController.myStatus.LightEnergy>= 5 && !isReloading)
+        if(Input.GetButtonDown("Shoot") && playerController.myStatus.LightEnergy>= 5 && !isReloading)
         {
             playerController.myStatus.LightEnergy -= 5;
             RaycastHit raycastHit;
@@ -134,7 +134,7 @@ public class RangedCombarController : State
 
     public override StateName Transition(GameObject source)
     {
-        if (!Input.GetMouseButton(1))
+        if (!PlayerController.IsAiming())
         {
             return StateName.Controlling;
         }

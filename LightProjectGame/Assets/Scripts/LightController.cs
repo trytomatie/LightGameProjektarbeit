@@ -31,7 +31,6 @@ public class LightController : MonoBehaviour
             }
             if(other.gameObject.GetComponent<EnemyStateVarriables>() != null)
             {
-                print("test");
                 other.gameObject.GetComponent<EnemyStateVarriables>().LightsInRange.Add(this);
             }
         }

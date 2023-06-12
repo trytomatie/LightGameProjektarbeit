@@ -50,4 +50,6 @@ public class Edgeing : State
         playerController.anim.SetBool("hanging", false);
     }
     #endregion
+
+
 }

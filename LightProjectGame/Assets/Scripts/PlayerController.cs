@@ -89,7 +89,7 @@ public class PlayerController : State
     public RangedCombarController rcc;
     private RaycastHit slopeHit;
     internal StatusManager myStatus;
-
+    private InteractionHandler interactionHandler;
     [Header("Skills")]
     public int selectedSkill = 1;
 
@@ -111,6 +111,7 @@ public class PlayerController : State
         weakendState = GetComponent<WeakendControllsState>();
         myStatus = GetComponent<StatusManager>();
         rcc = GetComponent<RangedCombarController>();
+        interactionHandler = GetComponentInChildren<InteractionHandler>();
         // mainCamera = Camera.main;
         if (startWeakend)
         {
@@ -177,6 +178,20 @@ public class PlayerController : State
         {
             characterRenderer.material = normalMaterial;
         }
+    }
+
+    public void HandleInteraction()
+    {
+        if(Input.GetButtonDown("Interact") && interactionHandler.canInteract)
+        {
+            print("Interact");
+            if (interactionHandler.ReachableInteractable != null)
+            {
+                
+                interactionHandler.ReachableInteractable.Interaction(gameObject);
+            }
+        }
+        
     }
 
     public void ApplyKnockback(Vector3 force, float time)
@@ -518,6 +533,7 @@ public class PlayerController : State
         Rotation();
         Animations();
         HandleLantern();
+        HandleInteraction();
     }
 
     public override void EnterState(GameObject source)

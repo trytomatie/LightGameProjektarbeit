@@ -36,8 +36,6 @@ public class PlayerDraggingController : State
 
     void Dragging()
     {
-        if (targetrb == null)
-            return;
         Vector3 dragPoint = transform.position + new Vector3(0,1.4f,0) + (mainCamera.transform.forward * dragPointOffset);
         Vector3 direction = dragPoint - targetrb.position;
         RaycastHit raycast;
@@ -116,8 +114,6 @@ public class PlayerDraggingController : State
     #region StateMethods
     public override void EnterState(GameObject source)
     {
-        if (lookingForDragables.rcTarget == null)
-            return;
         playerController.camAnim.SetInteger("cam", 2);
         playerController.anim.SetFloat("movementMode",1);
         playerController.anim.SetBool("aiming", true);
@@ -152,7 +148,7 @@ public class PlayerDraggingController : State
 
     public override StateName Transition(GameObject source)
     {
-        if (!PlayerController.IsAiming() || Input.GetButtonDown("Shoot") || lookingForDragables.rcTarget == null)
+        if (!PlayerController.IsAiming() || Input.GetButtonDown("Shoot"))
         {
             return StateName.Controlling;
         }

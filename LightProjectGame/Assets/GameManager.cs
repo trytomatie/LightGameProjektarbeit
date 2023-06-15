@@ -16,6 +16,10 @@ public class GameManager : MonoBehaviour
     [Header("Interface")]
     public GameObject deathMessageUI;
     public GameObject savingUI;
+    public Animator loadingScreenUI;
+    public bool isLoadingLevel = false;
+
+    private GameObject player;
 
 
     // Start is called before the first frame update
@@ -23,11 +27,16 @@ public class GameManager : MonoBehaviour
     {
         if (instance == null)
         {
+            player = GameObject.Find("Player");
             instance = this;
+            DontDestroyOnLoad(gameObject.transform.parent.gameObject);
         }
         else
         {
-            this.enabled = false;
+            
+            instance.player.transform.position = gameObject.transform.parent.GetComponentInChildren<PlayerController>(true).transform.position;
+            Destroy(gameObject.transform.parent.gameObject);
+            //this.enabled = false;
         }
     }
 
@@ -56,6 +65,50 @@ public class GameManager : MonoBehaviour
         Init();
 
         SceneManager.LoadScene(i);
+    }
+
+    public void LoadLevelAsync(int level)
+    {
+        isLoadingLevel = true;
+        loadingScreenUI.SetBool("animate", true);
+        StartCoroutine(LoadLevelAsyncCoroutine(level));
+        player.GetComponent<StateMachine>().ForceState(player.GetComponent<TransitioningLevel>());
+    }
+
+    private IEnumerator LoadLevelAsyncCoroutine(int level)
+    {
+        float time = 0;
+       
+        while (time < 2)
+        {
+            time += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        // Begin loading the scene asynchronously
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(level);
+
+        // Don't allow the scene to be shown while it's still loading
+        asyncOperation.allowSceneActivation = false;
+        
+
+        // Wait until the scene is fully loaded
+        while (!asyncOperation.isDone || time < 3)
+        {
+            // The progress property is a value between 0 and 1, indicating the loading progress
+            float progress = Mathf.Clamp01(asyncOperation.progress / 0.9f);
+
+            // Here you can display a loading progress bar or update a loading screen UI
+
+            // If the loading is almost complete, allow the scene to be activated
+            if (progress >= 0.9f)
+            {
+                asyncOperation.allowSceneActivation = true;
+            }
+            time += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        loadingScreenUI.SetBool("animate", false);
+        isLoadingLevel = false;
     }
 
     public void LoadLevel(string name)

@@ -22,6 +22,7 @@ public class EnemyStateVarriables : MonoBehaviour
     public float eyeHeight = 1.3f;
     public LayerMask layerMask;
     public State previousState;
+    public bool emboldend;
 
     public float[] aggrolistPositionModifier = { 1, 0f, 0f,0f };
     public float[] aggroListAttackRollPenalty = { 0f, 0.5f, 0.8f, 1f };
@@ -43,6 +44,8 @@ public class EnemyStateVarriables : MonoBehaviour
     [HideInInspector] public int animXInputHash;
     [HideInInspector] public int animYInputHash;
     [HideInInspector] public int animTauntHash;
+
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -89,6 +92,11 @@ public class EnemyStateVarriables : MonoBehaviour
     private void OnValidate()
     {
         GetComponent<NavMeshAgent>().speed = speed;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.instance.enemysInScene.Remove(statusManager);
     }
 
 }

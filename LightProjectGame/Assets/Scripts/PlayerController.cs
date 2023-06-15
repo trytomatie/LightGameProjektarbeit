@@ -101,26 +101,35 @@ public class PlayerController : State
     private static bool skillSelectLeft = false;
     private static bool skillSelectRight = false;
 
-    // Start is called before the first frame update
-    void Start()
+    private static PlayerController instance;
+
+
+    private void Awake()
     {
-        dashState = GetComponent<DashingState>();
-        cc = GetComponent<CharacterController>();
-        lockOnState = GetComponent<LockOnState>();
-        sm = GetComponent<StateMachine>();
-        weakendState = GetComponent<WeakendControllsState>();
-        myStatus = GetComponent<StatusManager>();
-        rcc = GetComponent<RangedCombarController>();
-        interactionHandler = GetComponentInChildren<InteractionHandler>();
-        // mainCamera = Camera.main;
-        if (startWeakend)
+        if (instance == null)
         {
-            weakendState.stateName = StateName.Controlling;
-            stateName = StateName.Invalid;
+            dashState = GetComponent<DashingState>();
+            cc = GetComponent<CharacterController>();
+            lockOnState = GetComponent<LockOnState>();
+            sm = GetComponent<StateMachine>();
+            weakendState = GetComponent<WeakendControllsState>();
+            myStatus = GetComponent<StatusManager>();
+            rcc = GetComponent<RangedCombarController>();
+            interactionHandler = GetComponentInChildren<InteractionHandler>();
+            instance = this;
+
+            // mainCamera = Camera.main;
+            if (startWeakend)
+            {
+                weakendState.stateName = StateName.Controlling;
+                stateName = StateName.Invalid;
+            }
+            GameManager.AddToEnemyTargetList(myStatus.targetInfo);
         }
-        GameManager.AddToEnemyTargetList(myStatus.targetInfo);
-
-
+        else
+        {
+            instance.transform.position = transform.position;
+        }
     }
 
     private void OnApplicationFocus(bool focus)

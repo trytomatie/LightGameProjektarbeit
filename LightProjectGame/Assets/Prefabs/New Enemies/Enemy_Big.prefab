@@ -5893,7 +5893,7 @@ Transform:
   - {fileID: 6554244871541627991}
   - {fileID: 686691158}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!54 &3178527442228838666
 Rigidbody:
@@ -6009,8 +6009,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 0
-  maxHp: 9
-  hp: 9
+  maxHp: 6
+  hp: 6
   isInvulnerable: 0
   shielding: 0
   shieldHp: 3
@@ -6042,6 +6042,8 @@ MonoBehaviour:
   shieldDamageEvent:
     m_PersistentCalls:
       m_Calls: []
+  activeBuffs: []
+  buffHolder: {fileID: 11400000, guid: 33d6a11499d3c564a85ecc4f16fd14f0, type: 2}
   targetInfo:
     aggroList: []
     sm: {fileID: 0}
@@ -6078,9 +6080,9 @@ MonoBehaviour:
   circleRange: 5
   speed: 4
   aggroRange: 10
-  attackIntervalls: {x: 1, y: 7}
+  attackIntervalls: {x: 1, y: 2}
   attackRange: 1.3
-  circleSpeed: 3
+  circleSpeed: 6
   alertedTime: 2
   verticalFieldOfView: 180
   horizontalFieldOfView: 360
@@ -6090,6 +6092,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 511
   previousState: {fileID: 0}
+  emboldend: 0
   aggrolistPositionModifier:
   - 1
   - 1

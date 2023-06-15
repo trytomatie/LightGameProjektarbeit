@@ -1,6 +1,8 @@
+using Assets.Scripts.Auras;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -33,6 +35,11 @@ public class StatusManager : MonoBehaviour
     public UnityEvent lightEnergyEvent;
     public UnityEvent shieldDamageEvent;
 
+    public List<Buff> activeBuffs;
+    private List<Buff> buffsToadd = new List<Buff>();
+    private List<Buff> buffsToRemove = new List<Buff>();
+    public BuffObject buffHolder;
+
     public TargetInfo targetInfo;
 
     // Start is called before the first frame update
@@ -40,6 +47,15 @@ public class StatusManager : MonoBehaviour
     {
         hp = maxHp;
         targetInfo = new TargetInfo(gameObject);
+        
+        
+    }
+
+
+    private void Start()
+    {
+        StartCoroutine(InitBuffs());
+        InvokeRepeating("UpdateBuffs", 0, 0.2f);
     }
 
 
@@ -55,6 +71,64 @@ public class StatusManager : MonoBehaviour
         }
     }
 
+    private IEnumerator InitBuffs()
+    {
+        if(buffHolder != null)
+        {
+            while (GameManager.instance == null)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+            activeBuffs.Add(buffHolder.ApplyBuff());
+            foreach (Buff buff in activeBuffs)
+            {
+                buff.BuffApplication(this);
+            }
+        }
+
+    }
+
+    public void UpdateBuffs()
+    {
+        if (buffsToadd.Count > 0)
+        {
+            foreach (Buff newBuff in buffsToadd)
+            {
+                activeBuffs.Add(newBuff);
+                newBuff.BuffApplication(this);
+            }
+            buffsToadd.Clear();
+        }
+        foreach (Buff buff in activeBuffs)
+        {
+            buff.BuffEffect();
+        }
+        if (buffsToRemove.Count > 0)
+        {
+            foreach (Buff newBuff in buffsToRemove)
+            {
+                activeBuffs.Remove(newBuff);
+                newBuff.BuffEnd();
+            }
+            buffsToRemove.Clear();
+        }
+    }
+
+    public void ApplyBuff(Buff buff)
+    {
+        if(!activeBuffs.Any(e=> e.buffname == buff.buffname))
+        {
+            buffsToadd.Add(buff);
+        }
+    }
+
+    public void RemoveBuff(Buff buff)
+    {
+        if (activeBuffs.Contains(buff))
+        {
+            buffsToRemove.Add(buff);
+        }
+    }
 
 
     public void RestoreMinimumLightEnergy()
@@ -70,6 +144,14 @@ public class StatusManager : MonoBehaviour
         {
             yield return new WaitForEndOfFrame();
             LightEnergy += Time.deltaTime * 2;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        foreach(Buff buff in activeBuffs)
+        {
+            buff.BuffEnd();
         }
     }
 

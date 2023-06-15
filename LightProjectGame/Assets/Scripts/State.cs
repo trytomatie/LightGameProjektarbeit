@@ -29,7 +29,8 @@ public abstract class State : MonoBehaviour
         Taunting,
         ApproachForAttack,
         AttackRecovery,
-        Shielding
+        Shielding,
+        TransitioningLevel
     }
     public StateName stateName;
 

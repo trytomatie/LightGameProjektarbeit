@@ -9,8 +9,8 @@ namespace Assets.Scripts.Auras
     {
         private GameObject player;
         public List<StatusManager> enemies = new List<StatusManager>();
-        private float auraRange = 10;
-
+        private float auraRange = 16;
+        private List<StatusManager> influencedEnemies = new List<StatusManager>();
         public DreadAura()
         {
             buffname = BuffName.DreadAura;
@@ -35,18 +35,21 @@ namespace Assets.Scripts.Auras
         {
             foreach (StatusManager enemy in GameManager.instance.enemysInScene)
             {
+                
                 if(Vector3.Distance(soruce.transform.position,enemy.transform.position) < auraRange)
                 {
-                    if (enemy.GetComponent<Fleeing_EnemyState>() != null)
+                    if (enemy.GetComponent<Fleeing_EnemyState>() != null && !enemy.activeBuffs.Exists(e => e.buffname == BuffName.Emboldened))
                     {
                         enemy.ApplyBuff(new Emboldened());
+                        influencedEnemies.Add(enemy);
                     }
                 }
                 else
                 {
-                    if(enemy.activeBuffs.Exists(e => e.buffname == BuffName.Emboldened))
+                    if(influencedEnemies.Contains(enemy) && enemy.activeBuffs.Exists(e => e.buffname == BuffName.Emboldened))
                     {
                         Buff buff = enemy.activeBuffs.First(e => e.buffname == BuffName.Emboldened);
+                        influencedEnemies.Remove(enemy);
                         enemy.RemoveBuff(buff);
                     }
                     

@@ -3,16 +3,26 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class InteractionHandler : MonoBehaviour
 {
     private Interactable reachableInteractable;
-    public bool canInteract = false;
+    private bool canInteract = false;
     public float interactionDistance = 0.7f;
     public float interactionAngleThreshold = 45;
+    public GameObject interactUI;
 
     private List<Interactable> potentialInteractables = new List<Interactable>();
+    private List<Interactable> removalList = new List<Interactable>();
     private bool isInteracting = false;
+
+    internal void RemoveInteraction(Interactable interactable)
+    {
+        removalList.Add(interactable);
+        CanInteract = false;
+    }
+
     private Camera mainCamera;
 
 
@@ -33,16 +43,23 @@ public class InteractionHandler : MonoBehaviour
     /// </summary>
     private void CheckForInteraction()
     {
+        if(removalList.Count > 0)
+        {
+            foreach(Interactable interactable in removalList)
+            {
+                potentialInteractables.Remove(interactable);
+            }
+        }
         if(potentialInteractables.Count > 0)
         {
             ReachableInteractable = potentialInteractables.OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).First();
             if (ReachableInteractable != null && Helper.DistanceBetween(gameObject, ReachableInteractable.gameObject) > interactionDistance && Helper.AngleBetween(gameObject, ReachableInteractable.gameObject) < interactionAngleThreshold)
             {
-                canInteract = true;
+                CanInteract = true;
             }
             else
             {
-                canInteract = false;
+                CanInteract = false;
             }
         }
     }
@@ -87,6 +104,14 @@ public class InteractionHandler : MonoBehaviour
         set 
         {
             reachableInteractable = value;
+            
+        } 
+    }
+
+    public bool CanInteract { get => canInteract; set 
+        {
+            canInteract = value;
+            interactUI.SetActive(value);
         } 
     }
 }

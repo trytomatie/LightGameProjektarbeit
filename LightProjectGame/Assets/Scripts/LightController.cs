@@ -10,13 +10,41 @@ public class LightController : MonoBehaviour
     public Light lightSource;
     public LayerMask lightLayer;
     private Collider lightCollision;
+    private Animator lightSourceAnimator;
+
+    private float lightStrength = 0;
 
     public bool isOn = true;
+    private bool flicker = false;
+
+    public bool Flicker { get => flicker; set
+        {
+
+            if (value != flicker)
+            {
+                if (value == true)
+                {
+                    TurnOff();
+                    StartCoroutine(Flackern());
+                }
+            }
+            flicker = value;
+        } 
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         lightLayer = LayerMask.GetMask("PuzzleElement");
         lightCollision = GetComponent<Collider>();
+        if (lightSource.GetComponent<Animator>())
+        {
+            lightSourceAnimator = lightSource.GetComponent<Animator>();
+            lightStrength = isOn ? 1 : 0;
+            lightSourceAnimator.SetFloat("lightStrength", lightStrength);
+        }
+        Flicker = false;
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -60,10 +88,20 @@ public class LightController : MonoBehaviour
 
     public void TurnOn()
     {
-        lightCollision.enabled = true;
+        if (Flicker) return;
 
+        lightCollision.enabled = true;
         isOn = true;
-        lightSource.enabled = true;
+        if(lightSourceAnimator != null)
+        {
+            StopAllCoroutines();
+            StartCoroutine(Light(1));
+        }
+        else
+        {
+            lightSource.enabled = true;
+        }
+
     }
 
     public void TurnOff()
@@ -76,8 +114,52 @@ public class LightController : MonoBehaviour
         {
             RemoveLightInfluence(go);
         }
-        lightSource.enabled = false;
+        if (lightSourceAnimator != null)
+        {
+            if (Flicker) return;
 
+            StopAllCoroutines();
+            StartCoroutine(Light(-1));
+
+        }
+        else
+        {
+            lightSource.enabled = false;
+        }
+
+    }
+
+    private IEnumerator Light(float direction)
+    {
+        do
+        {
+            lightStrength += direction * Time.deltaTime * 3;
+            lightSourceAnimator.SetFloat("lightStrength",lightStrength);
+            yield return new WaitForEndOfFrame();
+        }
+        while (lightStrength >= 0 && lightStrength <= 1);
+        lightStrength = Mathf.Clamp01(lightStrength);
+        lightSourceAnimator.SetFloat("lightStrength", lightStrength);
+    }
+
+    private IEnumerator Flackern()
+    {
+        float time = 0;
+        do
+        {
+            lightStrength = Random.Range(0f, 0.5f);
+            lightSourceAnimator.SetFloat("lightStrength", lightStrength);
+            yield return new WaitForSeconds(Random.Range(0, 0.15f));
+            if(time % 30 == 15)
+            {
+                yield return new WaitForSeconds(Random.Range(0.5f, 0.7f));
+            }
+            time++;
+        }
+        while (time < 1000000 && Flicker == true);
+        lightStrength = 0;
+        lightSourceAnimator.SetFloat("lightStrength", lightStrength);
+        TurnOn();
     }
 
     private void OnDestroy()

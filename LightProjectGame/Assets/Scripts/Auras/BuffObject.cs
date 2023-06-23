@@ -10,14 +10,14 @@ namespace Assets.Scripts.Auras
     {
         public Buff.BuffName buff;
        
-        public Buff ApplyBuff()
+        public Buff ApplyBuff(StatusManager origin)
         {
             switch(buff)
             {
                 case Buff.BuffName.DreadAura:
-                    return new DreadAura();
+                    return new DreadAura(origin);
                 case Buff.BuffName.Emboldened:
-                    return new Emboldened();
+                    return new Emboldened(origin);
             }
             return null;
         }

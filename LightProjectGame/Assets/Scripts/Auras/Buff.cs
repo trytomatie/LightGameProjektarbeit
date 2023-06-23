@@ -8,17 +8,24 @@ namespace Assets.Scripts.Auras
     [Serializable]
     public class Buff 
     {
-        public enum BuffName {DreadAura,Emboldened }
+        public static float tickrate = 0.1f;
+        public enum BuffName {DreadAura,Emboldened,
+            LightBlight
+        }
         public BuffName buffname;
-        public StatusManager soruce;
-        public virtual void BuffApplication(StatusManager soruce)
+        public StatusManager target;
+        public float duration = 100000;
+
+        public int originID;
+
+        public virtual void BuffApplication(StatusManager target)
         {
 
         }
 
         public virtual void BuffEffect()
         {
-
+            duration-= tickrate;
         }
 
         public virtual void BuffEnd()

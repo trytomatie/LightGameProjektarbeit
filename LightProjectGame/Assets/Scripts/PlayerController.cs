@@ -187,11 +187,12 @@ public class PlayerController : State
         {
             characterRenderer.material = normalMaterial;
         }
+        HandleInteraction();
     }
 
     public void HandleInteraction()
     {
-        if(Input.GetButtonDown("Interact") && interactionHandler.canInteract)
+        if(Input.GetButtonDown("Interact") && interactionHandler.CanInteract)
         {
             print("Interact");
             if (interactionHandler.ReachableInteractable != null)
@@ -542,7 +543,6 @@ public class PlayerController : State
         Rotation();
         Animations();
         HandleLantern();
-        HandleInteraction();
     }
 
     public override void EnterState(GameObject source)

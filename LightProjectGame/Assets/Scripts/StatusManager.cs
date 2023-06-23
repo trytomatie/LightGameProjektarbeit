@@ -55,7 +55,7 @@ public class StatusManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(InitBuffs());
-        InvokeRepeating("UpdateBuffs", 0, 0.2f);
+        InvokeRepeating("UpdateBuffs", 0, Buff.tickrate);
     }
 
 
@@ -79,7 +79,7 @@ public class StatusManager : MonoBehaviour
             {
                 yield return new WaitForEndOfFrame();
             }
-            activeBuffs.Add(buffHolder.ApplyBuff());
+            activeBuffs.Add(buffHolder.ApplyBuff(this));
             foreach (Buff buff in activeBuffs)
             {
                 buff.BuffApplication(this);
@@ -102,6 +102,11 @@ public class StatusManager : MonoBehaviour
         foreach (Buff buff in activeBuffs)
         {
             buff.BuffEffect();
+            buff.duration -= Buff.tickrate;
+            if (buff.duration <= 0)
+            {
+                buffsToRemove.Add(buff);
+            }
         }
         if (buffsToRemove.Count > 0)
         {
@@ -124,9 +129,9 @@ public class StatusManager : MonoBehaviour
 
     public void RemoveBuff(Buff buff)
     {
-        if (activeBuffs.Contains(buff))
+        if (activeBuffs.Any(e => e.buffname == buff.buffname && e.originID == buff.originID))
         {
-            buffsToRemove.Add(buff);
+            buffsToRemove.Add(activeBuffs.First(e => e.buffname == buff.buffname));
         }
     }
 

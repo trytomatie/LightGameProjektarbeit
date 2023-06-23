@@ -70,7 +70,7 @@ public class HurtState : State
             {
                 return StateName.Hurt;
             }
-            if (myStatus.faction == StatusManager.Faction.Player)
+            if (myStatus.faction == StatusManager.Faction.Player && (sm.currentState.stateName != State.StateName.Shielding))
             {
                 return StateName.Hurt;
             }

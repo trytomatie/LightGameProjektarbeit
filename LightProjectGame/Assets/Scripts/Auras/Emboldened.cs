@@ -8,13 +8,14 @@ namespace Assets.Scripts.Auras
     {
         private List<StatusManager> enemies = new List<StatusManager>();
 
-        public Emboldened()
+        public Emboldened(StatusManager origin)
         {
             buffname = BuffName.Emboldened;
+            this.originID = origin.GetInstanceID();
         }
         public override void BuffApplication(StatusManager soruce)
         {
-            this.soruce = soruce;
+            this.target = soruce;
             soruce.GetComponent<EnemyStateVarriables>().emboldend = true;
         }
 
@@ -25,7 +26,7 @@ namespace Assets.Scripts.Auras
 
         public override void BuffEnd()
         {
-            soruce.GetComponent<EnemyStateVarriables>().emboldend = false;
+            target.GetComponent<EnemyStateVarriables>().emboldend = false;
         }
     }
 }

@@ -132,6 +132,10 @@ public class GameManager : MonoBehaviour
         else
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            GameObject player = GameObject.Find("Player");
+            player.GetComponent<PlayerController>().RevivePlayer();
+            player.GetComponent<CharacterController>().enabled = false;
+            player.GetComponent<CharacterController>().enabled = true;
         }
 
     }

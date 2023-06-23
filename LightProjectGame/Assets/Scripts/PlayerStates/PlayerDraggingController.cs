@@ -36,6 +36,7 @@ public class PlayerDraggingController : State
 
     void Dragging()
     {
+
         Vector3 dragPoint = transform.position + new Vector3(0,1.4f,0) + (mainCamera.transform.forward * dragPointOffset);
         Vector3 direction = dragPoint - targetrb.position;
         RaycastHit raycast;
@@ -131,7 +132,11 @@ public class PlayerDraggingController : State
     }
     public override void UpdateState(GameObject source)
     {
-        if(pickUpDelayTimer >= Time.time)
+        if (targetrb == null)
+        {
+            return;
+        }
+        if (pickUpDelayTimer >= Time.time)
         {
             return;
         }
@@ -148,7 +153,7 @@ public class PlayerDraggingController : State
 
     public override StateName Transition(GameObject source)
     {
-        if (!PlayerController.IsAiming() || Input.GetButtonDown("Shoot"))
+        if (!PlayerController.IsAiming() || Input.GetButtonDown("Shoot") || targetrb == null)
         {
             return StateName.Controlling;
         }

@@ -191,7 +191,7 @@ public class StatusManager : MonoBehaviour
         get => hp;
         set
         {
-            if(value < hp)
+            if(value != hp)
             {
                 hp = value;
                 damageEvent.Invoke();

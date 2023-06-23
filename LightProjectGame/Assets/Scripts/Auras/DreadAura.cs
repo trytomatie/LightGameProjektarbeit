@@ -9,7 +9,7 @@ namespace Assets.Scripts.Auras
     {
         private StatusManager player;
         public List<StatusManager> enemies = new List<StatusManager>();
-        private float auraRange = 16;
+        private float auraRange = 8;
         private List<StatusManager> influencedEnemies = new List<StatusManager>();
 
         public DreadAura(StatusManager origin)

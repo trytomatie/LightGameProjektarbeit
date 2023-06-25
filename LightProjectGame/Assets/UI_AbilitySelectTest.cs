@@ -11,12 +11,21 @@ public class UI_AbilitySelectTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        images[0].SetActive(false);
-        images[1].SetActive(true);
-        images[2].SetActive(true);
-        images[3].SetActive(false);
-        instance = this;
-        player = FindObjectOfType<PlayerController>();
+
+        if(instance == null)
+        {
+            instance = this;
+            player = FindObjectOfType<PlayerController>();
+            images[0].SetActive(false);
+            images[1].SetActive(true);
+            images[2].SetActive(true);
+            images[3].SetActive(false);
+        }
+        else
+        {
+            Destroy(this);
+        }
+
 
 
     }

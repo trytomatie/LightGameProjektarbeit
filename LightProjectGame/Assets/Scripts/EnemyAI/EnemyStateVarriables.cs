@@ -97,6 +97,7 @@ public class EnemyStateVarriables : MonoBehaviour
     private void OnDestroy()
     {
         GameManager.instance.enemysInScene.Remove(statusManager);
+        target.aggroList.Remove(gameObject);
     }
 
 }

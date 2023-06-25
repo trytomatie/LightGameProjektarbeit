@@ -90,11 +90,8 @@ public class InteractionHandler : MonoBehaviour
         if (other.gameObject.GetComponent<Interactable>() != null)
         {
             Interactable interactable = other.gameObject.GetComponent<Interactable>();
-            if (!isInteracting)
-            {
-                potentialInteractables.Remove(other.gameObject.GetComponent<Interactable>());
-                interactable.IsReachable = false;
-            }
+            potentialInteractables.Remove(other.gameObject.GetComponent<Interactable>());
+            interactable.IsReachable = false;
         }
     }
 

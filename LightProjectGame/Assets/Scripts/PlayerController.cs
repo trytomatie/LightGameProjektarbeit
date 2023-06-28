@@ -54,6 +54,7 @@ public class PlayerController : State
     public float edgeSphereCastRadius = 0.5f;
     public bool edgeDetected;
     public Vector3 edgePosition;
+    public float edgeRotation;
 
 
 
@@ -245,6 +246,12 @@ public class PlayerController : State
                             {
                                 edgeDetected = true;
                                 edgePosition = new Vector3(rc2.point.x,rc.point.y,rc2.point.z);
+                                // Project the direction onto the XZ plane (ignore the Y component)
+                                Vector3 directionXZ = new Vector3(-rc2.normal.x, 0f, -rc2.normal.z);
+
+                                // Calculate the Y angle using the Vector3.Angle method
+                                float yAngle = Vector3.SignedAngle(Vector3.forward, directionXZ, Vector3.up);
+                                edgeRotation = yAngle;
                             }
                             break;
                         }

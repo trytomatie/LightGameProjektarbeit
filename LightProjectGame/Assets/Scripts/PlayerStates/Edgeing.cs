@@ -24,6 +24,7 @@ public class Edgeing : State
         transform.position = playerController.edgePosition +cc.center;
         playerController.anim.SetBool("hanging", true);
         cc.enabled = true;
+        playerController.transform.rotation = Quaternion.Euler(0, playerController.edgeRotation, 0);
 
     }
     public override void UpdateState(GameObject source)

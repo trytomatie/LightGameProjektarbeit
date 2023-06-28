@@ -92,7 +92,7 @@ public class PlayerDraggingController : State
     {
         Vector3 middle = (targetrb.transform.position + staffTip.position) / 2;
         splineComputer.SetPoint(0, new SplinePoint(staffTip.position));
-        splineComputer.SetPoint(1, new SplinePoint(middle + new Vector3(0,1,0)));
+        splineComputer.SetPoint(1, new SplinePoint(middle + new Vector3(0,0.6f,0)));
         splineComputer.SetPoint(2, new SplinePoint(targetrb.transform.position));
         for(int i = 0; i<= 2;i++)
         {
@@ -123,7 +123,7 @@ public class PlayerDraggingController : State
         PlayPickUPVFX();
         //SetSplinePoints();
         rcc.HandleHud(true);
-
+        targetrb.GetComponent<Renderer>().material.SetInt("_HightLighting", 1);
         pickUpDelayTimer = Time.time + pickUpDelay;
         
         // Set Input Animations to 0
@@ -165,6 +165,7 @@ public class PlayerDraggingController : State
         playerController.camAnim.SetInteger("cam", 0);
         playerController.anim.SetFloat("movementMode", 0);
         playerController.anim.SetBool("aiming", false);
+        targetrb.GetComponent<Renderer>().material.SetInt("_HightLighting", 0);
         ToggleSpline(false);
         rcc.HandleHud(false);
     }

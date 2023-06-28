@@ -9,7 +9,7 @@ public class AttackingState : State
     public AnimationCurve attack1;
     public AnimationCurve attack2;
     public AnimationCurve attack3;
-    public GameObject weaponTrail;
+    public AdvancedTrailRenderer weaponTrail;
 
     private AnimatorStateInfo currentState;
     private bool stateHasChanged = false;
@@ -34,7 +34,7 @@ public class AttackingState : State
     {
         if(Input.GetKeyDown(KeyCode.M))
         {
-            weaponTrail.SetActive(!weaponTrail.activeSelf);
+            weaponTrail.TrailActive = !weaponTrail.TrailActive;
         }
     }
 
@@ -151,7 +151,7 @@ public class AttackingState : State
         ScanForEnemies();
         stateHasChanged = true;
         queueAttack = false;
-        weaponTrail.SetActive(true);
+        weaponTrail.TrailActive = true;
     }
     public override void UpdateState(GameObject source)
     {
@@ -199,7 +199,7 @@ public class AttackingState : State
         playerController.anim.SetBool("attack", false);
         playerController.turnspeed = originalTurnspeed;
         playerController.movementSpeed = 0;
-        weaponTrail.SetActive(false);
+        weaponTrail.TrailActive = false;
     }
     #endregion
 

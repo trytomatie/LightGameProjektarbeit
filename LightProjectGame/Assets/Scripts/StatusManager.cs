@@ -90,6 +90,8 @@ public class StatusManager : MonoBehaviour
 
     public void UpdateBuffs()
     {
+        if (hp <= 0)
+            return;
         if (buffsToadd.Count > 0)
         {
             foreach (Buff newBuff in buffsToadd)

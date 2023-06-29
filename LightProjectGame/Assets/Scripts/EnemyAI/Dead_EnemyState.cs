@@ -21,6 +21,21 @@ public class Dead_EnemyState : State
         Destroy(gameObject, 5);
         GameManager.instance.enemysInScene.Remove(esv.statusManager);
         Instantiate(wisp, transform.position, Quaternion.identity);
+        StartCoroutine(Dissolve());
+        esv.deathParticles.Play();
+    }
+
+    private IEnumerator Dissolve()
+    {
+        float dissolveAmount = 0;
+        while(dissolveAmount < 1)
+        {
+            dissolveAmount += Time.deltaTime * 0.3f;
+            esv.renderer.material.SetFloat("_DissolveAmount", dissolveAmount);
+            yield return new WaitForEndOfFrame();
+        }
+        esv.renderer.material.SetFloat("_DissolveAmount", 1);
+
     }
 
 

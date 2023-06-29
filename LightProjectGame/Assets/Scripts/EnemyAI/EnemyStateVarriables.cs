@@ -27,6 +27,8 @@ public class EnemyStateVarriables : MonoBehaviour
     public float[] aggrolistPositionModifier = { 1, 0f, 0f,0f };
     public float[] aggroListAttackRollPenalty = { 0f, 0.5f, 0.8f, 1f };
 
+    public ParticleSystem deathParticles;
+
     // Specific State Variables
     [HideInInspector] public float ciclingStartAngle;
     [HideInInspector] public float currentCircelingAngle;
@@ -35,6 +37,7 @@ public class EnemyStateVarriables : MonoBehaviour
     [HideInInspector] public NavMeshAgent agent;
     [HideInInspector] public Animator anim;
     [HideInInspector] public StateMachine stateMachine;
+    [HideInInspector] public Renderer renderer;
 
     // Animation
     [HideInInspector] public int animSpeedHash;
@@ -50,6 +53,7 @@ public class EnemyStateVarriables : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
+        renderer = GetComponentInChildren<Renderer>();
         statusManager = GetComponent<StatusManager>();
         stateMachine = GetComponent<StateMachine>();
         animSpeedHash = Animator.StringToHash("speed");

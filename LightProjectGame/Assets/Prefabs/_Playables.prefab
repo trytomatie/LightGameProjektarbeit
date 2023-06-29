@@ -627,69 +627,7 @@ MonoBehaviour:
   _colorModifier:
     blend: 1
     useClippedPercent: 0
-    keys:
-    - _featherStart: 0
-      _featherEnd: 0.05999999865889549
-      _centerStart: 0
-      _centerEnd: 0.924242377281189
-      interpolation:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 0
-          outSlope: 1
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        - serializedVersion: 3
-          time: 1
-          value: 1
-          inSlope: 1
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      blend: 1
-      color: {r: 1, g: 1, b: 1, a: 0}
-      blendMode: 0
-    - _featherStart: 0.800000011920929
-      _featherEnd: 1
-      _centerStart: 0.10000000149011612
-      _centerEnd: 1
-      interpolation:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0
-          inSlope: 0
-          outSlope: 1
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        - serializedVersion: 3
-          time: 1
-          value: 1
-          inSlope: 1
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      blend: 1
-      color: {r: 1, g: 1, b: 1, a: 0.019607844}
-      blendMode: 0
+    keys: []
   _sizeModifier:
     blend: 1
     useClippedPercent: 0
@@ -759,7 +697,7 @@ MonoBehaviour:
   _flipFaces: 0
   _doubleSided: 0
   _uvMode: 0
-  _uvScale: {x: 1, y: 2.14}
+  _uvScale: {x: 1, y: 1}
   _uvOffset: {x: 0, y: 0}
   _uvRotation: 90
   _meshIndexFormat: 0
@@ -1756,7 +1694,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 390601015}
-  m_LocalRotation: {x: 0.04948383, y: -0, z: -0.000000018626451, w: 0.998775}
+  m_LocalRotation: {x: 0.04948384, y: 0.000000029802322, z: -0.000000007450581, w: 0.99877495}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -18623,7 +18561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbdea08d1b0816f4bac221bda6e900e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 0.3
+  size: 0.2
   target: {fileID: 181851439}
 --- !u!114 &1002647036
 MonoBehaviour:
@@ -25142,7 +25080,7 @@ MonoBehaviour:
       m_Item7:
         transform: {fileID: 0}
         weight: 0
-    m_Offset: {x: 139.7, y: -202.1, z: 36.77}
+    m_Offset: {x: 157.8, y: -194.6, z: 43.4}
     m_ConstrainedAxes:
       x: 1
       y: 1
@@ -36940,7 +36878,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1959834235}
-  m_LocalRotation: {x: 0.01818943, y: 0.00000003490615, z: -0.000000010473964, w: 0.99983466}
+  m_LocalRotation: {x: 0.01818943, y: -0.0000000019452475, z: 5.836931e-10, w: 0.99983466}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -38989,6 +38927,7 @@ MonoBehaviour:
   edgeSphereCastRadius: 0.01
   edgeDetected: 0
   edgePosition: {x: 0, y: 0, z: 0}
+  edgeRotation: 0
   movementSpeed: 0
   lastMovement: {x: 0, y: 0, z: 0}
   slashVFX: {fileID: 0}
@@ -39153,8 +39092,8 @@ MonoBehaviour:
   dragPointLengthMin: 1
   dragPointLengthMax: 5
   splineComputer: {fileID: 51901117}
-  lineSize: 0.14
-  lineEndSize: 0.4
+  lineSize: 0.11
+  lineEndSize: 0.74
   staffTip: {fileID: 4749398226583793640}
   targetIk: {fileID: 410145354}
   pickUpVFX: {fileID: 1658227266}
@@ -39305,10 +39244,10 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.52091825
-      value: 0.14856035
-      inSlope: 0
-      outSlope: 0
+      time: 0.85938597
+      value: 0.9022121
+      inSlope: -4.582675
+      outSlope: -4.582675
       tangentMode: 136
       weightedMode: 0
       inWeight: 0.33333334
@@ -39330,7 +39269,7 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1.8644891
+      value: 4.484689
       inSlope: 0
       outSlope: 0
       tangentMode: 136
@@ -39347,10 +39286,10 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.5543232
-      value: 0.14856035
-      inSlope: 0
-      outSlope: 0
+      time: 0.9327639
+      value: 0.7717209
+      inSlope: -4.179556
+      outSlope: -4.179556
       tangentMode: 136
       weightedMode: 0
       inWeight: 0.33333334

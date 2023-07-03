@@ -48,11 +48,15 @@ public class EnemyStateVarriables : MonoBehaviour
     [HideInInspector] public int animYInputHash;
     [HideInInspector] public int animTauntHash;
 
+    private void Awake()
+    {
+        anim = GetComponentInChildren<Animator>();
+    }
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        anim = GetComponentInChildren<Animator>();
+
         renderer = GetComponentInChildren<Renderer>();
         statusManager = GetComponent<StatusManager>();
         stateMachine = GetComponent<StateMachine>();

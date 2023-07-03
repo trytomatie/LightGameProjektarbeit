@@ -12,10 +12,11 @@ public class Hurt_EnemyState : HurtState
 
     public override void Start()
     {
+        base.Start();
         esm = GetComponent<EnemyStateMethods>();
         esv = GetComponent<EnemyStateVarriables>();
+        anim = esv.anim;
 
-        base.Start();
     }
 
 

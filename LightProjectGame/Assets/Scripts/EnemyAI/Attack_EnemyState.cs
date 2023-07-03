@@ -7,6 +7,7 @@ public class Attack_EnemyState : State
     private EnemyStateMethods esm;
     private EnemyStateVarriables esv;
     private float attackTime;
+    public float attackTimeOffset = 2;
     private float speedCache;
 
     private void Start()
@@ -18,7 +19,7 @@ public class Attack_EnemyState : State
     public override void EnterState(GameObject source)
     {
         esv.anim.SetBool(esv.animAttackHash,true);
-        attackTime = Time.time + 1f;
+        attackTime = Time.time + attackTimeOffset;
         speedCache = esv.Speed;
         esv.Speed = 0;
         esv.anim.SetFloat(esv.animSpeedHash, 0);
@@ -39,6 +40,7 @@ public class Attack_EnemyState : State
 
     public override void ExitState(GameObject source)
     {
+        esv.anim.SetBool(esv.animAttackHash, false);
         esv.Speed = speedCache;
     }
 

@@ -64,10 +64,13 @@ public class HurtState : State
 
     public override StateName AnyTransition(GameObject source)
     {
+
         if(isHit)
         {
+
             if (myStatus.faction == StatusManager.Faction.Enemy && (sm.currentState.stateName != State.StateName.Attacking && sm.currentState.stateName != StateName.Dead))
             {
+                print("I AM HIT!!!!!!");
                 return StateName.Hurt;
             }
             if (myStatus.faction == StatusManager.Faction.Player && (sm.currentState.stateName != State.StateName.Shielding))

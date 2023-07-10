@@ -45,6 +45,7 @@ public class VFXGraphHandler : MonoBehaviour
     }
 }
 
+#if UNITY_EDTIOR
 [CustomEditor(typeof(VFXGraphHandler))]
 public class VFXGraphHandlerEditor : Editor
 {
@@ -60,3 +61,4 @@ public class VFXGraphHandlerEditor : Editor
         }
     }
 }
+#endif

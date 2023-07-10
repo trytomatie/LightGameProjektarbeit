@@ -8,22 +8,20 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FAE_IvyBillboards
-  m_Shader: {fileID: -6465566751694194690, guid: dc1a634184354e343a9a36dd032cf2bf,
-    type: 3}
+  m_Shader: {fileID: 4800000, guid: e27c26c0ecebef247ba69245490f2562, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - _ALPHATEST_ON
   - _DISABLE_DECALS
   - _DISABLE_SSR_TRANSPARENT
   - _DOUBLESIDED_ON
-  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: 2450
-  stringTagMap:
-    RenderType: TransparentCutout
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses:
   - TransparentDepthPrepass
   - TransparentDepthPostpass
@@ -119,6 +117,7 @@ Material:
     - _DstBlend: 0
     - _EnableBlendModePreserveSpecularLighting: 0
     - _EnableFogOnTransparent: 1
+    - _FlatLighting: 0
     - _GlobalWindMotion: 1
     - _GlossMapScale: 1
     - _Glossiness: 0
@@ -172,6 +171,7 @@ Material:
     - _VS_TOUCHBEND: 0
     - _WindAmplitudeMultiplier: 1
     - _WindSwinging: 0.25
+    - _WindTint: 0.1
     - _ZTestDepthEqualForOpaque: 3
     - _ZTestGBuffer: 3
     - _ZTestTransparent: 4

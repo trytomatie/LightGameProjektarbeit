@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class DamageObject : MonoBehaviour
     public List<GameObject> hitObjects;
     public int damage = 1;
     public bool isActive = true;
+    public MMF_Player feedback;
 
     // Start is called before the first frame update
     void Start()
@@ -80,6 +82,11 @@ public class DamageObject : MonoBehaviour
             other.GetComponent<HurtState>().isHit = true;
         }
         Instantiate(hitEffect, other.ClosestPoint(transform.position), Quaternion.identity);
+        if(feedback != null)
+        {
+            FeedbackManager.PlaySound(feedback, transform);
+        }
+
     }
 
 }

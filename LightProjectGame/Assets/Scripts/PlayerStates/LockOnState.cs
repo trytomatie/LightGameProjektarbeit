@@ -125,7 +125,7 @@ public class LockOnState : State
     {
         pc.anim.SetBool("shielding", value);
         shield.SetActive(value);
-        myStatus.shielding = value;
+        myStatus.Shielding = value;
         //blockIndicator.gameObject.SetActive(value);
     }
 
@@ -161,7 +161,7 @@ public class LockOnState : State
         {
             Shielding(false);
         }
-        if(myStatus.shielding)
+        if(myStatus.Shielding)
         {
             blockIndicator.position = mainCamera.WorldToScreenPoint(transform.position + new Vector3(0, 1.5f, 0));
         }

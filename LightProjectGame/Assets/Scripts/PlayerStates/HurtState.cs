@@ -38,7 +38,7 @@ public class HurtState : State
     #region StateMethods
     public override void EnterState(GameObject source)
     {
-        if (myStatus.shielding)
+        if (myStatus.Shielding)
         {
             shieldingEvent.Invoke();
         }

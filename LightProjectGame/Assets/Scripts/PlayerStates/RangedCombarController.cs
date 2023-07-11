@@ -77,6 +77,7 @@ public class RangedCombarController : State
             _projectile.transform.LookAt(ray.GetPoint(15));
             _projectile.GetComponent<DamageObject>().source = playerController.myStatus;
             chargeAttackVFX.SetActive(false);
+            FeedbackManager.PlaySound(FeedbackManager.instance.shoot_Feedback, transform);
             isReloading = true;
             Invoke("ReadyShot", reloadTime);
             //}
@@ -92,6 +93,7 @@ public class RangedCombarController : State
         }
         if (sm.CheckStates(sm.currentState) == this)
         {
+            FeedbackManager.PlaySound(FeedbackManager.instance.shootCharge_Feedback, transform);
             chargeAttackVFX.SetActive(true);
         }
         Invoke("ReloadingFinish", 0.5f);
@@ -116,7 +118,7 @@ public class RangedCombarController : State
         reticle.SetActive(true);
         playerController.anim.SetFloat("movementMode", 1);
         playerController.anim.SetBool("aiming", true);
-        chargeAttackVFX.SetActive(true);
+        ReadyShot();
         HandleHud(true);
     }
 

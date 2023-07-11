@@ -129,6 +129,7 @@ public class PlayerDraggingController : State
         // Set Input Animations to 0
         playerController.anim.SetFloat("xInput", 0);
         playerController.anim.SetFloat("yInput", 0);
+        FeedbackManager.PlaySound(FeedbackManager.instance.magnet_Feedback, transform);
     }
     public override void UpdateState(GameObject source)
     {
@@ -140,6 +141,7 @@ public class PlayerDraggingController : State
         {
             return;
         }
+
         playerController.Movement();
         Rotation();
         playerController.Animations();
@@ -168,6 +170,7 @@ public class PlayerDraggingController : State
         targetrb.GetComponent<Renderer>().material.SetInt("_HightLighting", 0);
         ToggleSpline(false);
         rcc.HandleHud(false);
+        FeedbackManager.instance.magnet_Feedback.StopFeedbacks();
     }
     #endregion
 }

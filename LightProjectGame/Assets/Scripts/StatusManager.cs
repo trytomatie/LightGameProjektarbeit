@@ -17,7 +17,7 @@ public class StatusManager : MonoBehaviour
     public bool isInvulnerable = false;
 
     [Header("Shielding")]
-    public bool shielding = false;
+    private bool shielding = false;
     public int shieldHp = 3;
     public int shieldMaxHp = 3;
 
@@ -61,7 +61,7 @@ public class StatusManager : MonoBehaviour
 
     public void ApplyDamage(int damage)
     {
-        if(shielding)
+        if(Shielding)
         {
             ShieldHp -= damage;
         }
@@ -215,12 +215,21 @@ public class StatusManager : MonoBehaviour
             {
                 shieldHp = value;
                 shieldDamageEvent.Invoke();
+                FeedbackManager.PlaySound(FeedbackManager.instance.successfulBlock_Feedback, transform);
             }
             else
             {
                 shieldHp = value;
             }
 
+        }
+    }
+
+    public bool Shielding { get => shielding; 
+        set
+        {
+            FeedbackManager.PlaySound(FeedbackManager.instance.readyShield_Feedback, transform);
+            shielding = value;
         }
     }
 }

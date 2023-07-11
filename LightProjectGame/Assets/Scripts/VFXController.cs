@@ -1,3 +1,5 @@
+using MoreMountains.Tools;
+using MoreMountains.Feedbacks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -67,6 +69,13 @@ public class VFXController : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
         hitboxes[i].SetActive(false);
+    }
+
+    public void PlayFootstepSound()
+    {
+        MMF_MMSoundManagerSound sound = (MMF_MMSoundManagerSound)FeedbackManager.instance.footStep_Feedback.FeedbacksList[0];
+        sound.AttachToTransform = transform;
+        FeedbackManager.instance.footStep_Feedback.PlayFeedbacks();
     }
 
 }

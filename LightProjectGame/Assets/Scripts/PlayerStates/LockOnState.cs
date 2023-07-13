@@ -73,7 +73,9 @@ public class LockOnState : State
     private void CalculateTargetCameraPivot()
     {
         Ray ray = new Ray(transform.position, -(transform.position - target.transform.position));
-        targetCameraPivot.position = ray.GetPoint(Mathf.Clamp(Vector3.Distance(transform.position, target.transform.position), 0, 2));
+        Vector3 pos = ray.GetPoint(Mathf.Clamp(Vector3.Distance(transform.position, target.transform.position), 0, 2));
+        pos.y = transform.position.y;
+        targetCameraPivot.position = pos;
         targetIkPosition.position = target.transform.position + new Vector3(0, 0.5f, 0);
     }
 

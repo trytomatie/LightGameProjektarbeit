@@ -8,6 +8,11 @@ public class ElusiveBlockVisible : State
     public List<LightController> lightsInRange = new List<LightController>();
     public Vector3 invisblePosition;
     public Collider hitbox;
+
+    [Header("Texture Settings")]
+    public float tiling = 1;
+    public Vector3 tilingOffset = new Vector3(5,0,0);
+    private MaterialPropertyBlock propertyBlock;
     [HideInInspector]
     public StateMachine sm;
     private Animator anim;
@@ -18,12 +23,19 @@ public class ElusiveBlockVisible : State
     public int timeFlow = -1;
     private int a_offset;
 
+    private MeshRenderer myRenderer;
+
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         sm = GetComponent<StateMachine>();
         a_offset = Animator.StringToHash("offset");
+        myRenderer = GetComponent<MeshRenderer>();
+        propertyBlock = new MaterialPropertyBlock();
+        propertyBlock.SetFloat("_TextureTiling", tiling);
+        propertyBlock.SetVector("_TextureOffset", tilingOffset);
+        myRenderer.SetPropertyBlock(propertyBlock);
     }
 
 

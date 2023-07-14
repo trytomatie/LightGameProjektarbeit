@@ -228,7 +228,10 @@ public class StatusManager : MonoBehaviour
     public bool Shielding { get => shielding; 
         set
         {
-            FeedbackManager.PlaySound(FeedbackManager.instance.readyShield_Feedback, transform);
+            if(value != shielding && value == true)
+            {
+                FeedbackManager.PlaySound(FeedbackManager.instance.readyShield_Feedback, transform);
+            }
             shielding = value;
         }
     }

@@ -30,6 +30,17 @@ public class MyShortcuts : Editor
 
     }
 
+    [MenuItem("GameObject/TerrainAdjust")]
+    static void TerrainAdjust()
+    {
+        foreach (GameObject go in Selection.objects)
+        {
+            go.GetComponent<Terrain>().terrainData.heightmapResolution = 2;
+        }
+        //var go = Selection.activeGameObject;
+
+    }
+
     private static void RecordUndoState()
     {
         Transform[] transforms = new Transform[Selection.objects.Length];

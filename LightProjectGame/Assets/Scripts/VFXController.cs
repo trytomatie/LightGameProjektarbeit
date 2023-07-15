@@ -9,8 +9,12 @@ public class VFXController : MonoBehaviour
 {
     public VisualEffect[] vfx;
     public GameObject[] hitboxes;
+    private Animator anim;
 
-
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
     private void FixedUpdate()
     {
         if(Input.GetKey(KeyCode.K))
@@ -73,9 +77,12 @@ public class VFXController : MonoBehaviour
 
     public void PlayFootstepSound()
     {
-        MMF_MMSoundManagerSound sound = (MMF_MMSoundManagerSound)FeedbackManager.instance.footStep_Feedback.FeedbacksList[0];
-        sound.AttachToTransform = transform;
-        FeedbackManager.instance.footStep_Feedback.PlayFeedbacks();
+        if(anim.GetCurrentAnimatorStateInfo(2).IsName("Empty"))
+        {
+            MMF_MMSoundManagerSound sound = (MMF_MMSoundManagerSound)FeedbackManager.instance.footStep_Feedback.FeedbacksList[0];
+            sound.AttachToTransform = transform;
+            FeedbackManager.instance.footStep_Feedback.PlayFeedbacks();
+        }
     }
 
 }

@@ -10,6 +10,7 @@ public class VFXController : MonoBehaviour
     public VisualEffect[] vfx;
     public GameObject[] hitboxes;
     private Animator anim;
+    public List<Material> stoneMaterial = new List<Material>();
 
     private void Start()
     {
@@ -79,9 +80,34 @@ public class VFXController : MonoBehaviour
     {
         if(anim.GetCurrentAnimatorStateInfo(2).IsName("Empty"))
         {
-            MMF_MMSoundManagerSound sound = (MMF_MMSoundManagerSound)FeedbackManager.instance.footStep_Feedback.FeedbacksList[0];
-            sound.AttachToTransform = transform;
-            FeedbackManager.instance.footStep_Feedback.PlayFeedbacks();
+            RaycastHit rc;
+            Physics.Raycast(transform.position + new Vector3(0,0.6f,0), new Vector3(0, -1, 0), out rc, 2);
+            print(rc.collider.gameObject);
+            if(rc.collider.GetComponent<Renderer>() != null)
+            {
+                Material mat = rc.collider.GetComponent<Renderer>().sharedMaterial;
+                if (stoneMaterial.Contains(mat)) 
+                {
+                    MMF_MMSoundManagerSound sound = (MMF_MMSoundManagerSound)FeedbackManager.instance.footStep_Feedback_Stone.FeedbacksList[0];
+                    sound.AttachToTransform = transform;
+                    FeedbackManager.instance.footStep_Feedback_Stone.PlayFeedbacks();
+                }
+                else
+                {
+                    MMF_MMSoundManagerSound sound = (MMF_MMSoundManagerSound)FeedbackManager.instance.footStep_Feedback.FeedbacksList[0];
+                    sound.AttachToTransform = transform;
+                    FeedbackManager.instance.footStep_Feedback.PlayFeedbacks();
+                }
+            }
+            else
+            {
+                MMF_MMSoundManagerSound sound = (MMF_MMSoundManagerSound)FeedbackManager.instance.footStep_Feedback.FeedbacksList[0];
+                sound.AttachToTransform = transform;
+                FeedbackManager.instance.footStep_Feedback.PlayFeedbacks();
+            }
+
+
+
         }
     }
 

@@ -7,6 +7,7 @@ public class FeedbackManager : MonoBehaviour
 {
     public static FeedbackManager instance;
     public MMF_Player footStep_Feedback;
+    public MMF_Player footStep_Feedback_Stone;
     public MMF_Player weaponHit_Feedback;
     public MMF_Player weaponWiff_Feedback;
     public MMF_Player magnet_Feedback;
@@ -17,6 +18,8 @@ public class FeedbackManager : MonoBehaviour
     public MMF_Player shootCharged_Feedback;
     public MMF_Player shoot_Feedback;
     public MMF_Player pickUPItem_Feedback;
+
+
     // Start is called before the first frame update
     void Start()
     {

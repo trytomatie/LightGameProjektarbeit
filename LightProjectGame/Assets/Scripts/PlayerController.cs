@@ -242,7 +242,7 @@ public class PlayerController : State
                             float dotProduct = Vector3.Dot(rc.normal.normalized, rc2.normal.normalized); // dot product of the normalized vectors
                             float angle = Mathf.Acos(dotProduct) * Mathf.Rad2Deg;
                             print(string.Format("Angle:{0} Top:{1} Side:{2}", angle, rc.normal, rc2.normal));
-                            if(angle > 85 && angle < 100)
+                            if(angle > 89 && angle < 91)
                             {
                                 edgeDetected = true;
                                 edgePosition = new Vector3(rc2.point.x,rc.point.y,rc2.point.z);

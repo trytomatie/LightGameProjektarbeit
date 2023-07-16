@@ -26,4 +26,10 @@ public class Projectile : MonoBehaviour
     {
         rb.useGravity = true;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        GetComponent<DamageObject>().ApplyHitEffect(gameObject);
+        Destroy(gameObject);
+    }
 }

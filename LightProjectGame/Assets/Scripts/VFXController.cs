@@ -23,7 +23,7 @@ public class VFXController : MonoBehaviour
             hitboxes[0].SetActive(true);
             foreach(GameObject go in hitboxes[0].GetComponent<DamageObject>().hitObjects)
             {
-                hitboxes[0].GetComponent<DamageObject>().ApplyHitEffect(go.GetComponent<Collider>());
+                hitboxes[0].GetComponent<DamageObject>().ApplyHitEffect(go);
             }
             hitboxes[0].transform.position = hitboxes[0].transform.position + Random.insideUnitSphere * 0.001f;
             TriggerVFXSpam(0);

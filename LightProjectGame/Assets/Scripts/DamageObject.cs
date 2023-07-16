@@ -33,22 +33,32 @@ public class DamageObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(!isActive)
+        ApplyDamageEffect(other.gameObject);
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        ApplyDamageEffect(other.gameObject);
+    }
+
+    private void ApplyDamageEffect(GameObject other)
+    {
+        if (!isActive)
         {
             return;
         }
-        if((other.GetComponent<StatusManager>() != null || other.tag == "PuzzleElement")  && !hitObjects.Contains(other.gameObject))
+        if ((other.GetComponent<StatusManager>() != null || other.tag == "PuzzleElement") && !hitObjects.Contains(other.gameObject))
         {
-            if(other.GetComponent<StatusManager>() != null)
+            if (other.GetComponent<StatusManager>() != null)
             {
                 StatusManager sm = other.GetComponent<StatusManager>();
-                if(sm.faction != faction && !sm.isInvulnerable)
+                if (sm.faction != faction && !sm.isInvulnerable)
                 {
                     GameManager.CallHitPause();
                     sm.ApplyDamage(damage);
                     hitObjects.Add(other.gameObject);
                     ApplyHitEffect(other);
-                    if(sm.faction == StatusManager.Faction.Player)
+                    if (sm.faction == StatusManager.Faction.Player)
                     {
                         Vector3 dir = transform.position - other.transform.position;
                         dir.y = 0;
@@ -64,24 +74,24 @@ public class DamageObject : MonoBehaviour
             {
                 LampOn lamp = other.GetComponent<LampOn>();
                 lamp.ChangeState();
-                Instantiate(hitEffect, other.ClosestPoint(transform.position), Quaternion.identity);
+                Instantiate(hitEffect, other.transform.position, Quaternion.identity);
             }
             if (other.tag == "PuzzleElement" && other.GetComponent<LeverOn>() != null)
             {
                 LeverOn lever = other.GetComponent<LeverOn>();
                 lever.ChangeState();
-                Instantiate(hitEffect, other.ClosestPoint(transform.position), Quaternion.identity);
+                Instantiate(hitEffect, other.transform.position, Quaternion.identity);
             }
         }
     }
 
-    public void ApplyHitEffect(Collider other)
+    public void ApplyHitEffect(GameObject other)
     {
         if (other.GetComponent<HurtState>() != null)
         {
             other.GetComponent<HurtState>().isHit = true;
         }
-        Instantiate(hitEffect, other.ClosestPoint(transform.position), Quaternion.identity);
+        Instantiate(hitEffect, other.transform.position, Quaternion.identity);
         if(feedback != null)
         {
             FeedbackManager.PlaySound(feedback, transform);

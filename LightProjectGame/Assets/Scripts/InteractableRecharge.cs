@@ -15,6 +15,7 @@ public class InteractableRecharge : Interactable
     {
         soruce.GetComponent<StatusManager>().LightEnergy = 1000;
         soruce.GetComponentInChildren<InteractionHandler>().RemoveInteraction(this);
+        interactionEvent.Invoke();
         Destroy(gameObject);
     }
 

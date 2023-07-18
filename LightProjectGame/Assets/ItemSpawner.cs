@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemSpawner : MonoBehaviour
 {
     public GameObject item;
-
+    public float force = 3;
     public void SpawnItems(int amount)
     {
         float time = 0.5f;
@@ -20,6 +20,9 @@ public class ItemSpawner : MonoBehaviour
     {
         GameObject _item = Instantiate(item, transform.position, transform.rotation);
         Vector3 rnd = Random.onUnitSphere;
-        _item.GetComponent<Rigidbody>().velocity = new Vector3(rnd.x * 1f, 7, rnd.z * 1f);
+        _item.GetComponent<Rigidbody>().velocity = new Vector3(rnd.x * 1f, force, rnd.z * 1f);
+        Quaternion rotation = Quaternion.FromToRotation(Vector3.up, transform.up);
+        _item.GetComponent<Rigidbody>().velocity = rotation * _item.GetComponent<Rigidbody>().velocity;
+        _item.GetComponent<Rigidbody>().angularVelocity = new Vector3(rnd.x * 1f, 7, rnd.z * 1f);
     }
 }

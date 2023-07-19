@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Item : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class Item : MonoBehaviour
             if(player.Distance(transform.position) < 0.15f)
             {
                 Destroy(gameObject);
+                player.sm.GetComponent<Inventory>().PotionCount++;
             }
         }
     }

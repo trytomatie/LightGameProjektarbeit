@@ -87,6 +87,7 @@ public class PlayerController : State
     private LockOnState lockOnState;
     private StateMachine sm;
     private WeakendControllsState weakendState;
+    private Inventory inventory;
     public RangedCombarController rcc;
     private RaycastHit slopeHit;
     internal StatusManager myStatus;
@@ -117,6 +118,7 @@ public class PlayerController : State
             myStatus = GetComponent<StatusManager>();
             rcc = GetComponent<RangedCombarController>();
             interactionHandler = GetComponentInChildren<InteractionHandler>();
+            inventory = GetComponent<Inventory>();
             instance = this;
 
             // mainCamera = Camera.main;
@@ -178,6 +180,12 @@ public class PlayerController : State
         {
             selectedSkill = 2;
             UI_AbilitySelectTest.UpdateSkillUI();
+        }
+
+        if(Input.GetButton("Item1") && inventory.PotionCount > 0)
+        {
+            inventory.PotionCount--;
+            myStatus.Hp = myStatus.maxHp;
         }
 
         if(Vector3.Distance(transform.position + new Vector3(0,1.2f,0),mainCamera.transform.position)< 1.9f)

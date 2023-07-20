@@ -312,7 +312,15 @@ public class PlayerController : State
         else
         {
             timeInTheAir = 0;
-            movement = new Vector3(horizontalInput, 0, verticalInput).normalized;
+            if(Input.GetAxisRaw("HorizontalJoy") == 0 && Input.GetAxisRaw("VerticalJoy") == 0)
+            {
+                movement = new Vector3(horizontalInput, 0, verticalInput).normalized;
+            }
+            else
+            {
+                movement = new Vector3(horizontalInput, 0, verticalInput);
+            }
+
         }
 
 

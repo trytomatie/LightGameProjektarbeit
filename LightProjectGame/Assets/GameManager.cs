@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
 using System.Linq;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,9 +18,14 @@ public class GameManager : MonoBehaviour
     public GameObject deathMessageUI;
     public GameObject savingUI;
     public Animator loadingScreenUI;
+    public TextMeshProUGUI locationText;
+    public Animator locationTextAnimator;
+
+
     public bool isLoadingLevel = false;
 
     private GameObject player;
+
 
 
     // Start is called before the first frame update

@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public List<StatusManager> enemysInScene = new List<StatusManager>();
     public Transform lastSavePoint;
     [Header("Interface")]
+    public GameObject canvas;
     public GameObject deathMessageUI;
     public GameObject savingUI;
     public Animator loadingScreenUI;
@@ -51,6 +52,10 @@ public class GameManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.P))
         {
             ReloadThisLevel();
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            canvas.SetActive(!canvas.activeSelf);
         }
     }
 

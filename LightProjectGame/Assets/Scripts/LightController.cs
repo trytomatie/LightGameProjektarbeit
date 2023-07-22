@@ -17,6 +17,8 @@ public class LightController : MonoBehaviour
     public bool isOn = true;
     private bool flicker = false;
 
+    public Animator anim;
+
     public bool Flicker { get => flicker; set
         {
 
@@ -89,7 +91,10 @@ public class LightController : MonoBehaviour
     public void TurnOn()
     {
         if (Flicker) return;
-
+        if (anim != null)
+        {
+            anim?.SetBool("isOn", true);
+        }
         lightCollision.enabled = true;
         isOn = true;
         if(lightSourceAnimator != null)
@@ -107,7 +112,10 @@ public class LightController : MonoBehaviour
     public void TurnOff()
     {
         lightCollision.enabled = false;
-
+        if (anim != null)
+        {
+            anim?.SetBool("isOn", false);
+        }
         isOn = false;
         GameObject[] objectsToBeRemoved = objectsInRange.FindAll(e=> e != null).ToArray();
         foreach (GameObject go in objectsToBeRemoved)

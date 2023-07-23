@@ -13,7 +13,7 @@ public class WispPickupTemp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player" && other.GetComponent<StatusManager>().lightEnergy < other.GetComponent<StatusManager>().maxLightEnergy)
+        if(other.tag == "Player")
         {
             other.GetComponent<StatusManager>().LightEnergy += 10;
             Destroy(gameObject);

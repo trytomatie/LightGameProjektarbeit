@@ -98,6 +98,9 @@ public class PlayerController : State
     [Header("Knockback")]
     public AnimationCurve knockbackPower;
 
+    [Header("WeakendState")]
+    public Material weaponMaterial;
+
     // Button Stuff
     private static bool targetingButtonDown = false;
     private static bool skillSelectLeft = false;
@@ -124,8 +127,10 @@ public class PlayerController : State
             // mainCamera = Camera.main;
             if (startWeakend)
             {
+                weaponMaterial.SetColor("_EmissiveColor", new Color(0, 0, 0, 1));
                 weakendState.stateName = StateName.Controlling;
                 stateName = StateName.Invalid;
+
             }
             GameManager.AddToEnemyTargetList(myStatus.targetInfo);
         }

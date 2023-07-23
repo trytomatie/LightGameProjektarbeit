@@ -115,6 +115,7 @@ public class WeakendControllsState : State
             brokenWeapons[0].SetActive(false);
             stateName = StateName.Invalid;
             pc.stateName = StateName.Controlling;
+            pc.weaponMaterial.SetColor("_EmissiveColor", new Color(0.75f, 0.75f, 0.75f, 1));
             return StateName.Controlling;
         }
         return stateName;

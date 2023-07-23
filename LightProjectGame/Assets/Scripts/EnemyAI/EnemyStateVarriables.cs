@@ -38,6 +38,8 @@ public class EnemyStateVarriables : MonoBehaviour
     [HideInInspector] public Animator anim;
     [HideInInspector] public StateMachine stateMachine;
     [HideInInspector] public Renderer renderer;
+    [HideInInspector] public Collider col;
+    [HideInInspector] public Rigidbody rb;
 
     // Animation
     [HideInInspector] public int animSpeedHash;
@@ -60,6 +62,8 @@ public class EnemyStateVarriables : MonoBehaviour
         renderer = GetComponentInChildren<Renderer>();
         statusManager = GetComponent<StatusManager>();
         stateMachine = GetComponent<StateMachine>();
+        col = GetComponent<Collider>();
+        rb = GetComponent<Rigidbody>();
         animSpeedHash = Animator.StringToHash("speed");
         animAttackHash = Animator.StringToHash("attack");
         animAlertedHash = Animator.StringToHash("alerted");

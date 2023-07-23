@@ -5,6 +5,8 @@ using UnityEngine;
 public class ItemSpawner : MonoBehaviour
 {
     public GameObject item;
+    public GameObject shadowEssence;
+    private bool spawnHealthPotion;
     public float force = 3;
     public void SpawnItems(int amount)
     {
@@ -18,7 +20,18 @@ public class ItemSpawner : MonoBehaviour
 
     private void SpawnItem()
     {
-        GameObject _item = Instantiate(item, transform.position, transform.rotation);
+        GameObject _item;
+        if (spawnHealthPotion)
+        {
+
+            _item = Instantiate(item, transform.position, transform.rotation);
+        }
+        else
+        {
+            _item = Instantiate(shadowEssence, transform.position, transform.rotation);
+        }
+        spawnHealthPotion = !spawnHealthPotion;
+
         Vector3 rnd = Random.onUnitSphere;
         _item.GetComponent<Rigidbody>().velocity = new Vector3(rnd.x * 1f, force, rnd.z * 1f);
         Quaternion rotation = Quaternion.FromToRotation(Vector3.up, transform.up);

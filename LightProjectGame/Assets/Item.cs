@@ -5,10 +5,10 @@ using UnityEngine.Events;
 
 public class Item : MonoBehaviour
 {
-    private TargetInfo player;
-    private Rigidbody rb;
-    private bool triggered = false;
-    private float timer = 0;
+    protected TargetInfo player;
+    protected Rigidbody rb;
+    protected bool triggered = false;
+    protected float timer = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,9 +34,14 @@ public class Item : MonoBehaviour
             if(player.Distance(transform.position) < 0.15f)
             {
                 Destroy(gameObject);
-                player.sm.GetComponent<Inventory>().PotionCount++;
+                PickUp();
             }
         }
+    }
+
+    public virtual void PickUp()
+    {
+
     }
 
    

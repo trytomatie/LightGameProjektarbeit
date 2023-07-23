@@ -18,9 +18,12 @@ public class Dead_EnemyState : State
     {
         esv.target.aggroList.Remove(gameObject);
         esv.anim.SetTrigger("death");
+        esv.rb.isKinematic = true;
+        esv.col.enabled = false;
         Destroy(gameObject, 5);
         GameManager.instance.enemysInScene.Remove(esv.statusManager);
-        Instantiate(wisp, transform.position, Quaternion.identity);
+        GameObject _go = Instantiate(wisp, transform.position + new Vector3(0,1.5f,0), Quaternion.identity);
+        _go.GetComponent<Rigidbody>().velocity = new Vector3(Random.Range(-1,1) * 0.4f, 2, Random.Range(-1, 1) * 0.4f);
         StartCoroutine(Dissolve());
         esv.deathParticles.Play();
     }

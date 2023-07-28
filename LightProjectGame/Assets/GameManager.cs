@@ -167,4 +167,20 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(hitPauseTime);
         Time.timeScale = 1;
     }
+
+    public Transform interactText;
+    public Animator[] interactTextAnims;
+    public static void SpawnInteractText(Vector3 pos)
+    {
+        instance.interactText.position = pos;
+        foreach(Animator anim in instance.interactTextAnims)
+        {
+            anim.SetBool("animate", true);
+        }
+    }
+
+    public static void DespawnInteractText() 
+    {
+        instance.interactText.position = new Vector3(0,-100,0);
+    }
 }

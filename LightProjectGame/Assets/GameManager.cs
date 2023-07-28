@@ -172,7 +172,7 @@ public class GameManager : MonoBehaviour
     public Animator[] interactTextAnims;
     public static void SpawnInteractText(Vector3 pos)
     {
-        instance.interactText.position = pos;
+        instance.interactText.parent.position = pos;
         foreach(Animator anim in instance.interactTextAnims)
         {
             anim.SetBool("animate", true);
@@ -181,6 +181,10 @@ public class GameManager : MonoBehaviour
 
     public static void DespawnInteractText() 
     {
-        instance.interactText.position = new Vector3(0,-100,0);
+        instance.interactText.parent.position = new Vector3(0,-1000,0);
+        foreach (Animator anim in instance.interactTextAnims)
+        {
+            anim.SetBool("animate", false);
+        }
     }
 }

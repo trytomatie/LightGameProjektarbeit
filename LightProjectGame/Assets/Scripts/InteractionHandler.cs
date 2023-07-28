@@ -53,7 +53,7 @@ public class InteractionHandler : MonoBehaviour
         if(potentialInteractables.Count > 0)
         {
             ReachableInteractable = potentialInteractables.OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).First();
-            if (ReachableInteractable != null && Helper.DistanceBetween(gameObject, ReachableInteractable.gameObject) > interactionDistance && Helper.AngleBetween(gameObject, ReachableInteractable.gameObject) < interactionAngleThreshold)
+            if (ReachableInteractable != null && Helper.DistanceBetween(gameObject, ReachableInteractable.gameObject) > interactionDistance && Helper.AngleBetween(gameObject, ReachableInteractable.gameObject) < 180)
             {
                 CanInteract = true;
             }
@@ -109,10 +109,22 @@ public class InteractionHandler : MonoBehaviour
         } 
     }
 
-    public bool CanInteract { get => canInteract; set 
+    public bool CanInteract { get => canInteract; set
         {
+            if (value != canInteract)
+            {
+                if(value)
+                {
+                    GameManager.SpawnInteractText(ReachableInteractable.transform.position + new Vector3(0, 2, 0));
+                }
+                else
+                {
+                    GameManager.DespawnInteractText();
+                }
+            }
             canInteract = value;
-            interactUI.SetActive(value);
+            // interactUI.SetActive(value);
+
         } 
     }
 }

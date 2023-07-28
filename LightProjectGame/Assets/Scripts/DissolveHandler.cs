@@ -9,7 +9,7 @@ public class DissolveHandler : MonoBehaviour
     public LightController playerLight;
     private Renderer meshRenderer;
     private Collider meshCollider;
-
+    public Animator anim;
     private float time = 1;
     public float radius = 3;
     private float timeScaleMultipler = 3;
@@ -50,13 +50,16 @@ public class DissolveHandler : MonoBehaviour
         {
             time = Mathf.Clamp01(time + Time.deltaTime * timeScaleMultipler);
         }
-        if (time == 0)
+        if (time == 0 || Vector3.Distance(playerLight.transform.position,transform.position) > radius)
         {
             meshCollider.enabled = true;
+            anim.SetBool("animate", true);
         }
         else
         {
             meshCollider.enabled = false;
+
+            anim.SetBool("animate", false);
         }
         meshRenderer.material.SetFloat("_Radius", time * radius);
 

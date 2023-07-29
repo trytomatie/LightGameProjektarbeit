@@ -10,13 +10,11 @@ public class LeverOn : State
     private StateMachine sm;
     public bool isOn = true;
     public UnityEvent eventOn;
-    public Material onMaterial;
-    private MeshRenderer meshRenderer;
+    public Animator anim;
 
     private void Start()
     {
         sm = GetComponent<StateMachine>();
-        meshRenderer = GetComponent<MeshRenderer>();
         sm.currentState.EnterState(gameObject);
     }
 
@@ -30,9 +28,7 @@ public class LeverOn : State
     public override void EnterState(GameObject source)
     {
         eventOn.Invoke();
-        print(meshRenderer.material);
-        print(onMaterial);
-        meshRenderer.material = onMaterial;
+        anim.SetBool("animate", true);
     }
     public override void UpdateState(GameObject source)
     {
@@ -71,12 +67,12 @@ public class LeverOn : State
                 if (myScript.isOn)
                 {
                     myScript.GetComponent<StateMachine>().currentState = myScript.GetComponent<LeverOn>();
-                    myScript.GetComponent<MeshRenderer>().material = myScript.onMaterial;
+                    myScript.GetComponent<Animator>().SetBool("animate", true);
                 }
                 if (!myScript.isOn)
                 {
                     myScript.GetComponent<StateMachine>().currentState = myScript.GetComponent<LeverOff>();
-                    myScript.GetComponent<MeshRenderer>().material = myScript.GetComponent<LeverOff>().offMaterial;
+                    myScript.GetComponent<Animator>().SetBool("animate", false);
                 }
             }
         }

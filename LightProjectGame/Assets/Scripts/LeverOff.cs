@@ -9,12 +9,11 @@ public class LeverOff : State
     private LeverOn leverOn;
 
     public UnityEvent eventOff;
-    public Material offMaterial;
-    private MeshRenderer meshRenderer;
+
     private void Start()
     {
         leverOn = GetComponent<LeverOn>();
-        meshRenderer = GetComponent<MeshRenderer>();
+
     }
 
 
@@ -23,7 +22,7 @@ public class LeverOff : State
     public override void EnterState(GameObject source)
     {
         eventOff.Invoke();
-        meshRenderer.material = offMaterial;
+        leverOn.anim.SetBool("animate", false);
     }
     public override void UpdateState(GameObject source)
     {

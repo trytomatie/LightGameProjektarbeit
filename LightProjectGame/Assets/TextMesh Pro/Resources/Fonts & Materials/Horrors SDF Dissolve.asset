@@ -66,10 +66,9 @@ Material:
   m_InvalidKeywords:
   - GLOW_ON
   - UNDERLAY_ON
-  - _DOUBLESIDED_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 1
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
   stringTagMap:
     MotionVector: User
@@ -139,11 +138,11 @@ Material:
     - _BumpOutline: 0
     - _ColorMask: 15
     - _ConservativeDepthOffsetEnable: 0
-    - _CullMode: 0
-    - _CullModeForward: 0
+    - _CullMode: 2
+    - _CullModeForward: 2
     - _DepthOffsetEnable: 0
     - _Diffuse: 0.5
-    - _DoubleSidedEnable: 1
+    - _DoubleSidedEnable: 0
     - _DoubleSidedGIMode: 0
     - _DoubleSidedNormalMode: 2
     - _DstBlend: 10
@@ -160,7 +159,7 @@ Material:
     - _LightAngle: 3.1416
     - _MaskSoftnessX: 0
     - _MaskSoftnessY: 0
-    - _Noise: 1
+    - _Noise: 0.38
     - _NoiseSize: 100
     - _OpaqueCullMode: 2
     - _OutlineSoftness: 0
@@ -194,7 +193,7 @@ Material:
     - _StencilWriteMaskGBuffer: 15
     - _StencilWriteMaskMV: 41
     - _SurfaceType: 1
-    - _TextStrength: 3.76
+    - _TextStrength: 1
     - _TextureHeight: 1024
     - _TextureWidth: 1024
     - _TransparentBackfaceEnable: 0
@@ -221,7 +220,7 @@ Material:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor_: {r: 0, g: 627.7582, b: 881.0471, a: 1}
+    - _EmissionColor_: {r: 0, g: 5.886408, b: 6.062866, a: 1}
     - _EnvMatrixRotation: {r: 0, g: 0, b: 0, a: 0}
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
     - _GlowColor: {r: 0.50888145, g: 1, b: 1, a: 1}
@@ -230,11 +229,7 @@ Material:
     - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
-<<<<<<< Updated upstream
-    - _TextVector: {r: -0.45, g: 0.6, b: 0, a: 0}
-=======
-    - _TextVector: {r: -1, g: 1, b: 0, a: 0}
->>>>>>> Stashed changes
+    - _TextVector: {r: -1.91, g: 2.51, b: 0, a: 0}
     - _UnderlayColor: {r: 0.7008865, g: 0.6918625, b: 2.1891773, a: 0.5}
   m_BuildTextureStacks: []
 --- !u!114 &11400000
@@ -247,11 +242,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: Horrors SDF Dissolve
+  m_Name: Horrors SDF 1
   m_EditorClassIdentifier: 
-  hashCode: -1020666363
+  hashCode: -1362678391
   material: {fileID: -1850356664066749942}
-  materialHashCode: -1082549115
+  materialHashCode: 801721993
   m_Version: 1.1.0
   m_SourceFontFileGUID: 6d3a7176f44270a4596985414a57c44e
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 6d3a7176f44270a4596985414a57c44e,

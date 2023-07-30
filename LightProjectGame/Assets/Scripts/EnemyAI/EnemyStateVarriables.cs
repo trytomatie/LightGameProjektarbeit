@@ -37,7 +37,7 @@ public class EnemyStateVarriables : MonoBehaviour
     [HideInInspector] public NavMeshAgent agent;
     [HideInInspector] public Animator anim;
     [HideInInspector] public StateMachine stateMachine;
-    [HideInInspector] public Renderer renderer;
+    public Renderer renderer;
     [HideInInspector] public Collider col;
     [HideInInspector] public Rigidbody rb;
 
@@ -59,7 +59,6 @@ public class EnemyStateVarriables : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
 
-        renderer = GetComponentInChildren<Renderer>();
         statusManager = GetComponent<StatusManager>();
         stateMachine = GetComponent<StateMachine>();
         col = GetComponent<Collider>();

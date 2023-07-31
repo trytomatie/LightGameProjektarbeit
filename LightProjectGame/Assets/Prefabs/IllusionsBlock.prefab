@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 797422913665227354}
   - component: {fileID: 615174738977503183}
   - component: {fileID: 2698990502724173987}
+  - component: {fileID: 8551488277759682586}
   m_Layer: 0
   m_Name: IllusionsBlock
   m_TagString: Dragable
@@ -33,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 7.494, z: 0}
 --- !u!33 &8245645456176548986
 MeshFilter:
@@ -42,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6652374396135177737}
-  m_Mesh: {fileID: -5495902117074765545, guid: e51bbe75616e9314b9e75bde90d88899, type: 3}
+  m_Mesh: {fileID: -5495902117074765545, guid: 220f46cd1fadc1c49ae62a149cd378a0, type: 3}
 --- !u!23 &797422913665227354
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -133,3 +134,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8551488277759682586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6652374396135177737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0888e1aa93e2f994d9ff8433d7f85d1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound: {fileID: 8300000, guid: 657b8d1724bbb0d48aab34ea59a76c6f, type: 3}
+  velcoityTreshhold: 4

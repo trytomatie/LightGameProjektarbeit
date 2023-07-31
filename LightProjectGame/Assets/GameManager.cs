@@ -21,6 +21,11 @@ public class GameManager : MonoBehaviour
     public Animator loadingScreenUI;
     public TextMeshProUGUI locationText;
     public Animator locationTextAnimator;
+    public TextMeshProUGUI subtitle;
+    public Animator subtitleAnimator;
+
+    public Transform interactText;
+    public Animator[] interactTextAnims;
 
 
     public bool isLoadingLevel = false;
@@ -168,8 +173,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public Transform interactText;
-    public Animator[] interactTextAnims;
+
+
     public static void SpawnInteractText(Vector3 pos)
     {
         instance.interactText.parent.position = pos;

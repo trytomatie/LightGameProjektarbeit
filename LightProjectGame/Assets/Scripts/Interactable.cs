@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,6 +10,7 @@ public class Interactable : MonoBehaviour
     public string interactionName;
     private bool isReachable;
     public UnityEvent interactionEvent;
+    public AudioClip sound;
 
     private void Awake()
     {
@@ -22,6 +24,11 @@ public class Interactable : MonoBehaviour
     public virtual void Interaction(GameObject soruce)
     {
         interactionEvent.Invoke();
+        if(sound != null)
+        {
+            FeedbackManager.PlaySFX(sound);
+        }
+
     }
 
     public bool IsReachable

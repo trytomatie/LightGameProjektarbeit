@@ -13,6 +13,12 @@ public class Alerted_EnemyState : State
     {
         esm = GetComponent<EnemyStateMethods>();
         esv = GetComponent<EnemyStateVarriables>();
+        InvokeRepeating("VoiceLineTest", Random.Range(5, 10f), Random.Range(5, 10f));
+    }
+
+    private void VoiceLineTest()
+    {
+        FeedbackManager.PlayVoiceEnemyLine(esv.voiceProfile.GetRandomVoiceLine());
     }
     #region StateMethods
     public override void EnterState(GameObject source)

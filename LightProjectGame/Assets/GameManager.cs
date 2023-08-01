@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI locationText;
     public Animator locationTextAnimator;
     public TextMeshProUGUI subtitle;
-    public Animator subtitleAnimator;
 
     public Transform interactText;
     public Animator[] interactTextAnims;

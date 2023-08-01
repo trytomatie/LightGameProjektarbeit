@@ -24,6 +24,8 @@ public class FeedbackManager : MonoBehaviour
     public MMF_Player pickUPItem_Feedback;
 
     public MMF_Player voiceLinesHolder_Feedback;
+
+    public MMF_Player enemyVoiceLinesHolder_Feedback;
     public MMF_Player vfxHolder_Feedback;
 
     // Start is called before the first frame update
@@ -51,6 +53,14 @@ public class FeedbackManager : MonoBehaviour
         MMF_MMSoundManagerSound soundSource = (MMF_MMSoundManagerSound)instance.voiceLinesHolder_Feedback.FeedbacksList[0];
         soundSource.Sfx = soundFile;
         instance.voiceLinesHolder_Feedback.PlayFeedbacks();
+    }
+
+
+    public static void PlayVoiceEnemyLine(AudioClip soundFile)
+    {
+        MMF_MMSoundManagerSound soundSource = (MMF_MMSoundManagerSound)instance.enemyVoiceLinesHolder_Feedback.FeedbacksList[0];
+        soundSource.Sfx = soundFile;
+        instance.enemyVoiceLinesHolder_Feedback.PlayFeedbacks();
     }
 
     public static void PlaySFX(AudioClip soundFile)

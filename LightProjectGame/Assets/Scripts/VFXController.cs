@@ -8,6 +8,7 @@ using UnityEngine.VFX;
 public class VFXController : MonoBehaviour
 {
     public VisualEffect[] vfx;
+    public Animator[] slashvfx;
     public GameObject[] hitboxes;
     private Animator anim;
     public List<Material> stoneMaterial = new List<Material>();
@@ -37,6 +38,16 @@ public class VFXController : MonoBehaviour
         _vfx.transform.parent = null;
         Destroy(_vfx, 10f);
         //vfx[i].Play();
+    }
+
+    public void TriggerSlashVFX(int i)
+    {
+        GameObject vfx = slashvfx[i].gameObject;
+        GameObject _vfx = Instantiate(vfx, vfx.transform.position, vfx.transform.rotation, vfx.transform.parent);
+        _vfx.SetActive(true);
+        _vfx.transform.localScale = vfx.transform.localScale;
+        _vfx.transform.parent = null;
+        Destroy(_vfx, 10f);
     }
     public void TriggerVFXSpam(int i)
     {

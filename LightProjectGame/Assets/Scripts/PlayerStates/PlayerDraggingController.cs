@@ -115,6 +115,10 @@ public class PlayerDraggingController : State
     #region StateMethods
     public override void EnterState(GameObject source)
     {
+        if(lookingForDragables.rcTarget == null)
+        {
+            return;
+        }
         playerController.camAnim.SetInteger("cam", 2);
         playerController.anim.SetFloat("movementMode",1);
         playerController.anim.SetBool("aiming", true);

@@ -21,6 +21,8 @@ public class WeakendControllsState : State
     public GameObject[] brokenWeapons;
     public GameObject[] vfx;
 
+    public GameObject[] slashParticles;
+
     public bool switchToHeightendState = false;
     private void Start()
     {
@@ -38,8 +40,11 @@ public class WeakendControllsState : State
         lampModel.SetActive(false);
         sm.shieldHp = 0;
         sm.shieldMaxHp = 0;
-
-        foreach(GameObject hitbox in hitBoxes)
+        foreach(GameObject go in slashParticles)
+        {
+            go.SetActive(false);
+        }
+        foreach (GameObject hitbox in hitBoxes)
         {
             if(hitbox.GetComponent<DestroyWeaponOnHit>() == null)
             {
@@ -109,7 +114,11 @@ public class WeakendControllsState : State
             }
             foreach (GameObject v in vfx)
             {
-                v.SetActive(true);
+                v.GetComponent<MeshRenderer>().enabled = true;
+            }
+            foreach (GameObject go in slashParticles)
+            {
+                go.SetActive(true);
             }
             mainWeapon.SetActive(true);
             brokenWeapons[0].SetActive(false);

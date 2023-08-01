@@ -23,7 +23,7 @@ public class DestroyWeaponOnHit : MonoBehaviour
             }
             foreach (GameObject v in ws.vfx)
             {
-                v.SetActive(false);
+                v.GetComponent<MeshRenderer>().enabled = false;
             }
             GameObject.Find("WaffeZerbrochen_UI").GetComponent<Animator>().SetTrigger("Animate");
         }

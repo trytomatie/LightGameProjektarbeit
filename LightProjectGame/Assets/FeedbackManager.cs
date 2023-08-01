@@ -56,10 +56,11 @@ public class FeedbackManager : MonoBehaviour
     }
 
 
-    public static void PlayVoiceEnemyLine(AudioClip soundFile)
+    public static void PlayVoiceEnemyLine(AudioClip soundFile,Transform position)
     {
         MMF_MMSoundManagerSound soundSource = (MMF_MMSoundManagerSound)instance.enemyVoiceLinesHolder_Feedback.FeedbacksList[0];
         soundSource.Sfx = soundFile;
+        soundSource.AttachToTransform = position;
         instance.enemyVoiceLinesHolder_Feedback.PlayFeedbacks();
     }
 

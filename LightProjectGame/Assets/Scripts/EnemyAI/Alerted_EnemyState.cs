@@ -18,7 +18,7 @@ public class Alerted_EnemyState : State
 
     private void VoiceLineTest()
     {
-        FeedbackManager.PlayVoiceEnemyLine(esv.voiceProfile.GetRandomVoiceLine());
+        FeedbackManager.PlayVoiceEnemyLine(esv.voiceProfile.GetRandomVoiceLine(),transform);
     }
     #region StateMethods
     public override void EnterState(GameObject source)

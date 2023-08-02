@@ -187,7 +187,7 @@ public class PlayerController : State
             UI_AbilitySelectTest.UpdateSkillUI();
         }
 
-        if(Input.GetButton("Item1") && inventory.PotionCount > 0)
+        if(Input.GetButtonDown("Item1") && inventory.PotionCount > 0)
         {
             inventory.PotionCount--;
             myStatus.Hp = myStatus.maxHp;

@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using Cinemachine;
 using System.Linq;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,13 +24,21 @@ public class GameManager : MonoBehaviour
     public Animator locationTextAnimator;
     public TextMeshProUGUI subtitle;
 
+    public GameObject[] keyboardUIElements;
+    public GameObject[] gamepadUIElements;
+
     public Transform interactText;
     public Animator[] interactTextAnims;
+
+    private bool controllerUsed = false;
 
 
     public bool isLoadingLevel = false;
 
     private GameObject player;
+
+
+
 
 
 
@@ -61,6 +70,10 @@ public class GameManager : MonoBehaviour
         {
             canvas.SetActive(!canvas.activeSelf);
         }
+
+        ControllerUsed = Gamepad.current != null || Joystick.current != null;
+
+
     }
 
     private static void Init()
@@ -189,6 +202,26 @@ public class GameManager : MonoBehaviour
         foreach (Animator anim in instance.interactTextAnims)
         {
             anim.SetBool("animate", false);
+        }
+    }
+
+    public bool ControllerUsed
+    {
+        get => controllerUsed; set
+        {
+            if (value != controllerUsed)
+            {
+                foreach(GameObject go in gamepadUIElements)
+                {
+                    go.SetActive(value);
+                }
+
+                foreach (GameObject go in keyboardUIElements)
+                {
+                    go.SetActive(!value);
+                }
+            }
+            controllerUsed = value;
         }
     }
 }

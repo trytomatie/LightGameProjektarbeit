@@ -22,6 +22,6 @@ public class Inventory : MonoBehaviour
 
     private void PotionCallback(int value)
     {
-        potionText.text = "Potions: " + value;
+        potionText.text = "x" + value;
     }
 }

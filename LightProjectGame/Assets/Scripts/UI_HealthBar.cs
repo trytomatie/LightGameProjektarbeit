@@ -14,7 +14,7 @@ public class UI_HealthBar : MonoBehaviour
         img = GetComponent<Image>();
         if (isMP)
         {
-            print("test");
+
             UpdateMP(GameObject.Find("Player").GetComponent<StatusManager>());
         }
         else
@@ -25,7 +25,7 @@ public class UI_HealthBar : MonoBehaviour
     }
     public void UpdateHP(StatusManager sm)
     {
-        float value = Remap(sm.hp, 0, sm.maxHp, 0.127f, 0.9f);
+        float value = Remap(sm.hp, 0, sm.maxHp, 0.037f, 0.9f);
         if(value >= 0.9f)
         {
             value = 1;

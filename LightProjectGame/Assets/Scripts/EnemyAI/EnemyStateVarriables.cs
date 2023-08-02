@@ -84,9 +84,6 @@ public class EnemyStateVarriables : MonoBehaviour
         }
         else
         {
-            print(EnemyVoiceLineManager.instance);
-            print(EnemyVoiceLineManager.instance.profilesSmall);
-            print(EnemyVoiceLineManager.instance.profilesSmall[Random.Range(0, EnemyVoiceLineManager.instance.profilesSmall.Length)]);
             voiceProfile = EnemyVoiceLineManager.instance.profilesMid[Random.Range(0, EnemyVoiceLineManager.instance.profilesMid.Length)];
         }
     }

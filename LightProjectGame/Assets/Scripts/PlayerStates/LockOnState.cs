@@ -155,7 +155,7 @@ public class LockOnState : State
         pc.HandleJump();
         HandleRotation();
         AnimationsParemetersInput();
-        if(Input.GetAxisRaw("Manual Block") > 0 || PlayerController.IsAiming())
+        if((Input.GetAxisRaw("Manual Block") > 0 || PlayerController.IsAiming()) && myStatus.ShieldHp>0)
         {
             Shielding(true);
         }

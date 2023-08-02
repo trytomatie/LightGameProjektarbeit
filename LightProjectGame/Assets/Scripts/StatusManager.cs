@@ -18,6 +18,8 @@ public class StatusManager : MonoBehaviour
 
     [Header("Shielding")]
     private bool shielding = false;
+    private float shieldRegenarationDelay = 2;
+    private float shieldRegenerationRate = 1;
     public int shieldHp = 3;
     public int shieldMaxHp = 3;
 
@@ -34,6 +36,7 @@ public class StatusManager : MonoBehaviour
     public UnityEvent damageEvent;
     public UnityEvent lightEnergyEvent;
     public UnityEvent shieldDamageEvent;
+    public UnityEvent shieldHPChangeEvent;
 
     public List<Buff> activeBuffs;
     private List<Buff> buffsToadd = new List<Buff>();
@@ -162,6 +165,21 @@ public class StatusManager : MonoBehaviour
         }
     }
 
+    public void RegerateShield()
+    {
+        InvokeRepeating("RegenerateShieldTick", shieldRegenerationRate, shieldRegenerationRate);
+    }
+
+    public void RegenerateShieldTick()
+    {
+        ShieldHp += 1;
+        if(ShieldHp >= shieldMaxHp)
+        {
+            CancelInvoke("RegenerateShield");
+            CancelInvoke("RegenerateShieldTick");
+        }
+    }
+
     public float LightEnergy
     {
         get => lightEnergy;
@@ -215,12 +233,14 @@ public class StatusManager : MonoBehaviour
             {
                 shieldHp = value;
                 shieldDamageEvent.Invoke();
+
                 FeedbackManager.PlaySound(FeedbackManager.instance.successfulBlock_Feedback, transform);
             }
             else
             {
                 shieldHp = value;
             }
+            shieldHPChangeEvent.Invoke();
 
         }
     }
@@ -231,6 +251,15 @@ public class StatusManager : MonoBehaviour
             if(value != shielding && value == true)
             {
                 FeedbackManager.PlaySound(FeedbackManager.instance.readyShield_Feedback, transform);
+            }
+            else
+            {
+                if(ShieldHp < shieldMaxHp)
+                {
+                    CancelInvoke("RegerateShield");
+                    CancelInvoke("RegenerateShieldTick");
+                    Invoke("RegerateShield", shieldRegenarationDelay);
+                }
             }
             shielding = value;
         }

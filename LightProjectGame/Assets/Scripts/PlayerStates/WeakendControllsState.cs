@@ -15,6 +15,7 @@ public class WeakendControllsState : State
     private StatusManager sm;
     public GameObject[] hitBoxes;
     private DashingState dashState;
+    public GameObject[] interfaceObjectsToHide;
 
     [Header("WeaponsOnCharacter")]
     public GameObject mainWeapon;
@@ -40,6 +41,10 @@ public class WeakendControllsState : State
         lampModel.SetActive(false);
         sm.shieldHp = 0;
         sm.shieldMaxHp = 0;
+        foreach(GameObject go in interfaceObjectsToHide)
+        {
+            go.SetActive(false);
+        }
         foreach(GameObject go in slashParticles)
         {
             go.SetActive(false);
@@ -103,14 +108,18 @@ public class WeakendControllsState : State
             lc.TurnOn();
             switchToHeightendState = false;
             lampModel.SetActive(true);
-            sm.shieldHp = 30;
-            sm.shieldMaxHp = 30;
+            sm.shieldHp = 3;
+            sm.shieldMaxHp = 3;
             foreach (GameObject hitbox in hitBoxes)
             {
                 Destroy(hitbox.GetComponent<DestroyWeaponOnHit>());
                 hitbox.GetComponent<DamageObject>().enabled = true;
                 hitbox.GetComponent<CinemachineCollisionImpulseSource>().enabled = true;
                 hitbox.GetComponent<DamageObject>().isActive = true;
+            }
+            foreach (GameObject go in interfaceObjectsToHide)
+            {
+                go.SetActive(true);
             }
             foreach (GameObject v in vfx)
             {

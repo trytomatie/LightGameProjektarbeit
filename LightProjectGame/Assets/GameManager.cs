@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI locationText;
     public Animator locationTextAnimator;
     public TextMeshProUGUI subtitle;
+    public GameObject fpsCounter;
 
     public GameObject[] keyboardUIElements;
     public GameObject[] gamepadUIElements;
@@ -69,6 +70,10 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X))
         {
             canvas.SetActive(!canvas.activeSelf);
+        }
+        if(Input.GetKeyDown(KeyCode.F3))
+        {
+            fpsCounter.SetActive(!fpsCounter.activeSelf);
         }
 
         ControllerUsed = Gamepad.current != null || Joystick.current != null;

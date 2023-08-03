@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PickUpForPlaytestScript : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PickUpForPlaytestScript : MonoBehaviour
     public GameObject powerUpVFX;
     public GameObject splineVFX;
     public GameObject weakenEnemiesPrefab;
+    public UnityEvent pickUpEvent;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +29,7 @@ public class PickUpForPlaytestScript : MonoBehaviour
                 Instantiate(weakenEnemiesPrefab, transform.position, transform.rotation);
                 powerUpVFX.SetActive(true);
                 splineVFX.SetActive(true);
+                pickUpEvent.Invoke();
                 Destroy(gameObject);
             }
         }

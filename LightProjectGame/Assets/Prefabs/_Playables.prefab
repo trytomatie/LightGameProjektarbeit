@@ -2340,6 +2340,10 @@ MonoBehaviour:
   - 'Nari: Waahh... took you a while to get here. I thought you''d never come and
     pick me!'
   - Nari:...
+  arinAttack:
+  - {fileID: 8300000, guid: ac604a4af59f98c4cb667f7b5e95e3d8, type: 3}
+  - {fileID: 8300000, guid: 1b46f49d54cf01b4a9bdfb3b362129ba, type: 3}
+  - {fileID: 8300000, guid: 512d27ef0a6957d428f07818cf96a32f, type: 3}
 --- !u!1 &555529961
 GameObject:
   m_ObjectHideFlags: 0
@@ -35332,7 +35336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectsInRange: []
-  lightSource: {fileID: 181851441}
+  lightSource: {fileID: 4226591229062118946}
   lightLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -40338,8 +40342,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777149
-  m_fontColor: {r: 0.7411765, g: 1, b: 1, a: 0}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -50180,7 +50184,7 @@ PrefabInstance:
     - target: {fileID: 3631023526857457490, guid: 14b89a8f16bc7384f8574b6ad033a7a4,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3631023526857457491, guid: 14b89a8f16bc7384f8574b6ad033a7a4,
         type: 3}
@@ -50296,7 +50300,7 @@ PrefabInstance:
     - target: {fileID: 3631023526857457492, guid: 14b89a8f16bc7384f8574b6ad033a7a4,
         type: 3}
       propertyPath: m_fontColor.a
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3631023526857457492, guid: 14b89a8f16bc7384f8574b6ad033a7a4,
         type: 3}
@@ -50307,7 +50311,7 @@ PrefabInstance:
     - target: {fileID: 3631023526857457492, guid: 14b89a8f16bc7384f8574b6ad033a7a4,
         type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4294967229
+      value: 16777149
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

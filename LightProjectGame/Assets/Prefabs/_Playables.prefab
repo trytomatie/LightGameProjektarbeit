@@ -32184,6 +32184,7 @@ MonoBehaviour:
   gamepadUIElements:
   - {fileID: 6665010840798189382}
   - {fileID: 4419280152186175217}
+  currentCutszene: {fileID: 0}
   interactText: {fileID: 6783525521659407539}
   interactTextAnims:
   - {fileID: 3655542885237857707}
@@ -35032,8 +35033,8 @@ MonoBehaviour:
     BarrelClipping: 0.25
     Anamorphism: 0
   m_Transitions:
-    m_BlendHint: 0
-    m_InheritPosition: 0
+    m_BlendHint: 1
+    m_InheritPosition: 1
     m_OnCameraLive:
       m_PersistentCalls:
         m_Calls: []
@@ -35131,7 +35132,12 @@ MonoBehaviour:
   m_AnimatedTarget: {fileID: 987032588}
   m_LayerIndex: 0
   m_ShowDebugText: 0
-  m_ChildCameras: []
+  m_ChildCameras:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   m_Instructions:
   - m_FullHash: 1224918618
     m_VirtualCamera: {fileID: 1422152752}
@@ -35147,6 +35153,10 @@ MonoBehaviour:
     m_MinDuration: 0
   - m_FullHash: 1179422548
     m_VirtualCamera: {fileID: 2074628280}
+    m_ActivateAfter: 0
+    m_MinDuration: 0
+  - m_FullHash: 971740326
+    m_VirtualCamera: {fileID: 4315332946015042294}
     m_ActivateAfter: 0
     m_MinDuration: 0
   m_DefaultBlend:
@@ -35167,6 +35177,8 @@ MonoBehaviour:
   - m_Hash: -1148263289
     m_ParentHash: 756556552
   - m_Hash: 1179422548
+    m_ParentHash: 756556552
+  - m_Hash: 971740326
     m_ParentHash: 756556552
 --- !u!1 &1378670874661809204
 GameObject:
@@ -36863,6 +36875,7 @@ GameObject:
   - component: {fileID: 1597922817}
   - component: {fileID: 48956901}
   - component: {fileID: 6230218656824222313}
+  - component: {fileID: 2394083432718045374}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -37069,6 +37082,7 @@ MonoBehaviour:
   - {fileID: 114797121}
   - {fileID: 1597922817}
   - {fileID: 48956901}
+  - {fileID: 2394083432718045374}
   currentState: {fileID: 2864954321289360893}
   isUpdating: 1
   Transitioning:
@@ -37697,6 +37711,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   potionText: {fileID: 7839426166300942250}
+--- !u!114 &2394083432718045374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2864954321289360881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf9f734d979ae7644b339c2db33b3b21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateName: 30
+  cutszeneFinished: 0
+  startCutszene: 0
 --- !u!1 &2864954321474870007
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ public class TransitioningLevel : State
     #region StateMethods
     public override void EnterState(GameObject source)
     {
+
         pc.myStatus.isInvulnerable = true;
     }
     public override void UpdateState(GameObject source)
@@ -35,6 +36,7 @@ public class TransitioningLevel : State
 
     public override void ExitState(GameObject source)
     {
+
         pc.myStatus.isInvulnerable = false;
     }
     #endregion

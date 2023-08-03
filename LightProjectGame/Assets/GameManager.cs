@@ -6,6 +6,7 @@ using Cinemachine;
 using System.Linq;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.Playables;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] keyboardUIElements;
     public GameObject[] gamepadUIElements;
+
+    public PlayableDirector currentCutszene;
 
     public Transform interactText;
     public Animator[] interactTextAnims;
@@ -58,6 +61,11 @@ public class GameManager : MonoBehaviour
             instance.player.transform.position = gameObject.transform.parent.GetComponentInChildren<PlayerController>(true).transform.position;
             Destroy(gameObject.transform.parent.gameObject);
             //this.enabled = false;
+        }
+        if(currentCutszene != null)
+        {
+            player.GetComponent<CutszeneState>().startCutszene = true;
+            player.GetComponent<StateMachine>().ForceState(player.GetComponent<CutszeneState>());
         }
     }
 

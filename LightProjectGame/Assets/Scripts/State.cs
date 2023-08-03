@@ -30,7 +30,8 @@ public abstract class State : MonoBehaviour
         ApproachForAttack,
         AttackRecovery,
         Shielding,
-        TransitioningLevel
+        TransitioningLevel,
+        Cutszene
     }
     public StateName stateName;
 

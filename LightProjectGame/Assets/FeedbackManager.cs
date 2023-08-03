@@ -71,4 +71,12 @@ public class FeedbackManager : MonoBehaviour
         instance.vfxHolder_Feedback.PlayFeedbacks();
     }
 
+    public static void PlaySFX(AudioClip soundFile, Transform position)
+    {
+        MMF_MMSoundManagerSound soundSource = (MMF_MMSoundManagerSound)instance.vfxHolder_Feedback.FeedbacksList[0];
+        soundSource.Sfx = soundFile;
+        soundSource.AttachToTransform = position;
+        instance.vfxHolder_Feedback.PlayFeedbacks();
+    }
+
 }

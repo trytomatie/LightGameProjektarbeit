@@ -120,7 +120,7 @@ MonoBehaviour:
         m_Calls: []
   DebugActive: 0
   FeedbacksList:
-  - rid: 4773050604264882181
+  - rid: 4627372828634906625
   KeepPlayModeChanges: 0
   PerformanceMode: 0
   ForceStopFeedbacksOnDisable: 1
@@ -128,11 +128,11 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 4773050604264882181
+    - rid: 4627372828634906625
       type: {class: MMF_MMSoundManagerSound, ns: MoreMountains.Feedbacks, asm: MoreMountains.Feedbacks.MMTools}
       data:
         Active: 1
-        UniqueID: 1993969380
+        UniqueID: 2018412702
         Label: MMSoundManager Sound
         ChannelMode: 0
         Channel: 0
@@ -196,13 +196,13 @@ MonoBehaviour:
         RemapRangeFalloff: {x: 0, y: 1}
         Owner: {fileID: 7423613749525981950}
         DebugActive: 0
-        Sfx: {fileID: 8300000, guid: adb24518d159048ca9cb62d63113784f, type: 3}
+        Sfx: {fileID: 8300000, guid: cd842a745a2202944997d1b57ab1593c, type: 3}
         RandomSfx: []
         SequentialOrder: 0
         SequentialOrderHoldLast: 0
         SequentialOrderHoldCooldownDuration: 2
-        MinVolume: 1
-        MaxVolume: 1
+        MinVolume: 1.4
+        MaxVolume: 1.51
         MinPitch: 1
         MaxPitch: 1.16
         PlaybackTime: {x: 0, y: 0}
@@ -259,8 +259,8 @@ MonoBehaviour:
         DopplerLevel: 0.31
         Spread: 0
         RolloffMode: 0
-        MinDistance: 1
-        MaxDistance: 500
+        MinDistance: 10
+        MaxDistance: 40
         UseCustomRolloffCurve: 0
         CustomRolloffCurve:
           serializedVersion: 2

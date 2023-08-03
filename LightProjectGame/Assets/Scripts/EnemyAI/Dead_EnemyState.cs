@@ -26,6 +26,7 @@ public class Dead_EnemyState : State
         _go.GetComponent<Rigidbody>().velocity = new Vector3(Random.Range(-1,1) * 0.4f, 2, Random.Range(-1, 1) * 0.4f);
         StartCoroutine(Dissolve());
         esv.deathParticles.Play();
+        FeedbackManager.PlaySFX(esv.voiceProfile.deathVoice, transform);
     }
 
     private IEnumerator Dissolve()

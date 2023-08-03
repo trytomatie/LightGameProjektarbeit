@@ -70,7 +70,6 @@ public class HurtState : State
 
             if (myStatus.faction == StatusManager.Faction.Enemy && (sm.currentState.stateName != State.StateName.Attacking && sm.currentState.stateName != StateName.Dead))
             {
-                print("I AM HIT!!!!!!");
                 return StateName.Hurt;
             }
             if (myStatus.faction == StatusManager.Faction.Player && (sm.currentState.stateName != State.StateName.Shielding))
@@ -80,6 +79,7 @@ public class HurtState : State
                 {
                     FeedbackManager.PlayVoiceLine(ArinSoundManager.instance.audioClips[1], ArinSoundManager.instance.subtitles[1]);
                 }
+                FeedbackManager.PlayVoiceLine(ArinSoundManager.instance.arinTakeDamage[Random.Range(0, ArinSoundManager.instance.arinTakeDamage.Length)]);
                 return StateName.Hurt;
             }
         }

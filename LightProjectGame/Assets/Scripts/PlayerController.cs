@@ -410,6 +410,7 @@ public class PlayerController : State
         if (Input.GetButtonDown("Jump") && !isJumping && (grounded || (ySpeed > (-0.5f * 12))))
         {
             Jump();
+            FeedbackManager.PlaySFX(ArinSoundManager.instance.arinJump[Random.Range(0, ArinSoundManager.instance.arinJump.Length)],transform);
         }
         if (grounded && isJumping && ySpeed <= 0.07)
         {

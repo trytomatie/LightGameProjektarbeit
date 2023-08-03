@@ -32,6 +32,10 @@ public class WeakendControllsState : State
         dashState = GetComponent<DashingState>();
     }
 
+    private void GiggleInvoke()
+    {
+        FeedbackManager.PlaySFX(ArinSoundManager.instance.nariGiggle[Random.Range(0, ArinSoundManager.instance.nariGiggle.Length)], transform);
+    }
 
 
     #region StateMethods
@@ -134,6 +138,7 @@ public class WeakendControllsState : State
             stateName = StateName.Invalid;
             pc.stateName = StateName.Controlling;
             pc.weaponMaterial.SetColor("_EmissiveColor", new Color(0.75f, 0.75f, 0.75f, 1));
+            InvokeRepeating("GiggleInvoke", 60, 75);
             FeedbackManager.PlayVoiceLine(ArinSoundManager.instance.audioClips[0],ArinSoundManager.instance.subtitles[0]);
 
             return StateName.Controlling;

@@ -5,7 +5,9 @@ using UnityEngine;
 public class ArinSoundManager : MonoBehaviour
 {
     public AudioClip[] audioClips;
+
     public string[] subtitles;
+    public AudioClip[] nariGiggle;
     public AudioClip[] arinAttack;
     public AudioClip[] arinTakeDamage;
     public AudioClip[] arinJump;

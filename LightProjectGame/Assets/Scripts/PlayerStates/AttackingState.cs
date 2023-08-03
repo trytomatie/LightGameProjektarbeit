@@ -21,6 +21,7 @@ public class AttackingState : State
     private LayerMask enemyLayer;
 
     private bool queueAttack = false;
+    private bool attackSound = false;
 
     void Start()
     {
@@ -70,9 +71,11 @@ public class AttackingState : State
 
     private void HandleAttack()
     {
+        CurrentState = playerController.anim.GetCurrentAnimatorStateInfo(2);
         Vector3 movement = Vector3.zero;
         if(stateHasChanged)
         {
+            attackSound = false;
             queueAttack = false;
             if (enemyList.Count > 0)
             {
@@ -99,19 +102,33 @@ public class AttackingState : State
             }
         }
 
-        CurrentState = playerController.anim.GetCurrentAnimatorStateInfo(2);
         if (playerController.anim.GetCurrentAnimatorStateInfo(2).IsName("Attack1"))
         {
+            if (!attackSound)
+            {
+                attackSound = true;
+                FeedbackManager.PlaySFX(ArinSoundManager.instance.arinAttack[0], transform);
+            }
             movement = transform.forward * attack1.Evaluate(playerController.anim.GetCurrentAnimatorStateInfo(2).normalizedTime);
             playerController.ManualMove(movement,1);
         }
         if (playerController.anim.GetCurrentAnimatorStateInfo(2).IsName("Attack2"))
         {
+            if (!attackSound)
+            {
+                attackSound = true;
+                FeedbackManager.PlaySFX(ArinSoundManager.instance.arinAttack[1], transform);
+            }
             movement = transform.forward * attack2.Evaluate(playerController.anim.GetCurrentAnimatorStateInfo(2).normalizedTime);
             playerController.ManualMove(movement, 1);
         }
         if (playerController.anim.GetCurrentAnimatorStateInfo(2).IsName("Attack3"))
         {
+            if(!attackSound)
+            {
+                attackSound = true;
+                FeedbackManager.PlaySFX(ArinSoundManager.instance.arinAttack[2],transform);
+            }
             movement = transform.forward * attack3.Evaluate(playerController.anim.GetCurrentAnimatorStateInfo(2).normalizedTime);
             playerController.ManualMove(movement, 1);
         }
@@ -151,6 +168,7 @@ public class AttackingState : State
         ScanForEnemies();
         stateHasChanged = true;
         queueAttack = false;
+        attackSound = true;
         weaponTrail.TrailActive = true;
     }
     public override void UpdateState(GameObject source)

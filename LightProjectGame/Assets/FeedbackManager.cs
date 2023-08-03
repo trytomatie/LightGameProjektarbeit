@@ -28,10 +28,12 @@ public class FeedbackManager : MonoBehaviour
     public MMF_Player enemyVoiceLinesHolder_Feedback;
     public MMF_Player vfxHolder_Feedback;
 
+    private float disableTime = 0;
+
     // Start is called before the first frame update
     void Start()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
@@ -55,8 +57,30 @@ public class FeedbackManager : MonoBehaviour
         instance.voiceLinesHolder_Feedback.PlayFeedbacks();
     }
 
+    public static void PlayVoiceLine(AudioClip soundFile, string subtitles)
+    {
+        GameManager.instance.subtitle.text = subtitles;
+        GameManager.instance.subtitle.gameObject.SetActive(true);
+        MMF_MMSoundManagerSound soundSource = (MMF_MMSoundManagerSound)instance.voiceLinesHolder_Feedback.FeedbacksList[0];
+        soundSource.Sfx = soundFile;
+        instance.disableTime = Time.time + soundFile.length + 1;
+        VoiceLineBox.staticDisableTime = Time.time + soundFile.length + 1;
+        instance.voiceLinesHolder_Feedback.PlayFeedbacks();
+        instance.Invoke("HideSubtitles", soundFile.length);
+    }
 
-    public static void PlayVoiceEnemyLine(AudioClip soundFile,Transform position)
+
+
+    private void HideSubtitles()
+    {
+        if (disableTime == VoiceLineBox.staticDisableTime)
+        {
+            GameManager.instance.subtitle.gameObject.SetActive(false);
+        }
+    }
+
+
+    public static void PlayVoiceEnemyLine(AudioClip soundFile, Transform position)
     {
         MMF_MMSoundManagerSound soundSource = (MMF_MMSoundManagerSound)instance.enemyVoiceLinesHolder_Feedback.FeedbacksList[0];
         soundSource.Sfx = soundFile;

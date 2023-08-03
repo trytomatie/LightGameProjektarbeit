@@ -134,6 +134,8 @@ public class WeakendControllsState : State
             stateName = StateName.Invalid;
             pc.stateName = StateName.Controlling;
             pc.weaponMaterial.SetColor("_EmissiveColor", new Color(0.75f, 0.75f, 0.75f, 1));
+            FeedbackManager.PlayVoiceLine(ArinSoundManager.instance.audioClips[0],ArinSoundManager.instance.subtitles[0]);
+
             return StateName.Controlling;
         }
         return stateName;

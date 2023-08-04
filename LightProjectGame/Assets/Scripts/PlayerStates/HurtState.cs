@@ -75,7 +75,7 @@ public class HurtState : State
             if (myStatus.faction == StatusManager.Faction.Player && (sm.currentState.stateName != State.StateName.Shielding))
             {
                 float rnd = Random.value;
-                if(rnd > 0.5f)
+                if(rnd > 0.9f)
                 {
                     FeedbackManager.PlayVoiceLine(ArinSoundManager.instance.audioClips[1], ArinSoundManager.instance.subtitles[1]);
                 }

@@ -10,7 +10,7 @@ using UnityEngine.Playables;
 
 public class GameManager : MonoBehaviour
 {
-    public CinemachineVirtualCamera[] cams;
+    public CinemachineFreeLook[] cams;
     public static GameManager instance;
     private float hitPauseTime = 0.2f;
     public static TargetInfo[] enemyTargetsInScene;
@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public GameObject canvas;
     public GameObject deathMessageUI;
     public GameObject savingUI;
+    public GameObject pauseMenu;
     public Animator loadingScreenUI;
     public TextMeshProUGUI locationText;
     public Animator locationTextAnimator;
@@ -83,6 +84,18 @@ public class GameManager : MonoBehaviour
         {
             fpsCounter.SetActive(!fpsCounter.activeSelf);
         }
+        if(Input.GetButtonDown("Pause"))
+        {
+            if(Time.timeScale == 0)
+            {
+                UnpauseGame();
+            }
+            else
+            {
+                PauseGame();
+            }
+            
+        }
 
         ControllerUsed = Gamepad.current != null || Joystick.current != null;
 
@@ -112,11 +125,20 @@ public class GameManager : MonoBehaviour
     {
         isLoadingLevel = true;
         loadingScreenUI.SetBool("animate", true);
-        StartCoroutine(LoadLevelAsyncCoroutine(level));
+        StartCoroutine(LoadLevelAsyncCoroutine(level,false));
         player.GetComponent<StateMachine>().ForceState(player.GetComponent<TransitioningLevel>());
     }
 
-    private IEnumerator LoadLevelAsyncCoroutine(int level)
+    public void LoadSceneAndDestroyPlayer(int level)
+    {
+        isLoadingLevel = true;
+        loadingScreenUI.SetBool("animate", true);
+        Time.timeScale = 1;
+        StartCoroutine(LoadLevelAsyncCoroutine(level,true));
+        player.GetComponent<StateMachine>().ForceState(player.GetComponent<TransitioningLevel>());
+    }
+
+    private IEnumerator LoadLevelAsyncCoroutine(int level,bool destroyPlayer)
     {
         float time = 0;
        
@@ -143,6 +165,10 @@ public class GameManager : MonoBehaviour
             // If the loading is almost complete, allow the scene to be activated
             if (progress >= 0.9f)
             {
+                if(destroyPlayer)
+                {
+                    Destroy(gameObject.transform.parent.gameObject);
+                }
                 asyncOperation.allowSceneActivation = true;
             }
             time += Time.deltaTime;
@@ -151,6 +177,8 @@ public class GameManager : MonoBehaviour
         loadingScreenUI.SetBool("animate", false);
         isLoadingLevel = false;
     }
+
+
 
     public void LoadLevel(string name)
     {
@@ -193,10 +221,31 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator HitPause()
     {
+        Cursor.lockState = CursorLockMode.Confined;
         Time.timeScale = 0.1f;
         yield return new WaitForSecondsRealtime(hitPauseTime);
         Time.timeScale = 1;
     }
+
+    public void PauseGame()
+    {
+        cams[0].m_YAxis.m_MaxSpeed = 0;
+        cams[0].m_XAxis.m_MaxSpeed = 0;
+        Cursor.lockState = CursorLockMode.None;
+        pauseMenu.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    public void UnpauseGame()
+    {
+        cams[0].m_YAxis.m_MaxSpeed = 1;
+        cams[0].m_XAxis.m_MaxSpeed = 300;
+        cams[0].m_StandbyUpdate = CinemachineVirtualCameraBase.StandbyUpdateMode.RoundRobin;
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+
 
 
 

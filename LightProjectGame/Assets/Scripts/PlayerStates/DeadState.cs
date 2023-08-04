@@ -22,6 +22,8 @@ public class DeadState : State
         GameManager.instance.deathMessageUI.SetActive(true);
         layerMaskCache = gameObject.layer;
         gameObject.layer = 0;
+        GameManager.instance.cams[0].m_YAxis.m_MaxSpeed = 0;
+        GameManager.instance.cams[0].m_XAxis.m_MaxSpeed = 0;
     }
     public override void UpdateState(GameObject source)
     {

@@ -86,7 +86,7 @@ public class LockOnState : State
 
     public void HandleShielding()
     {
-        if(myStatus.ShieldHp > 0)
+        if(myStatus.ShieldHp > 0 && myStatus.LightEnergy >= 0)
         {
             Shielding(true);
         }
@@ -155,7 +155,7 @@ public class LockOnState : State
         pc.HandleJump();
         HandleRotation();
         AnimationsParemetersInput();
-        if((Input.GetAxisRaw("Manual Block") > 0 || PlayerController.IsAiming()) && myStatus.ShieldHp>0)
+        if((Input.GetAxisRaw("Manual Block") > 0 || PlayerController.IsAiming()) && myStatus.ShieldHp>0 && myStatus.lightEnergy >= 0)
         {
             Shielding(true);
         }

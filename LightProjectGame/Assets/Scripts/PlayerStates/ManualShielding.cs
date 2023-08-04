@@ -26,7 +26,6 @@ public class ManualShielding : State
     public override void EnterState(GameObject source)
     {
         playerController.anim.SetFloat("movementMode", 1);
-        lockOnState.HandleShielding();
     }
 
     public override void UpdateState(GameObject source)
@@ -35,6 +34,7 @@ public class ManualShielding : State
         playerController.Movement();
         playerController.CalculateGravity();
         lockOnState.AnimationsParemetersInput();
+        lockOnState.HandleShielding();
         ikTarget.position = transform.position + transform.forward;
     }
 

@@ -20,6 +20,7 @@ public class StatusManager : MonoBehaviour
     private bool shielding = false;
     private float shieldRegenarationDelay = 2;
     private float shieldRegenerationRate = 1;
+    private float shieldDrain = 10;
     public int shieldHp = 3;
     public int shieldMaxHp = 3;
 
@@ -52,6 +53,20 @@ public class StatusManager : MonoBehaviour
         targetInfo = new TargetInfo(gameObject);
         
         
+    }
+
+    private void Update()
+    {
+        if(Shielding)
+        {
+            if (lightEnergy <= 0)
+            {
+                Shielding = false;
+                return;
+            }
+            LightEnergy -= shieldDrain * Time.deltaTime;
+        }
+       
     }
 
 

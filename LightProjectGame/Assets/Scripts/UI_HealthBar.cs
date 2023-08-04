@@ -36,7 +36,7 @@ public class UI_HealthBar : MonoBehaviour
     public void UpdateMP(StatusManager sm)
     {
 
-        float value = Remap(sm.lightEnergy, 0, sm.maxLightEnergy, 0.127f, 1f);
+        float value = Remap(sm.lightEnergy, 0, sm.maxLightEnergy, 0, 1f);
         img.fillAmount = value;
     }
 

@@ -191,7 +191,9 @@ public class GameManager : MonoBehaviour
     public static void ReloadThisLevel()
     {
         Init();
-        if(instance.lastSavePoint != null)
+        instance.cams[0].m_YAxis.m_MaxSpeed = 1;
+        instance.cams[0].m_XAxis.m_MaxSpeed = 300;
+        if (instance.lastSavePoint != null)
         {
             GameObject player = GameObject.Find("Player");
             player.GetComponent<PlayerController>().RevivePlayer();
@@ -241,6 +243,7 @@ public class GameManager : MonoBehaviour
     {
         cams[0].m_YAxis.m_MaxSpeed = 1;
         cams[0].m_XAxis.m_MaxSpeed = 300;
+        Cursor.lockState = CursorLockMode.Locked;
         cams[0].m_StandbyUpdate = CinemachineVirtualCameraBase.StandbyUpdateMode.RoundRobin;
         pauseMenu.SetActive(false);
         Time.timeScale = 1;

@@ -159,12 +159,12 @@ public class GameManager : MonoBehaviour
         while (!asyncOperation.isDone || time < 3)
         {
             // The progress property is a value between 0 and 1, indicating the loading progress
-            float progress = Mathf.Clamp01(asyncOperation.progress / 0.9f);
+            float progress = asyncOperation.progress;
 
             // Here you can display a loading progress bar or update a loading screen UI
 
             // If the loading is almost complete, allow the scene to be activated
-            if (progress >= 0.9f)
+            if (progress >=0.9f)
             {
                 if(destroyPlayer)
                 {

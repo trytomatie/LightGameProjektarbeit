@@ -203,7 +203,8 @@ public class GameManager : MonoBehaviour
     public static void SpawnInteractText(Vector3 pos)
     {
         instance.interactText.parent.position = pos;
-        foreach(Animator anim in instance.interactTextAnims)
+        instance.interactText.transform.localEulerAngles = Vector3.zero;
+        foreach (Animator anim in instance.interactTextAnims)
         {
             anim.SetBool("animate", true);
         }

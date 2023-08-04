@@ -235,6 +235,11 @@ public class StatusManager : MonoBehaviour
                 shieldDamageEvent.Invoke();
 
                 FeedbackManager.PlaySound(FeedbackManager.instance.successfulBlock_Feedback, transform);
+                if(value == 0)
+                {
+
+                    FeedbackManager.PlaySound(FeedbackManager.instance.shieldBreak_Feedback, transform);
+                }
             }
             else
             {

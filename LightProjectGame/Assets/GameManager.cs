@@ -132,7 +132,8 @@ public class GameManager : MonoBehaviour
     public void LoadSceneAndDestroyPlayer(int level)
     {
         isLoadingLevel = true;
-        loadingScreenUI.SetBool("animate", true);
+        loadingScreenUI.SetBool("animate", true); 
+        pauseMenu.SetActive(false);
         Time.timeScale = 1;
         StartCoroutine(LoadLevelAsyncCoroutine(level,true));
         player.GetComponent<StateMachine>().ForceState(player.GetComponent<TransitioningLevel>());

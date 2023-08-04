@@ -22,6 +22,11 @@ public class TitleScreenManager : MonoBehaviour
         StartCoroutine(LoadLevelAsyncCoroutine(i));
     }
 
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
+
     private IEnumerator LoadLevelAsyncCoroutine(int level)
     {
         float time = 0;

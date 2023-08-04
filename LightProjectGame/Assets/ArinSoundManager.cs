@@ -6,6 +6,8 @@ public class ArinSoundManager : MonoBehaviour
 {
     public AudioClip[] audioClips;
 
+    public AudioClip drinkPotion;
+
     public string[] subtitles;
     public AudioClip[] nariGiggle;
     public AudioClip[] arinAttack;

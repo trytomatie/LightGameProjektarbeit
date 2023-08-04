@@ -94,6 +94,7 @@ public class PlayerController : State
     private InteractionHandler interactionHandler;
     [Header("Skills")]
     public int selectedSkill = 1;
+    private bool skillSelected = false;
 
     [Header("Knockback")]
     public AnimationCurve knockbackPower;
@@ -165,15 +166,23 @@ public class PlayerController : State
 
         if(SkillLeft() || SkillRight())
         {
-            if(selectedSkill == 1)
+            if(!skillSelected)
             {
-                selectedSkill = 2;
+                if (selectedSkill == 1)
+                {
+                    selectedSkill = 2;
+                }
+                else
+                {
+                    selectedSkill = 1;
+                }
+                UI_AbilitySelectTest.UpdateSkillUI();
             }
-            else
-            {
-                selectedSkill = 1;
-            }
-            UI_AbilitySelectTest.UpdateSkillUI();
+            skillSelected = true;
+        }
+        else
+        {
+            skillSelected = false;
         }
 
         if(Input.GetKeyDown(KeyCode.Alpha1))
@@ -191,6 +200,7 @@ public class PlayerController : State
         {
             inventory.PotionCount--;
             myStatus.Hp = myStatus.maxHp;
+            FeedbackManager.PlaySFX(ArinSoundManager.instance.drinkPotion, transform);
         }
 
         if(Vector3.Distance(transform.position + new Vector3(0,1.2f,0),mainCamera.transform.position)< 1.9f)

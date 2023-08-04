@@ -168,7 +168,7 @@ public class AttackingState : State
         ScanForEnemies();
         stateHasChanged = true;
         queueAttack = false;
-        attackSound = true;
+        attackSound = false;
         weaponTrail.TrailActive = true;
     }
     public override void UpdateState(GameObject source)

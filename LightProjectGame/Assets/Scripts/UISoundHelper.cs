@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Geschrieben von mir Markus also wenn schlecht ist Chris wars nicht
@@ -23,7 +24,6 @@ public class UISoundHelper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void PlayHoverSound()

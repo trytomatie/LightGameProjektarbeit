@@ -52,7 +52,18 @@ public class InteractionHandler : MonoBehaviour
         }
         if(potentialInteractables.Count > 0)
         {
-            ReachableInteractable = potentialInteractables.OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).First();
+            float dist = float.MaxValue;
+            Interactable newInteractable = null;
+            foreach (Interactable interactable in potentialInteractables)
+            {
+                float newDist = Vector3.Distance(transform.position, interactable.transform.position);
+                if (newDist < dist && !interactable.used)
+                {
+                    dist = newDist;
+                    newInteractable = interactable;
+                }
+            }
+            ReachableInteractable = newInteractable;
             if (ReachableInteractable != null && Helper.DistanceBetween(gameObject, ReachableInteractable.gameObject) > interactionDistance && Helper.AngleBetween(gameObject, ReachableInteractable.gameObject) < 180)
             {
                 CanInteract = true;
@@ -62,6 +73,11 @@ public class InteractionHandler : MonoBehaviour
                 CanInteract = false;
             }
         }
+        else
+        {
+            ReachableInteractable = null;
+            CanInteract = false;
+        }
     }
 
     /// <summary>
@@ -70,7 +86,7 @@ public class InteractionHandler : MonoBehaviour
     /// <param name="other"></param>
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<Interactable>() != null)
+        if (other.gameObject.GetComponent<Interactable>() != null && !other.gameObject.GetComponent<Interactable>().used)
         {
             Interactable interactable = other.gameObject.GetComponent<Interactable>();
             if (!isInteracting && !potentialInteractables.Contains(interactable))

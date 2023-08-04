@@ -11,6 +11,8 @@ public class Interactable : MonoBehaviour
     private bool isReachable;
     public UnityEvent interactionEvent;
     public AudioClip sound;
+    public bool singleUse = false;
+    public bool used = false;
 
     private void Awake()
     {
@@ -23,11 +25,17 @@ public class Interactable : MonoBehaviour
     /// <param name="soruce"></param>
     public virtual void Interaction(GameObject soruce)
     {
+
         interactionEvent.Invoke();
         if(sound != null)
         {
             FeedbackManager.PlaySFX(sound);
         }
+        if(singleUse)
+        {
+            used = true;
+        }
+
 
     }
 

@@ -6,14 +6,18 @@ public class Alerted_EnemyState : State
 {
     private EnemyStateMethods esm;
     private EnemyStateVarriables esv;
-
+    public bool muted = false;
     private float alertedTimer = 0;
 
     private void Start()
     {
         esm = GetComponent<EnemyStateMethods>();
         esv = GetComponent<EnemyStateVarriables>();
-        InvokeRepeating("VoiceLineTest", Random.Range(5, 10f), Random.Range(5, 10f));
+        if(!muted)
+        {
+            InvokeRepeating("VoiceLineTest", Random.Range(5, 10f), Random.Range(5, 10f));
+        }
+        
     }
 
     private void VoiceLineTest()

@@ -36,7 +36,7 @@ public class TransitioningLevel : State
 
     public override void ExitState(GameObject source)
     {
-
+        transform.position = GameManager.instance.playerPositonAfterLoading;
         pc.myStatus.isInvulnerable = false;
     }
     #endregion

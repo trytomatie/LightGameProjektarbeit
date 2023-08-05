@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     public bool isLoadingLevel = false;
 
     private GameObject player;
+    public Vector3 playerPositonAfterLoading;
 
 
 
@@ -58,8 +59,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            
-            instance.player.transform.position = gameObject.transform.parent.GetComponentInChildren<PlayerController>(true).transform.position;
+            instance.playerPositonAfterLoading = gameObject.transform.parent.GetComponentInChildren<PlayerController>(true).transform.position;
+            //instance.player.transform.position = gameObject.transform.parent.GetComponentInChildren<PlayerController>(true).transform.position;
             Destroy(gameObject.transform.parent.gameObject);
             //this.enabled = false;
         }

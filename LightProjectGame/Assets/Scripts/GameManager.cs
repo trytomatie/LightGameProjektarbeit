@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
             player = GameObject.Find("Player");
             instance = this;
             DontDestroyOnLoad(gameObject.transform.parent.gameObject);
+            Cursor.lockState = CursorLockMode.Locked;
         }
         else
         {
